@@ -1,0 +1,19 @@
+{
+  "version": "0.0.a",
+  "components": {
+    "button": {
+      "name": "Button",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/button.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/main/packages/ui/src/Button.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    }
+  }
+}

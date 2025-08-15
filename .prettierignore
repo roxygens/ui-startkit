@@ -1,0 +1,26 @@
+# ./.prettierignore
+
+# Ignore dependências
+node_modules
+**/node_modules
+
+# Ignore arquivos de build
+dist
+.next
+.output
+.vercel
+
+# Ignore arquivos de cache
+.turbo
+.nx/cache
+
+# Ignore logs
+*.log
+
+# Arquivos de lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Outros arquivos gerados
+coverage
