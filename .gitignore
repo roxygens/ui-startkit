@@ -127,6 +127,5 @@ coverage/
 # Arquivos Temporários
 # ===================================================================
 # Arquivos de configuração gerados temporariamente
-components.json
 
 .npmrc

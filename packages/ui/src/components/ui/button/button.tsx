@@ -2,17 +2,14 @@ import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
-import {Circle  } from 'lucide-react'
-
-
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "flex items-center justify-center gap-[8px]   whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50  shrink-0  outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "flex items-center justify-center gap-[8px] whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50  shrink-0  outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        default:
+        primary:
           "bg-primary text-primary-foreground hover:bg-primary-hover disabled:bg-[var(--primary-disabled)] disabled:text-[var(--primary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ",
         secondary:
           "bg-secondary text-secondary-foreground border border-secondary-border hover:text-secondary-foreground-hover disabled:bg-[var(--secondary-disabled)] disabled:text-[var(--secondary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ",
@@ -31,7 +28,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "sm",
     },
   }
@@ -39,11 +36,12 @@ const buttonVariants = cva(
 
 type OtherProps = {
   icon?: React.ReactNode;
-  iconPosition?: "start" | "end" | "both"
+  iconPosition?: "start" | "end" | "both" | "none"
   isIconButton?: boolean
+  disabled?: boolean
 }
 
-function Button({
+export function Button({
   className,
   variant,
   size,
@@ -66,9 +64,9 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
-     { isIconButton ? <Circle size={100} />: (
+     { isIconButton ? icon : (
         <>
-          {icon && (iconPosition === "start" || iconPosition === "both") && icon}
+          {icon && (iconPosition === "start" || iconPosition === "both" ) && icon}
           {children}
           {icon && (iconPosition === "end" || iconPosition === "both") && icon}
         </>
@@ -79,4 +77,3 @@ function Button({
 
 
 
-export { Button, buttonVariants }

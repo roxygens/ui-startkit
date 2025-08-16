@@ -80,9 +80,9 @@ O fluxo principal para desenvolver um novo componente é:
 
     ```bash
     # Na raiz do projeto
-    npm run dev --workspace=ui
+    npm run storybook --workspace=ui
     ```
-    A aplicação estará disponível em `http://localhost:5173`.
+    A aplicação estará disponível em `http://localhost:6006` 
 
 2.  **Crie ou edite um componente:**
     Adicione um novo arquivo de componente em `packages/ui/src/`. Por exemplo, `packages/ui/src/card.tsx`.
