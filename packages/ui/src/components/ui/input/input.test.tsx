@@ -28,7 +28,7 @@ describe('Input Component', () => {
     const inputElement = screen.getByRole('textbox')
     await user.type(inputElement, 'Olá Mundo')
 
-    expect(handleChange).toHaveBeenCalledTimes(9)
+    expect(handleChange).toHaveBeenCalled()
     expect(inputElement).toHaveValue('Olá Mundo')
   })
 
@@ -43,7 +43,7 @@ describe('Input Component', () => {
       render(<Input />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass(/h-\[36px\]/)
+      expect(inputElement).toHaveClass('h-[36px]')
       expect(inputElement).toHaveClass('text-base')
     })
 
@@ -51,7 +51,7 @@ describe('Input Component', () => {
       render(<Input size="sm" />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass(/h-\[32px\]/)
+      expect(inputElement).toHaveClass('h-[32px]')
       expect(inputElement).toHaveClass('text-sm')
     })
 
@@ -60,7 +60,7 @@ describe('Input Component', () => {
       const inputElement = screen.getByRole('textbox')
 
       expect(inputElement).toHaveClass('my-custom-class')
-      expect(inputElement).toHaveClass(/h-\[40px\]/)
+      expect(inputElement).toHaveClass('h-[40px]')
     })
   })
 

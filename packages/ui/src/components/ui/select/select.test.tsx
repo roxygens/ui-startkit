@@ -83,7 +83,7 @@ describe('SelectInput Component', () => {
   it('should apply size variant classes correctly', () => {
     render(<SelectInput options={mockOptions} placeholder="Select" selectLabel="Label" size="sm" />)
     const trigger = screen.getByRole('combobox')
-    expect(trigger).toHaveClass(/h-\[32px\]/)
+    expect(trigger).toHaveClass('h-[32px]')
   })
 
   it('should APPLY the hover class when aria-invalid prop is not provided', () => {

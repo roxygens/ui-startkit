@@ -3,7 +3,7 @@ import { beforeAll, vi } from 'vitest'
 import '@testing-library/jest-dom'
 
 beforeAll(() => {
-  // @ts-ignore
+  // @ts-expect-error Erro
   window.PointerEvent = class PointerEvent extends Event {}
   window.HTMLElement.prototype.hasPointerCapture = vi.fn()
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()

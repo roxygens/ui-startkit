@@ -176,7 +176,7 @@ type OtherProps = {
   selectLabel?: string
   options: Option[]
   disabled?: boolean
-  onValueChange?: () => void
+  onValueChange?: (value: string) => void
 }
 
 type SelectInputProps = React.ComponentProps<typeof SelectPrimitive.Trigger> &
