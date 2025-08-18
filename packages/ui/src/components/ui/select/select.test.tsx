@@ -106,7 +106,6 @@ describe('SelectInput Component', () => {
     const ref = React.createRef<HTMLButtonElement>()
     render(<SelectInput ref={ref} options={mockOptions} placeholder="Select" selectLabel="Label" />)
 
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement)
-    expect(ref.current).toEqual(screen.getByRole('combobox'))
+    expect(ref.current).toBe(screen.getByRole('combobox'))
   })
 })

@@ -68,7 +68,7 @@ describe('Input Component', () => {
     const ref = React.createRef<HTMLInputElement>()
     render(<Input ref={ref} />)
 
-    expect(ref.current).toBeInstanceOf(HTMLInputElement)
+    expect(ref.current).toBe(screen.getByRole('textbox'))
 
     ref.current?.focus()
     expect(ref.current).toHaveFocus()

@@ -179,14 +179,14 @@ type OtherProps = {
   onValueChange?: (value: string) => void
 }
 
-type SelectInputProps = React.ComponentProps<typeof SelectPrimitive.Trigger> &
+type SelectInputProps = Omit<React.ComponentProps<typeof SelectPrimitive.Trigger>, 'value'> &
   VariantProps<typeof selectVariants> &
   OtherProps
 
 const SelectInput = React.forwardRef<React.ComponentRef<typeof SelectTrigger>, SelectInputProps>(
-  ({ options, size, className, placeholder, selectLabel, ...props }, ref) => {
+  ({ options, size, className, placeholder, selectLabel, onValueChange, ...props }, ref) => {
     return (
-      <Select onValueChange={props?.onValueChange}>
+      <Select onValueChange={onValueChange}>
         <SelectTrigger ref={ref} className={className} size={size} {...props}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
