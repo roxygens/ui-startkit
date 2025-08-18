@@ -15,26 +15,26 @@ describe('Button', () => {
     render(<Button>Default Button</Button>)
     const button = screen.getByRole('button', { name: /default button/i })
 
-    expect(button).toHaveClass(/bg-primary/)
-    expect(button).toHaveClass(/px-\[16px\]/)
+    expect(button).toHaveClass('bg-primary')
+    expect(button).toHaveClass('px-[16px]')
   })
 
   it.each([
-    ['primary', /bg-primary/],
-    ['secondary', /bg-secondary/],
-    ['tertiary', /bg-tertiary/],
-    ['link', /text-link-foreground/],
+    ['primary', 'bg-primary'],
+    ['secondary', 'bg-secondary'],
+    ['tertiary', 'bg-tertiary'],
+    ['link', 'text-link-foreground'],
   ])('should apply the correct class for variant "%s"', (variant, expectedClass) => {
-    render(<Button variant={variant as any}>{variant}</Button>)
+    render(<Button variant={variant as 'primary'}>{variant}</Button>)
     const button = screen.getByRole('button', { name: new RegExp(variant, 'i') })
     expect(button).toHaveClass(expectedClass)
   })
 
   it.each([
-    ['sm', /py-\[8px\]/],
-    ['md', /py-\[10px\]/],
-    ['lg', /py-\[12px\]/],
-    ['xl', /py-\[16px\]/],
+    ['sm', 'py-[8px]'],
+    ['md', 'py-[10px]'],
+    ['lg', 'py-[12px]'],
+    ['xl', 'py-[16px]'],
   ])('should apply the correct class for size "%s"', (size, expectedClass) => {
     render(<Button size={size as any}>{size}</Button>)
     const button = screen.getByRole('button', { name: new RegExp(size, 'i') })
@@ -58,7 +58,7 @@ describe('Button', () => {
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', '/home')
 
-    expect(link).not.toHaveClass(/bg-primary/)
+    expect(link).not.toHaveClass('bg-primary')
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
   })
