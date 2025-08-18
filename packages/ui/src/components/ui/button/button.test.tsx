@@ -26,7 +26,7 @@ describe('Button', () => {
     ['link', 'text-link-foreground'],
   ])('should apply the correct class for variant "%s"', (variant, expectedClass) => {
     render(<Button variant={variant as 'primary'}>{variant}</Button>)
-    const button = screen.getByRole('button', { name: new RegExp(variant, 'i') })
+    const button = screen.getByRole('button', { name: variant })
     expect(button).toHaveClass(expectedClass)
   })
 
@@ -36,8 +36,8 @@ describe('Button', () => {
     ['lg', 'py-[12px]'],
     ['xl', 'py-[16px]'],
   ])('should apply the correct class for size "%s"', (size, expectedClass) => {
-    render(<Button size={size as any}>{size}</Button>)
-    const button = screen.getByRole('button', { name: new RegExp(size, 'i') })
+    render(<Button size={size as 'sm'}>{size}</Button>)
+    const button = screen.getByRole('button', { name: size })
     expect(button).toHaveClass(expectedClass)
   })
 
