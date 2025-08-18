@@ -17,7 +17,7 @@ const meta: Meta<typeof SelectInput> = {
 
 export default meta;
 
-type size = 'xs' | 'sm' | 'md' | 'lg'
+type Size = 'xs' | 'sm' | 'md' | 'lg'
 
 type Story = StoryObj<typeof SelectInput>;
 
@@ -28,7 +28,7 @@ const args = {
         label: 'Selecione o items',
             value: 'Selecione o item'
     }],
-    size: 'md' as size,
+    size: 'md' as Size,
     className: 'w-full'
 }
 

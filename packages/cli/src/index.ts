@@ -51,7 +51,7 @@ program
         tailwind: {
           config: "tailwind.config.js",
           css: options.tailwindCssFile,
-          baseColor: "slate", // A base color é mais um metadado, o tema real está abaixo
+          baseColor: "slate", 
           cssVariables: true,
         },
         aliases: {
@@ -168,14 +168,10 @@ program
   });
 
 
-// =================================================================
-// COMANDO ADD (Permanece o mesmo)
-// =================================================================
 program
   .command('add <component>')
   .description('Adiciona um componente ao seu projeto')
   .action(async (componentName) => {
-    // ... (o código do comando 'add' continua aqui, sem alterações)
     const spinner = ora('Buscando registro de componentes...').start();
     try {
       const REGISTRY_URL = "https://raw.githubusercontent.com/roxygens/ui-startkit/main/registry.json";
