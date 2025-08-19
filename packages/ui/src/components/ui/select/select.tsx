@@ -178,6 +178,7 @@ type OtherProps = {
   disabled?: boolean
   className?: string
   'aria-invalid'?: boolean
+  value?: string
   onValueChange?: (value: string) => void
 }
 
@@ -189,7 +190,7 @@ const SelectInput = React.forwardRef<React.ComponentRef<typeof SelectTrigger>, S
   ({ options, size, className, placeholder, selectLabel, onValueChange, value, ...props }, ref) => {
     return (
       <Select onValueChange={onValueChange} value={value}>
-        <SelectTrigger ref={ref} className={className} size={size} {...props}>
+        <SelectTrigger {...props} ref={ref} className={className} size={size}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
