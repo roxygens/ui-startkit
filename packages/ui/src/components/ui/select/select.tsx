@@ -172,28 +172,21 @@ function SelectScrollDownButton({
 
 type Option = { label: string; value: string }
 
-type OtherProps = {
+interface SelectInputProps
+  extends Omit<React.ComponentProps<typeof SelectPrimitive.Root>, 'value' | 'onValueChange'>,
+    VariantProps<typeof selectVariants> {
   placeholder: string
   selectLabel?: string
   options: Option[]
   disabled?: boolean
   className?: string
   'aria-invalid'?: boolean
-  value?: string
-  onValueChange?: (value: string) => void
 }
 
-type SelectInputProps = Omit<
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-  'value' | 'onValueChange'
-> &
-  VariantProps<typeof selectVariants> &
-  OtherProps
-
 const SelectInput = React.forwardRef<React.ComponentRef<typeof SelectTrigger>, SelectInputProps>(
-  ({ options, size, className, placeholder, selectLabel, onValueChange, value, ...props }, ref) => {
+  ({ options, size, className, placeholder, selectLabel, ...props }, ref) => {
     return (
-      <Select onValueChange={onValueChange} value={value}>
+      <Select>
         <SelectTrigger {...props} ref={ref} className={className} size={size}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

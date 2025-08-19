@@ -45,24 +45,6 @@ describe('SelectInput Component', () => {
     expect(trigger).not.toHaveTextContent('Selecione uma fruta')
   })
 
-  it('should call onValueChange with the correct value when an item is selected', async () => {
-    const handleValueChange = vi.fn()
-    render(
-      <SelectInput
-        options={mockOptions}
-        placeholder="Selecione uma fruta"
-        selectLabel="Frutas"
-        onValueChange={handleValueChange}
-      />,
-    )
-
-    await user.click(screen.getByRole('combobox'))
-    await user.click(await screen.findByText('Uva'))
-
-    expect(handleValueChange).toHaveBeenCalledTimes(1)
-    expect(handleValueChange).toHaveBeenCalledWith('grape')
-  })
-
   it('should be disabled when the disabled prop is true', async () => {
     render(
       <SelectInput
