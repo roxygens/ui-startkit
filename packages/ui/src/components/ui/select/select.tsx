@@ -1,4 +1,5 @@
 import * as React from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -183,7 +184,7 @@ type OtherProps = {
 }
 
 type SelectInputProps = Omit<
-  React.ComponentProps<typeof SelectPrimitive.Root>,
+  ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
   'value' | 'onValueChange'
 > &
   VariantProps<typeof selectVariants> &
