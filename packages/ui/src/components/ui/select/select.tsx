@@ -182,7 +182,10 @@ type OtherProps = {
   onValueChange?: (value: string) => void
 }
 
-type SelectInputProps = React.ComponentProps<typeof SelectPrimitive.Root> &
+type SelectInputProps = Omit<
+  React.ComponentProps<typeof SelectPrimitive.Root>,
+  'value' | 'onValueChange'
+> &
   VariantProps<typeof selectVariants> &
   OtherProps
 
@@ -196,9 +199,9 @@ const SelectInput = React.forwardRef<React.ComponentRef<typeof SelectTrigger>, S
         <SelectContent>
           <SelectGroup>
             <SelectLabel>{selectLabel || placeholder}</SelectLabel>
-            {options.map(({ label, value }) => (
-              <SelectItem key={value} value={value}>
-                {label}
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
               </SelectItem>
             ))}
           </SelectGroup>
