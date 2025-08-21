@@ -19,14 +19,12 @@ describe('QualityBar', () => {
   it('should position the arrow at 50% for a value of 0.5', () => {
     const { container } = render(<QualityBar value={0.5} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(arrowContainer.style.left).toBe('50%')
   })
 
   it('should position the arrow at 0% for a value of 0', () => {
     const { container } = render(<QualityBar value={0} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(screen.getByText('0.000')).toBeInTheDocument()
     expect(arrowContainer.style.left).toBe('0%')
   })
@@ -34,7 +32,6 @@ describe('QualityBar', () => {
   it('should position the arrow at 100% for a value of 1', () => {
     const { container } = render(<QualityBar value={1} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(screen.getByText('1.000')).toBeInTheDocument()
     expect(arrowContainer.style.left).toBe('100%')
   })
@@ -42,7 +39,6 @@ describe('QualityBar', () => {
   it('should clamp a negative value to 0 and position the arrow at 0%', () => {
     const { container } = render(<QualityBar value={-0.5} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(screen.getByText('0.000')).toBeInTheDocument()
     expect(arrowContainer.style.left).toBe('0%')
   })
@@ -50,7 +46,6 @@ describe('QualityBar', () => {
   it('should clamp a value greater than 1 to 1 and position the arrow at 100%', () => {
     const { container } = render(<QualityBar value={1.5} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(screen.getByText('1.000')).toBeInTheDocument()
     expect(arrowContainer.style.left).toBe('100%')
   })
@@ -58,7 +53,6 @@ describe('QualityBar', () => {
   it('should position the arrow correctly for a non-trivial value like 0.257', () => {
     const { container } = render(<QualityBar value={0.257} />)
     const arrowContainer = getArrowContainer(container)
-
     expect(screen.getByText('0.257')).toBeInTheDocument()
     expect(arrowContainer.style.left).toBe('25.7%')
   })
@@ -74,20 +68,21 @@ describe('QualityBar', () => {
 
     const { container } = render(<QualityBar value={0.5} />)
     const sectionsContainer = container.querySelector('.absolute.inset-0.flex')
+    if (!(sectionsContainer instanceof HTMLElement)) {
+      throw new Error('Sections container not found or not an HTMLElement')
+    }
 
-    expect(sectionsContainer).not.toBeNull()
+    const children = Array.from(sectionsContainer.children)
+    expect(children.length).toBe(expectedSections.length)
 
-    expect(sectionsContainer?.children.length).toBe(expectedSections.length)
+    children.forEach((child, index) => {
+      if (!(child instanceof HTMLElement)) {
+        throw new Error(`Child at index ${index} is not an HTMLElement`)
+      }
+      const expected = expectedSections[index]
 
-    expectedSections.forEach((expected, index) => {
-      const child = sectionsContainer!.children[index]
-
-      expect(child).toBeInstanceOf(HTMLElement)
-
-      const sectionElement = child as HTMLElement
-
-      expect(sectionElement.style.backgroundColor).toBe(expected.color)
-      expect(sectionElement.style.width).toBe(`${expected.width}px`)
+      expect(child.style.backgroundColor).toBe(expected.color)
+      expect(child.style.width).toBe(`${expected.width}px`)
     })
   })
 
@@ -100,21 +95,24 @@ describe('QualityBar', () => {
       { name: 'Red', index: 4, hex: '#E24A4F', rgb: 'rgb(226, 74, 79)', width: 92 },
     ]
 
-    let sectionsContainer: Element | null
+    let sectionsContainer: HTMLElement
 
     beforeAll(() => {
       const { container } = render(<QualityBar value={0.5} />)
-      sectionsContainer = container.querySelector('.absolute.inset-0.flex')
+      const containerEl = container.querySelector('.absolute.inset-0.flex')
+      if (!(containerEl instanceof HTMLElement)) {
+        throw new Error('Sections container not found or not an HTMLElement')
+      }
+      sectionsContainer = containerEl
     })
 
     it('should render the correct number of sections', () => {
-      expect(sectionsContainer).not.toBeNull()
-      expect(sectionsContainer?.children.length).toBe(sectionsData.length)
+      expect(sectionsContainer.children.length).toBe(sectionsData.length)
     })
 
     describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
       it('should have the correct background color', () => {
-        const child = sectionsContainer?.children[index]
+        const child = sectionsContainer.children[index]
         if (!(child instanceof HTMLElement)) {
           throw new Error('Section element not found or not an HTMLElement')
         }
@@ -122,7 +120,7 @@ describe('QualityBar', () => {
       })
 
       it('should have the correct width', () => {
-        const child = sectionsContainer?.children[index]
+        const child = sectionsContainer.children[index]
         if (!(child instanceof HTMLElement)) {
           throw new Error('Section element not found or not an HTMLElement')
         }
