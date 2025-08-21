@@ -76,7 +76,9 @@ export function ShoppingCard(props: Props) {
       setIsNavOptionsOpen(false)
     } else {
       setIsNavOptionsMounted(true)
-      setTimeout(() => setIsNavOptionsOpen(true), 10)
+      setTimeout(() => {
+        setIsNavOptionsOpen(true)
+      }, 10)
     }
   }
 
@@ -89,7 +91,9 @@ export function ShoppingCard(props: Props) {
       const timer = setTimeout(() => {
         setIsNavOptionsMounted(false)
       }, 200)
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+      }
     }
   }, [isNavOptionsOpen, isNavOptionsMounted])
 

@@ -79,8 +79,15 @@ describe('QualityBar', () => {
 
     if (sectionsContainer) {
       Array.from(sectionsContainer.children).forEach((child, index) => {
-        const sectionHTMLElement = child as HTMLElement
-        const expected = expectedSections[index]
+        if (!(child instanceof HTMLElement)) {
+          throw new Error('Child is not an HTMLElement')
+        }
+        const sectionHTMLElement = child
+
+        const expected = expectedSections?.[index]
+        if (!expected) {
+          throw new Error(`Expected section not found at index ${index}`)
+        }
 
         expect(sectionHTMLElement.style.backgroundColor).toBe(expected.color)
         expect(sectionHTMLElement.style.width).toBe(`${expected.width}px`)
