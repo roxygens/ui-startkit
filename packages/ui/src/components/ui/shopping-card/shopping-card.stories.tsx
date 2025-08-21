@@ -33,8 +33,12 @@ export const Default: Story = {
     additionalInfo: 'Testado no Terreno luvas (Extraordinário) ★',
     hasNameBadge: true,
     tradeStatus: 'Possível trocar',
-    onClick: () => console.log('Clicked - Card'),
-    onClickAddCart: () => console.log('Clicked - Adicionar ao carrinho'),
+    onClick: () => {
+      console.log('Clicked - Card')
+    },
+    onClickAddCart: () => {
+      console.log('Clicked - Adicionar ao carrinho')
+    },
     images: [
       {
         url: '/images/card/luvas-1.png',
@@ -65,7 +69,9 @@ export const Default: Story = {
           </svg>
         ),
         title: 'Inspecionar no jogo',
-        onClick: () => console.log('Clicked - Inspecionar no jogo'),
+        onClick: () => {
+          console.log('Clicked - Inspecionar no jogo')
+        },
       },
       {
         icon: (
@@ -83,7 +89,9 @@ export const Default: Story = {
           </svg>
         ),
         title: 'Ver no Steam',
-        onClick: () => console.log('Clicked - Ver no Steam'),
+        onClick: () => {
+          console.log('Clicked - Ver no Steam')
+        },
       },
       {
         icon: (
@@ -104,7 +112,9 @@ export const Default: Story = {
           </svg>
         ),
         title: 'Pesquisar',
-        onClick: () => console.log('Clicked - Pesquisar'),
+        onClick: () => {
+          console.log('Clicked - Pesquisar')
+        },
       },
       {
         icon: (
@@ -132,7 +142,9 @@ export const Default: Story = {
           </svg>
         ),
         title: 'Seguir',
-        onClick: () => console.log('Clicked - Seguir'),
+        onClick: () => {
+          console.log('Clicked - Seguir')
+        },
       },
     ],
   },

@@ -5,7 +5,7 @@ type Props = {
 export function QualityBar(props: Props) {
   const { value } = props
 
-  const clampedValue = Math.max(0, Math.min(1, value!))
+  const clampedValue = Math.max(0, Math.min(1, value))
 
   const items = [
     { color: '#4CB040', width: 12 },

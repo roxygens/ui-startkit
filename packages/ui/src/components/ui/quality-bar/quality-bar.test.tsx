@@ -5,7 +5,7 @@ import { QualityBar } from './quality-bar'
 describe('QualityBar', () => {
   const getArrowContainer = (container: HTMLElement): HTMLElement => {
     const svgElement = container.querySelector('svg')
-    if (!svgElement || !svgElement.parentElement) {
+    if (!svgElement?.parentElement) {
       throw new Error('Arrow container not found')
     }
     return svgElement.parentElement
@@ -75,16 +75,15 @@ describe('QualityBar', () => {
     const { container } = render(<QualityBar value={0.5} />)
     const sectionsContainer = container.querySelector('.absolute.inset-0.flex')
 
-    expect(sectionsContainer?.children?.length).toBe(expectedSections.length)
+    expect(sectionsContainer?.children.length).toBe(expectedSections.length)
 
     if (sectionsContainer) {
-      Array.from(sectionsContainer.children).forEach((sectionElement, index) => {
-        const sectionEl = sectionElement as HTMLElement
+      Array.from(sectionsContainer.children).forEach((child, index) => {
+        const sectionHTMLElement = child as HTMLElement
         const expected = expectedSections[index]
 
-        expect(sectionEl.style.backgroundColor).toBe(expected.color)
-
-        expect(sectionEl.style.width).toBe(`${expected.width}px`)
+        expect(sectionHTMLElement.style.backgroundColor).toBe(expected.color)
+        expect(sectionHTMLElement.style.width).toBe(`${expected.width}px`)
       })
     } else {
       throw new Error('Sections container not found in the rendered component')
@@ -113,20 +112,20 @@ describe('QualityBar', () => {
     })
 
     describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
-      let sectionElement: HTMLElement
-
-      beforeAll(() => {
-        const child = sectionsContainer?.children[index]
-        if (!child) throw new Error('Section element not found')
-        sectionElement = child as HTMLElement
-      })
-
       it('should have the correct background color', () => {
-        expect(sectionElement.style.backgroundColor).toBe(rgb)
+        const child = sectionsContainer?.children[index]
+        if (!(child instanceof HTMLElement)) {
+          throw new Error('Section element not found or not an HTMLElement')
+        }
+        expect(child.style.backgroundColor).toBe(rgb)
       })
 
       it('should have the correct width', () => {
-        expect(sectionElement.style.width).toBe(`${width}px`)
+        const child = sectionsContainer?.children[index]
+        if (!(child instanceof HTMLElement)) {
+          throw new Error('Section element not found or not an HTMLElement')
+        }
+        expect(child.style.width).toBe(`${width}px`)
       })
     })
   })

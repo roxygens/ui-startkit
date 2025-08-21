@@ -138,25 +138,21 @@ export function ShoppingCard(props: Props) {
           )}
 
           <div className="relative w-[206px] h-auto mb-[12px]">
-            {primaryImage && (
-              <img
-                className="w-full transition-opacity duration-300 group-hover:opacity-0"
-                src={primaryImage.url}
-                alt={primaryImage.alt}
-              />
-            )}
+            <img
+              className="w-full transition-opacity duration-300 group-hover:opacity-0"
+              src={primaryImage.url}
+              alt={primaryImage.alt}
+            />
 
-            {hoverImage && (
-              <img
-                className="
+            <img
+              className="
                 absolute inset-0 w-full h-full object-cover 
                 opacity-0 group-hover:opacity-100 
                 transition-opacity duration-300 ease-in-out
               "
-                src={hoverImage.url}
-                alt={hoverImage.alt}
-              />
-            )}
+              src={hoverImage.url}
+              alt={hoverImage.alt}
+            />
           </div>
 
           <div className="flex flex-row items-start gap-[8px] mb-[4px]">
@@ -291,9 +287,7 @@ export function ShoppingCard(props: Props) {
           {options?.map((option) => (
             <button
               key={option.title}
-              onClick={() => {
-                if (option.onClick) option.onClick()
-              }}
+              onClick={option.onClick}
               className="cursor-pointer w-full p-[16px] hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px]"
             >
               {option.icon} <p>{option.title}</p>
