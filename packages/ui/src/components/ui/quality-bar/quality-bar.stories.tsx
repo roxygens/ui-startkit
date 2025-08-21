@@ -7,7 +7,7 @@ const meta: Meta<typeof QualityBar> = {
   tags: ['autodocs'],
   argTypes: {
     value: {
-      description: 'O valor  entre 0 e 1 com 3 casas decimais de precisão',
+      description: 'O valor entre 0 e 1 com 3 casas decimais de precisão',
       control: {
         type: 'range',
         min: 0,

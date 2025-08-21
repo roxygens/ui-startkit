@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, beforeAll } from 'vitest'
-import { QualityBar } from './quality-bar' // Ajuste o caminho se necessário
+import { QualityBar } from './quality-bar'
 
 describe('QualityBar', () => {
   const getArrowContainer = (container: HTMLElement): HTMLElement => {
@@ -65,11 +65,11 @@ describe('QualityBar', () => {
 
   it('should render all color sections with their correct colors and widths', () => {
     const expectedSections = [
-      { color: 'rgb(76, 176, 64)', width: 12 }, // #4CB040
-      { color: 'rgb(103, 205, 75)', width: 13 }, // #67CD4B
-      { color: 'rgb(224, 222, 82)', width: 40 }, // #E0DE52
-      { color: 'rgb(234, 156, 84)', width: 13 }, // #EA9C54
-      { color: 'rgb(226, 74, 79)', width: 92 }, // #E24A4F
+      { color: 'rgb(76, 176, 64)', width: 12 },
+      { color: 'rgb(103, 205, 75)', width: 13 },
+      { color: 'rgb(224, 222, 82)', width: 40 },
+      { color: 'rgb(234, 156, 84)', width: 13 },
+      { color: 'rgb(226, 74, 79)', width: 92 },
     ]
 
     const { container } = render(<QualityBar value={0.5} />)
@@ -112,27 +112,23 @@ describe('QualityBar', () => {
       expect(sectionsContainer?.children.length).toBe(sectionsData.length)
     })
 
-    // `describe.each` cria uma suíte de testes para cada item no array `sectionsData`
-    describe.each(sectionsData)(
-      'Section: $name ($hex)', // O título da suíte será dinâmico
-      ({ index, rgb, width }) => {
-        let sectionElement: HTMLElement
+    describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
+      let sectionElement: HTMLElement
 
-        beforeAll(() => {
-          if (!sectionsContainer) {
-            throw new Error('Sections container not found')
-          }
-          sectionElement = sectionsContainer.children[index] as HTMLElement
-        })
+      beforeAll(() => {
+        if (!sectionsContainer) {
+          throw new Error('Sections container not found')
+        }
+        sectionElement = sectionsContainer.children[index] as HTMLElement
+      })
 
-        it('should have the correct background color', () => {
-          expect(sectionElement.style.backgroundColor).toBe(rgb)
-        })
+      it('should have the correct background color', () => {
+        expect(sectionElement.style.backgroundColor).toBe(rgb)
+      })
 
-        it('should have the correct width', () => {
-          expect(sectionElement.style.width).toBe(`${width}px`)
-        })
-      },
-    )
+      it('should have the correct width', () => {
+        expect(sectionElement.style.width).toBe(`${width}px`)
+      })
+    })
   })
 })

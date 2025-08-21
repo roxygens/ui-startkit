@@ -34,7 +34,7 @@ export function QualityBar(props: Props) {
       return acc
     },
     { found: false, value: 0 },
-  )?.value
+  ).value
 
   return (
     <div className={`flex items-center gap-[4px]`}>

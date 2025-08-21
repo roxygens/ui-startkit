@@ -7,7 +7,7 @@ const meta: Meta<typeof ShoppingCard> = {
   tags: ['autodocs'],
   argTypes: {
     quality: {
-      description: 'O valor  entre 0 e 1 com 3 casas decimais de precisão',
+      description: 'O valor entre 0 e 1 com 3 casas decimais de precisão',
       control: {
         type: 'range',
         min: 0,

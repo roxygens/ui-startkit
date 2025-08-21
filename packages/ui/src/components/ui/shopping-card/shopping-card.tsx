@@ -36,10 +36,14 @@ export function ShoppingCard(props: Props) {
   const [isNavOptionsOpen, setIsNavOptionsOpen] = useState(false)
   const [isNavOptionsMounted, setIsNavOptionsMounted] = useState(false)
 
-  const formatCurrency = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  })
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+      .format(value)
+      .replace(/\./g, '')
+  }
 
   const {
     price,
@@ -157,7 +161,7 @@ export function ShoppingCard(props: Props) {
 
           <div className="flex flex-row items-start gap-[8px] mb-[4px]">
             <p className="font-inter font-bold text-2xl leading-8 text-white">
-              {formatCurrency.format(price).replace(/\./g, '')}
+              R$ {formatCurrency(price)}
             </p>
 
             {!!discount && <DiscountBadge value={discount} />}
@@ -165,7 +169,7 @@ export function ShoppingCard(props: Props) {
 
           {!!referencePrice && (
             <p className="font-inter font-medium text-xs leading-[18px] text-[#707179] mb-[16px]">
-              Preço de referência {referencePrice.toFixed(2).replace('.', ',')} R$
+              Preço de referência {formatCurrency(referencePrice)} R$
             </p>
           )}
 
@@ -230,7 +234,7 @@ export function ShoppingCard(props: Props) {
                 onClickAddCart()
               }
             }}
-            className={`cursor-pointer flex  w-full items-center justify-center ${!options?.length && 'py-[9px]'}`}
+            className={`cursor-pointer flex w-full items-center justify-center ${!options?.length && 'py-[9px]'}`}
           >
             Adicionar ao carrinho
           </button>
@@ -288,7 +292,7 @@ export function ShoppingCard(props: Props) {
             <div
               key={option.title}
               onClick={option?.onClick}
-              className="cursor-pointer p-[16px]  hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px]"
+              className="cursor-pointer p-[16px] hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px]"
             >
               {option.icon} <p>{option.title}</p>
             </div>
