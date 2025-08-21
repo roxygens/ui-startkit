@@ -80,17 +80,20 @@ describe('QualityBar', () => {
     if (sectionsContainer) {
       Array.from(sectionsContainer.children).forEach((child, index) => {
         if (!(child instanceof HTMLElement)) {
-          throw new Error('Child is not an HTMLElement')
+          throw new Error(`Child at index ${index} is not an HTMLElement`)
         }
         const sectionHTMLElement = child
 
-        const expected = expectedSections?.[index]
+        const expected = expectedSections[index]
         if (!expected) {
           throw new Error(`Expected section not found at index ${index}`)
         }
 
-        expect(sectionHTMLElement.style.backgroundColor).toBe(expected.color)
-        expect(sectionHTMLElement.style.width).toBe(`${expected.width}px`)
+        const actualBackground = sectionHTMLElement.style.backgroundColor || ''
+        const actualWidth = sectionHTMLElement.style.width || ''
+
+        expect(actualBackground).toBe(expected.color)
+        expect(actualWidth).toBe(`${expected.width}px`)
       })
     } else {
       throw new Error('Sections container not found in the rendered component')
