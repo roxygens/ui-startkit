@@ -61,8 +61,8 @@ export function ShoppingCard(props: Props) {
     options,
   } = props
 
-  const primaryImage = images?.[0]
-  const hoverImage = images?.[1]
+  const primaryImage = images[0]
+  const hoverImage = images[1]
 
   function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
@@ -113,7 +113,7 @@ export function ShoppingCard(props: Props) {
             'opacity-60': isNavOptionsOpen,
           })}
         >
-          {!!tradeStatus && (
+          {tradeStatus && (
             <div className="flex items-center gap-2 mb-[8px]">
               <svg
                 width="16"
@@ -164,10 +164,10 @@ export function ShoppingCard(props: Props) {
               R$ {formatCurrency(price)}
             </p>
 
-            {!!discount && <DiscountBadge value={discount} />}
+            {discount && <DiscountBadge value={discount} />}
           </div>
 
-          {!!referencePrice && (
+          {referencePrice && (
             <p className="font-inter font-medium text-xs leading-[18px] text-[#707179] mb-[16px]">
               Preço de referência {formatCurrency(referencePrice)} R$
             </p>
@@ -179,7 +179,7 @@ export function ShoppingCard(props: Props) {
             <div className="flex flex-row items-center gap-1">
               <p className="font-inter font-normal text-base leading-6 text-white">{name}</p>
 
-              {!!hasNameBadge && (
+              {hasNameBadge && (
                 <svg
                   width="16"
                   height="16"
@@ -205,7 +205,7 @@ export function ShoppingCard(props: Props) {
               )}
             </div>
 
-            {!!additionalInfo && (
+            {additionalInfo && (
               <p className="w-[218px] font-inter font-medium text-sm leading-5 text-[#707179]">
                 {additionalInfo}
               </p>
@@ -230,9 +230,7 @@ export function ShoppingCard(props: Props) {
           <button
             onClick={(e) => {
               e.stopPropagation()
-              if (onClickAddCart) {
-                onClickAddCart()
-              }
+              if (onClickAddCart) onClickAddCart()
             }}
             className={`cursor-pointer flex w-full items-center justify-center ${!options?.length && 'py-[9px]'}`}
           >
@@ -241,7 +239,9 @@ export function ShoppingCard(props: Props) {
 
           {options?.length && (
             <button
-              onClick={handleOpenNavOptions}
+              onClick={(e) => {
+                handleOpenNavOptions(e)
+              }}
               className="cursor-pointer py-[9px] px-[18px] border-l border-black/20"
             >
               <svg
@@ -289,13 +289,15 @@ export function ShoppingCard(props: Props) {
           )}
         >
           {options?.map((option) => (
-            <div
+            <button
               key={option.title}
-              onClick={option?.onClick}
-              className="cursor-pointer p-[16px] hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px]"
+              onClick={() => {
+                if (option.onClick) option.onClick()
+              }}
+              className="cursor-pointer w-full p-[16px] hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px]"
             >
               {option.icon} <p>{option.title}</p>
-            </div>
+            </button>
           ))}
         </nav>
       )}

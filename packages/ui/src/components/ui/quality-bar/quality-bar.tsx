@@ -5,9 +5,9 @@ type Props = {
 export function QualityBar(props: Props) {
   const { value } = props
 
-  const clampedValue = Math.max(0, Math.min(1, value))
+  const clampedValue = Math.max(0, Math.min(1, value!))
 
-  const sections = [
+  const items = [
     { color: '#4CB040', width: 12 },
     { color: '#67CD4B', width: 13 },
     { color: '#E0DE52', width: 40 },
@@ -15,16 +15,16 @@ export function QualityBar(props: Props) {
     { color: '#E24A4F', width: 92 },
   ]
 
-  const totalWidth = sections.reduce((sum, section) => sum + section.width, 0)
+  const totalWidth = items.reduce((sum, item) => sum + item.width, 0)
 
-  const percentage = sections.reduce(
-    (acc, section, index, arr) => {
+  const percentage = items.reduce(
+    (acc, item, index, arr) => {
       const targetPixel = clampedValue * totalWidth
       const currentPixel = arr.slice(0, index).reduce((sum, s) => sum + s.width, 0)
 
       if (acc.found) return acc
 
-      if (targetPixel <= currentPixel + section.width) {
+      if (targetPixel <= currentPixel + item.width) {
         return {
           found: true,
           value: ((currentPixel + (targetPixel - currentPixel)) / totalWidth) * 100,
@@ -45,13 +45,13 @@ export function QualityBar(props: Props) {
         style={{ width: `${totalWidth}px` }}
       >
         <div className="absolute inset-0 rounded-sm flex">
-          {sections.map((section, index) => (
+          {items.map((item, index) => (
             <div
               key={index}
-              className={`h-full ${index === 0 && 'rounded-l-[8px]'} ${sections.length - 1 === index && 'rounded-r-[8px]'}`}
+              className={`h-full ${index === 0 && 'rounded-l-[8px]'} ${items.length - 1 === index && 'rounded-r-[8px]'}`}
               style={{
-                backgroundColor: section.color,
-                width: `${section.width}px`,
+                backgroundColor: item.color,
+                width: `${item.width}px`,
               }}
             />
           ))}

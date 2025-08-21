@@ -20,11 +20,11 @@ type Props = {
   className?: string
 }
 
-export function DiscountBadge({
-  value,
-  size,
-  className,
-}: VariantProps<typeof discountBadgeVariants> & Props) {
+type DiscountBadgeVariants = VariantProps<typeof discountBadgeVariants>
+
+type DiscountBadgeProps = Props & DiscountBadgeVariants
+
+export function DiscountBadge({ value, size, className }: DiscountBadgeProps) {
   return (
     <span
       style={{

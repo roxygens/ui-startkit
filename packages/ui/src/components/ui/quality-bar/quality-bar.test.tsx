@@ -75,16 +75,16 @@ describe('QualityBar', () => {
     const { container } = render(<QualityBar value={0.5} />)
     const sectionsContainer = container.querySelector('.absolute.inset-0.flex')
 
-    expect(sectionsContainer?.children.length).toBe(expectedSections.length)
+    expect(sectionsContainer?.children?.length).toBe(expectedSections.length)
 
     if (sectionsContainer) {
       Array.from(sectionsContainer.children).forEach((sectionElement, index) => {
-        const section = sectionElement as HTMLElement
+        const sectionEl = sectionElement as HTMLElement
         const expected = expectedSections[index]
 
-        expect(section.style.backgroundColor).toBe(expected.color)
+        expect(sectionEl.style.backgroundColor).toBe(expected.color)
 
-        expect(section.style.width).toBe(`${expected.width}px`)
+        expect(sectionEl.style.width).toBe(`${expected.width}px`)
       })
     } else {
       throw new Error('Sections container not found in the rendered component')
@@ -116,10 +116,9 @@ describe('QualityBar', () => {
       let sectionElement: HTMLElement
 
       beforeAll(() => {
-        if (!sectionsContainer) {
-          throw new Error('Sections container not found')
-        }
-        sectionElement = sectionsContainer.children[index] as HTMLElement
+        const child = sectionsContainer?.children[index]
+        if (!child) throw new Error('Section element not found')
+        sectionElement = child as HTMLElement
       })
 
       it('should have the correct background color', () => {

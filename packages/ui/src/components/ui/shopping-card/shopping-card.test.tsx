@@ -128,7 +128,11 @@ describe('ShoppingCard', () => {
     fireEvent.click(screen.getByText('Editar'))
     expect(optionClick).toHaveBeenCalled()
 
-    fireEvent.blur(screen.getByText('Editar').closest('div')!)
+    const editDiv = screen.getByText('Editar').closest('div')
+    if (editDiv) {
+      fireEvent.blur(editDiv)
+    }
+
     act(() => {
       vi.advanceTimersByTime(200)
     })
@@ -146,7 +150,11 @@ describe('ShoppingCard', () => {
     })
     expect(screen.getByText('Remover')).toBeInTheDocument()
 
-    fireEvent.mouseLeave(screen.getByText('Produto Teste').closest('div')!)
+    const productDiv = screen.getByText('Produto Teste').closest('div')
+    if (productDiv) {
+      fireEvent.mouseLeave(productDiv)
+    }
+
     act(() => {
       vi.advanceTimersByTime(200)
     })
