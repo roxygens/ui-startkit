@@ -18,13 +18,10 @@ const discountBadgeVariants = cva(
 type Props = {
   value: number
   className?: string
+  size: VariantProps<typeof discountBadgeVariants>['size']
 }
 
-type DiscountBadgeVariants = VariantProps<typeof discountBadgeVariants>
-
-type DiscountBadgeProps = Props & DiscountBadgeVariants
-
-export function DiscountBadge({ value, size, className }: DiscountBadgeProps) {
+export function DiscountBadge({ value, size, className }: Props) {
   return (
     <span
       style={{

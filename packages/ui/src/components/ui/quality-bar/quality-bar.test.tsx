@@ -75,29 +75,20 @@ describe('QualityBar', () => {
     const { container } = render(<QualityBar value={0.5} />)
     const sectionsContainer = container.querySelector('.absolute.inset-0.flex')
 
+    expect(sectionsContainer).not.toBeNull()
+
     expect(sectionsContainer?.children.length).toBe(expectedSections.length)
 
-    if (sectionsContainer) {
-      Array.from(sectionsContainer.children).forEach((child, index) => {
-        if (!(child instanceof HTMLElement)) {
-          throw new Error(`Child at index ${index} is not an HTMLElement`)
-        }
-        const sectionHTMLElement = child
+    expectedSections.forEach((expected, index) => {
+      const child = sectionsContainer!.children[index]
 
-        const expected = expectedSections[index]
-        if (!expected) {
-          throw new Error(`Expected section not found at index ${index}`)
-        }
+      expect(child).toBeInstanceOf(HTMLElement)
 
-        const actualBackground = sectionHTMLElement.style.backgroundColor || ''
-        const actualWidth = sectionHTMLElement.style.width || ''
+      const sectionElement = child as HTMLElement
 
-        expect(actualBackground).toBe(expected.color)
-        expect(actualWidth).toBe(`${expected.width}px`)
-      })
-    } else {
-      throw new Error('Sections container not found in the rendered component')
-    }
+      expect(sectionElement.style.backgroundColor).toBe(expected.color)
+      expect(sectionElement.style.width).toBe(`${expected.width}px`)
+    })
   })
 
   describe('QualityBar Color Sections', () => {
