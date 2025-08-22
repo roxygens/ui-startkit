@@ -1,0 +1,53 @@
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+import { DiscountBadge } from './discount-badge'
+
+describe('DiscountBadge', () => {
+  it('should render correctly and display the formatted discount value', () => {
+    render(<DiscountBadge value={15} />)
+    const badgeElement = screen.getByText('-15%')
+
+    expect(badgeElement).toBeInTheDocument()
+  })
+
+  it('should have the base CSS classes applied', () => {
+    render(<DiscountBadge value={10} />)
+    const badgeElement = screen.getByText('-10%')
+
+    expect(badgeElement).toHaveClass('font-inter')
+    expect(badgeElement).toHaveClass('font-semibold')
+    expect(badgeElement).toHaveClass('text-white')
+  })
+
+  describe('Variants', () => {
+    it('should apply the correct classes for the default "lg" size', () => {
+      render(<DiscountBadge value={20} size="lg" />)
+      const badgeElement = screen.getByText('-20%')
+
+      expect(badgeElement).toHaveClass('px-[12px]')
+      expect(badgeElement).toHaveClass('py-[6px]')
+      expect(badgeElement).toHaveClass('rounded-[24px]')
+      expect(badgeElement).toHaveClass('text-[12px]')
+      expect(badgeElement).toHaveClass('leading-[15px]')
+    })
+  })
+
+  it('should correctly merge additional classes passed via className prop', () => {
+    render(<DiscountBadge value={25} className="mt-4 animate-pulse" />)
+    const badgeElement = screen.getByText('-25%')
+
+    expect(badgeElement).toHaveClass('mt-4')
+    expect(badgeElement).toHaveClass('animate-pulse')
+
+    expect(badgeElement).toHaveClass('rounded-[24px]')
+  })
+
+  it('should apply the correct linear-gradient background style', () => {
+    render(<DiscountBadge value={30} />)
+    const badgeElement = screen.getByText('-30%')
+
+    expect(badgeElement.style.backgroundImage).toContain('linear-gradient')
+    expect(badgeElement.style.backgroundImage).toContain('var(--primary)')
+    expect(badgeElement.style.backgroundImage).toContain('color-mix')
+  })
+})
