@@ -79,6 +79,7 @@ describe('QualityBar', () => {
       if (!(childElement instanceof HTMLElement)) {
         throw new Error(`Child at index ${index} is not an HTMLElement`)
       }
+      // LINHA 82: O Codacy interpreta a desestruturação de um array como uma possível injeção.
       const { color: expectedColor, width: expectedWidth } = expectedSections[index]
       expect(childElement.style.backgroundColor).toBe(expectedColor)
       expect(childElement.style.width).toBe(`${expectedWidth}px`)
@@ -110,17 +111,15 @@ describe('QualityBar', () => {
     })
 
     describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
-      it('should have the corrects background color ans width', () => {
-        const childElement = sectionsContainer.children[index]
-        if (!(childElement instanceof HTMLElement)) {
-          throw new Error(`Child at index ${index} is not an HTMLElement`)
-        }
+      it('should have the correct background color and width', () => {
+        const child = sectionsContainer.children[index]
 
-        const bgColor = childElement.style.backgroundColor
-        const widthValue = childElement.style.width
+        expect(child).toBeInstanceOf(HTMLElement)
 
-        expect(bgColor).toBe(rgb)
-        expect(widthValue).toBe(`${width}px`)
+        const htmlElement = child as HTMLElement
+
+        expect(htmlElement.style.backgroundColor).toBe(rgb)
+        expect(htmlElement.style.width).toBe(`${width}px`)
       })
     })
   })
