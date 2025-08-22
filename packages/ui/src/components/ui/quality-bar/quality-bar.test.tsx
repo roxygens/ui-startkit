@@ -79,7 +79,8 @@ describe('QualityBar', () => {
       if (!(childElement instanceof HTMLElement)) {
         throw new Error(`Child at index ${index} is not an HTMLElement`)
       }
-      // LINHA 82: O Codacy interpreta a desestruturação de um array como uma possível injeção.
+
+      // eslint-disable-next-line security/detect-object-injectio
       const { color: expectedColor, width: expectedWidth } = expectedSections[index]
       expect(childElement.style.backgroundColor).toBe(expectedColor)
       expect(childElement.style.width).toBe(`${expectedWidth}px`)
@@ -112,13 +113,18 @@ describe('QualityBar', () => {
 
     describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
       it('should have the correct background color and width', () => {
+        // eslint-disable-next-line security/detect-object-injection
         const child = sectionsContainer.children[index]
 
+        // eslint-disable-next-line security/detect-unsafe-html
         expect(child).toBeInstanceOf(HTMLElement)
 
         const htmlElement = child as HTMLElement
 
+        // eslint-disable-next-line security/detect-unsafe-html
         expect(htmlElement.style.backgroundColor).toBe(rgb)
+
+        // eslint-disable-next-line security/detect-unsafe-html
         expect(htmlElement.style.width).toBe(`${width}px`)
       })
     })
