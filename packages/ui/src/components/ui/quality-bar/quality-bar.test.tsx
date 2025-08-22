@@ -80,9 +80,13 @@ describe('QualityBar', () => {
         throw new Error(`Child at index ${index} is not an HTMLElement`)
       }
       const expected = expectedSections[index]
+      if (!expected) throw new Error(`Expected section not found at index ${index}`)
 
-      expect(child.style.backgroundColor).toBe(expected.color)
-      expect(child.style.width).toBe(`${expected.width}px`)
+      const expectedColor = expected.color
+      const expectedWidth = expected.width
+
+      expect(child.style.backgroundColor).toBe(expectedColor)
+      expect(child.style.width).toBe(`${expectedWidth}px`)
     })
   })
 
@@ -111,20 +115,17 @@ describe('QualityBar', () => {
     })
 
     describe.each(sectionsData)('Section: $name ($hex)', ({ index, rgb, width }) => {
-      it('should have the correct background color', () => {
-        const child = sectionsContainer.children[index]
-        if (!(child instanceof HTMLElement)) {
-          throw new Error('Section element not found or not an HTMLElement')
+      it('should have the corrects background color ans width', () => {
+        const childElement = sectionsContainer.children[index]
+        if (!(childElement instanceof HTMLElement)) {
+          throw new Error(`Child at index ${index} is not an HTMLElement`)
         }
-        expect(child.style.backgroundColor).toBe(rgb)
-      })
 
-      it('should have the correct width', () => {
-        const child = sectionsContainer.children[index]
-        if (!(child instanceof HTMLElement)) {
-          throw new Error('Section element not found or not an HTMLElement')
-        }
-        expect(child.style.width).toBe(`${width}px`)
+        const backgroundColor = childElement.style.backgroundColor
+        const widthValue = childElement.style.width
+
+        expect(backgroundColor).toBe(rgb)
+        expect(widthValue).toBe(`${width}px`)
       })
     })
   })
