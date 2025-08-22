@@ -75,18 +75,13 @@ describe('QualityBar', () => {
     const children = Array.from(sectionsContainer.children)
     expect(children.length).toBe(expectedSections.length)
 
-    children.forEach((child, index) => {
-      if (!(child instanceof HTMLElement)) {
+    children.forEach((childElement, index) => {
+      if (!(childElement instanceof HTMLElement)) {
         throw new Error(`Child at index ${index} is not an HTMLElement`)
       }
-      const expected = expectedSections[index]
-      if (!expected) throw new Error(`Expected section not found at index ${index}`)
-
-      const expectedColor = expected.color
-      const expectedWidth = expected.width
-
-      expect(child.style.backgroundColor).toBe(expectedColor)
-      expect(child.style.width).toBe(`${expectedWidth}px`)
+      const { color: expectedColor, width: expectedWidth } = expectedSections[index]
+      expect(childElement.style.backgroundColor).toBe(expectedColor)
+      expect(childElement.style.width).toBe(`${expectedWidth}px`)
     })
   })
 
@@ -121,10 +116,10 @@ describe('QualityBar', () => {
           throw new Error(`Child at index ${index} is not an HTMLElement`)
         }
 
-        const backgroundColor = childElement.style.backgroundColor
+        const bgColor = childElement.style.backgroundColor
         const widthValue = childElement.style.width
 
-        expect(backgroundColor).toBe(rgb)
+        expect(bgColor).toBe(rgb)
         expect(widthValue).toBe(`${width}px`)
       })
     })
