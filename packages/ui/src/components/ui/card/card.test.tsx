@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, act } from '@testing-library/react'
-import { ShoppingCard } from './shopping-card'
+import { Card } from '.'
 
 vi.mock('@/components/ui/discount-badge', () => ({
   DiscountBadge: ({ value }: { value: number }) => (
@@ -41,7 +41,7 @@ afterEach(() => {
 
 describe('ShoppingCard', () => {
   it('should render with mandatory props', () => {
-    render(<ShoppingCard {...baseProps} />)
+    render(<Card {...baseProps} />)
 
     expect(screen.getByTestId('category-tag')).toHaveTextContent('Eletrônicos')
     expect(screen.getByText('Produto Teste')).toBeInTheDocument()
@@ -52,26 +52,26 @@ describe('ShoppingCard', () => {
   })
 
   it('should render with discount and reference price', () => {
-    render(<ShoppingCard {...baseProps} discount={20} referencePrice={200} />)
+    render(<Card {...baseProps} discount={20} referencePrice={200} />)
     expect(screen.getByTestId('discount-badge')).toHaveTextContent('Discount 20')
     expect(screen.getByText('Preço de referência 200,00 R$')).toBeInTheDocument()
   })
 
   it('should render with tradeStatus and name badge', () => {
-    render(<ShoppingCard {...baseProps} tradeStatus="Em troca" hasNameBadge />)
+    render(<Card {...baseProps} tradeStatus="Em troca" hasNameBadge />)
     expect(screen.getByText('Em troca')).toBeInTheDocument()
 
     expect(screen.getByText('Produto Teste')).toBeInTheDocument()
   })
 
   it('should render with additional info', () => {
-    render(<ShoppingCard {...baseProps} additionalInfo="Mais detalhes aqui" />)
+    render(<Card {...baseProps} additionalInfo="Mais detalhes aqui" />)
     expect(screen.getByText('Mais detalhes aqui')).toBeInTheDocument()
   })
 
   it('should call onClick when clicking the card', () => {
     const onClick = vi.fn()
-    render(<ShoppingCard {...baseProps} onClick={onClick} />)
+    render(<Card {...baseProps} onClick={onClick} />)
 
     fireEvent.click(screen.getByText('Produto Teste'))
     expect(onClick).toHaveBeenCalled()
@@ -79,7 +79,7 @@ describe('ShoppingCard', () => {
 
   it('should call onClickAddCart when clicking add to cart', () => {
     const onClickAddCart = vi.fn()
-    render(<ShoppingCard {...baseProps} onClickAddCart={onClickAddCart} />)
+    render(<Card {...baseProps} onClickAddCart={onClickAddCart} />)
 
     fireEvent.click(screen.getByText('Adicionar ao carrinho'))
     expect(onClickAddCart).toHaveBeenCalled()
@@ -89,7 +89,7 @@ describe('ShoppingCard', () => {
     vi.useFakeTimers()
     const options = [{ title: 'Opção Teste', icon: <span>⭐</span>, onClick: vi.fn() }]
 
-    render(<ShoppingCard {...baseProps} options={options} />)
+    render(<Card {...baseProps} options={options} />)
 
     const button = screen.getByRole('button', { name: '' })
 
@@ -115,7 +115,7 @@ describe('ShoppingCard', () => {
     const optionClick = vi.fn()
     const options = [{ title: 'Editar', icon: <span>📝</span>, onClick: optionClick }]
 
-    render(<ShoppingCard {...baseProps} options={options} />)
+    render(<Card {...baseProps} options={options} />)
 
     expect(screen.queryByText('Editar')).not.toBeInTheDocument()
 
@@ -142,7 +142,7 @@ describe('ShoppingCard', () => {
   it('should close nav options on mouse leave', () => {
     const options = [{ title: 'Remover', icon: <span>❌</span>, onClick: vi.fn() }]
 
-    render(<ShoppingCard {...baseProps} options={options} />)
+    render(<Card {...baseProps} options={options} />)
 
     fireEvent.click(screen.getByRole('button', { name: '' }))
     act(() => {

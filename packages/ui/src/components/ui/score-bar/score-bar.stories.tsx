@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { QualityBar } from './quality-bar'
+import { ScoreBar } from './score-bar'
 
-const meta: Meta<typeof QualityBar> = {
-  title: 'Components/QualityBar',
-  component: QualityBar,
+const meta: Meta<typeof ScoreBar> = {
+  title: 'Components/ScoreBar',
+  component: ScoreBar,
   tags: ['autodocs'],
   argTypes: {
     value: {
@@ -20,7 +20,7 @@ const meta: Meta<typeof QualityBar> = {
 
 export default meta
 
-type Story = StoryObj<typeof QualityBar>
+type Story = StoryObj<typeof ScoreBar>
 
 export const Default: Story = {
   args: {
