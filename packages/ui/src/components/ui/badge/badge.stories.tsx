@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { DiscountBadge } from '.'
+import { Badge } from '.'
 
-const meta: Meta<typeof DiscountBadge> = {
-  title: 'Components/DiscountBadge',
-  component: DiscountBadge,
+const meta: Meta<typeof Badge> = {
+  title: 'Components/Badge',
+  component: Badge,
   tags: ['autodocs'],
   argTypes: {
     size: {
@@ -15,9 +15,9 @@ const meta: Meta<typeof DiscountBadge> = {
 
 export default meta
 
-type Story = StoryObj<typeof DiscountBadge>
+type Story = StoryObj<typeof Badge>
 
-export const Default: Story = {
+export const Large: Story = {
   args: {
     value: 15,
     size: 'lg',

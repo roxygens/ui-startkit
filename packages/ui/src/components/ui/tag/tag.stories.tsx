@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { CategoryTag } from '.'
+import { Tag } from '.'
 
-const meta: Meta<typeof CategoryTag> = {
-  title: 'Components/CategoryTag',
-  component: CategoryTag,
+const meta: Meta<typeof Tag> = {
+  title: 'Components/Tag',
+  component: Tag,
   tags: ['autodocs'],
   argTypes: {},
 }
 
 export default meta
 
-type Story = StoryObj<typeof CategoryTag>
+type Story = StoryObj<typeof Tag>
 
 export const Default: Story = {
   args: {

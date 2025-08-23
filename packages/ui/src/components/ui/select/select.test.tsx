@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect } from 'vitest'
-import { SelectInput } from './select'
+import { SelectInput } from '.'
 
 const mockOptions = [
   { label: 'Maçã', value: 'apple' },

@@ -1,23 +1,23 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { CategoryTag } from './category-tag'
+import { Tag } from '.'
 
 describe('CategoryTag', () => {
   it('should render the children content correctly', () => {
-    render(<CategoryTag>Luvas Desportivas</CategoryTag>)
+    render(<Tag>Luvas Desportivas</Tag>)
     expect(screen.getByText('Luvas Desportivas')).toBeInTheDocument()
 
     render(
-      <CategoryTag>
+      <Tag>
         <span>Testando com um span</span>
-      </CategoryTag>,
+      </Tag>,
     )
     expect(screen.getByText('Testando com um span')).toBeInTheDocument()
   })
 
   it('should have the default base classes applied', () => {
     const testContent = 'Test Content'
-    const { container } = render(<CategoryTag>{testContent}</CategoryTag>)
+    const { container } = render(<Tag>{testContent}</Tag>)
 
     const tagElement = container.firstChild
 
@@ -38,9 +38,7 @@ describe('CategoryTag', () => {
 
   it('should correctly merge and override classes passed via the className prop', () => {
     const testContent = 'Custom Tag'
-    const { container } = render(
-      <CategoryTag className="bg-red-500 mt-4 text-white">{testContent}</CategoryTag>,
-    )
+    const { container } = render(<Tag className="bg-red-500 mt-4 text-white">{testContent}</Tag>)
     const tagElement = container.firstChild
 
     expect(tagElement).toHaveClass('mt-4')

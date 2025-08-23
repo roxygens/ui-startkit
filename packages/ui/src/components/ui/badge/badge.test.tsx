@@ -1,17 +1,17 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { DiscountBadge } from './discount-badge'
+import { Badge } from '.'
 
 describe('DiscountBadge', () => {
   it('should render correctly and display the formatted discount value', () => {
-    render(<DiscountBadge value={15} />)
+    render(<Badge value={15} />)
     const badgeElement = screen.getByText('-15%')
 
     expect(badgeElement).toBeInTheDocument()
   })
 
   it('should have the base CSS classes applied', () => {
-    render(<DiscountBadge value={10} />)
+    render(<Badge value={10} />)
     const badgeElement = screen.getByText('-10%')
 
     expect(badgeElement).toHaveClass('font-inter')
@@ -21,7 +21,7 @@ describe('DiscountBadge', () => {
 
   describe('Variants', () => {
     it('should apply the correct classes for the default "lg" size', () => {
-      render(<DiscountBadge value={20} size="lg" />)
+      render(<Badge value={20} size="lg" />)
       const badgeElement = screen.getByText('-20%')
 
       expect(badgeElement).toHaveClass('px-[12px]')
@@ -33,7 +33,7 @@ describe('DiscountBadge', () => {
   })
 
   it('should correctly merge additional classes passed via className prop', () => {
-    render(<DiscountBadge value={25} className="mt-4 animate-pulse" />)
+    render(<Badge value={25} className="mt-4 animate-pulse" />)
     const badgeElement = screen.getByText('-25%')
 
     expect(badgeElement).toHaveClass('mt-4')
@@ -43,7 +43,7 @@ describe('DiscountBadge', () => {
   })
 
   it('should apply the correct linear-gradient background style', () => {
-    render(<DiscountBadge value={30} />)
+    render(<Badge value={30} />)
     const badgeElement = screen.getByText('-30%')
 
     expect(badgeElement.style.backgroundImage).toContain('linear-gradient')

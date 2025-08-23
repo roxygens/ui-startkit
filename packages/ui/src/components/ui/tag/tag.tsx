@@ -4,7 +4,7 @@ type Props = {
   className?: string
 }
 
-export function CategoryTag({ children, className }: Props) {
+export function Tag({ children, className }: Props) {
   return (
     <div
       className={cn(

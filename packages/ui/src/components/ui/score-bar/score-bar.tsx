@@ -2,7 +2,7 @@ type Props = {
   value: number
 }
 
-export function QualityBar(props: Props) {
+export function ScoreBar(props: Props) {
   const { value } = props
 
   const clampedValue = Math.max(0, Math.min(1, value))
