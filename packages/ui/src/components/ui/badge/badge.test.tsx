@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { Badge } from '.'
 
-describe('DiscountBadge', () => {
+describe('Badge', () => {
   it('should render correctly and display the formatted discount value', () => {
     render(<Badge value={15} />)
     const badgeElement = screen.getByText('-15%')

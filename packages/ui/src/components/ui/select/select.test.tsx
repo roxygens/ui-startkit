@@ -10,7 +10,7 @@ const mockOptions = [
   { label: 'Uva', value: 'grape' },
 ]
 
-describe('SelectInput Component', () => {
+describe('Select', () => {
   const user = userEvent.setup()
 
   it('should render with a placeholder', () => {

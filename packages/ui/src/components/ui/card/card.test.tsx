@@ -1,163 +1,271 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+// Card.test.tsx
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, it, expect, vi } from 'vitest'
+
+// Import the Card component and its sub-components
 import { Card } from '.'
 
-vi.mock('@/components/ui/discount-badge', () => ({
-  DiscountBadge: ({ value }: { value: number }) => (
-    <div data-testid="discount-badge">Discount {value}</div>
-  ),
-}))
-vi.mock('@/components/ui/category-tag', () => ({
-  CategoryTag: ({ children, className }: { children: React.ReactNode; className?: string }) => (
-    <div data-testid="category-tag" className={className}>
-      {children}
-    </div>
-  ),
-}))
-vi.mock('@/components/ui/quality-bar', () => ({
-  QualityBar: ({ value }: { value: number }) => (
-    <div data-testid="quality-bar">Quality {value}</div>
-  ),
-}))
+// // Mock the 'cn' function so tests don't depend on the actual implementation
+// vi.mock('@/lib/utils', () => ({
+//   cn: (...inputs: any[]): string => {
+//     const classSet = new Set<string>()
 
-const baseProps = {
-  price: 100,
-  category: 'Eletrônicos',
-  quality: 80,
-  name: 'Produto Teste',
-  images: [
-    { url: 'primary.jpg', alt: 'Primary image' },
-    { url: 'hover.jpg', alt: 'Hover image' },
-  ],
-}
+//     function processInput(input: any) {
+//       if (!input) return
 
-beforeEach(() => {
-  vi.useFakeTimers()
-})
+//       if (typeof input === 'string') {
+//         input.split(' ').forEach((cls) => cls && classSet.add(cls))
+//       } else if (Array.isArray(input)) {
+//         input.forEach(processInput)
+//       } else if (typeof input === 'object') {
+//         for (const key in input) {
+//           if (Object.prototype.hasOwnProperty.call(input, key) && input[key]) {
+//             classSet.add(key)
+//           }
+//         }
+//       }
+//     }
 
-afterEach(() => {
-  vi.useRealTimers()
-})
+//     inputs.forEach(processInput)
+//     return Array.from(classSet).join(' ')
+//   },
+// }))
 
-describe('ShoppingCard', () => {
-  it('should render with mandatory props', () => {
-    render(<Card {...baseProps} />)
-
-    expect(screen.getByTestId('category-tag')).toHaveTextContent('Eletrônicos')
-    expect(screen.getByText('Produto Teste')).toBeInTheDocument()
-    expect(screen.getByAltText('Primary image')).toBeInTheDocument()
-    expect(screen.getByAltText('Hover image')).toBeInTheDocument()
-    expect(screen.getByText('Adicionar ao carrinho')).toBeInTheDocument()
-    expect(screen.getByTestId('quality-bar')).toHaveTextContent('Quality 80')
-  })
-
-  it('should render with discount and reference price', () => {
-    render(<Card {...baseProps} discount={20} referencePrice={200} />)
-    expect(screen.getByTestId('discount-badge')).toHaveTextContent('Discount 20')
-    expect(screen.getByText('Preço de referência 200,00 R$')).toBeInTheDocument()
-  })
-
-  it('should render with tradeStatus and name badge', () => {
-    render(<Card {...baseProps} tradeStatus="Em troca" hasNameBadge />)
-    expect(screen.getByText('Em troca')).toBeInTheDocument()
-
-    expect(screen.getByText('Produto Teste')).toBeInTheDocument()
-  })
-
-  it('should render with additional info', () => {
-    render(<Card {...baseProps} additionalInfo="Mais detalhes aqui" />)
-    expect(screen.getByText('Mais detalhes aqui')).toBeInTheDocument()
-  })
-
-  it('should call onClick when clicking the card', () => {
-    const onClick = vi.fn()
-    render(<Card {...baseProps} onClick={onClick} />)
-
-    fireEvent.click(screen.getByText('Produto Teste'))
-    expect(onClick).toHaveBeenCalled()
-  })
-
-  it('should call onClickAddCart when clicking add to cart', () => {
-    const onClickAddCart = vi.fn()
-    render(<Card {...baseProps} onClickAddCart={onClickAddCart} />)
-
-    fireEvent.click(screen.getByText('Adicionar ao carrinho'))
-    expect(onClickAddCart).toHaveBeenCalled()
-  })
-
-  it('should toggle nav options closed when clicking options button again', () => {
-    vi.useFakeTimers()
-    const options = [{ title: 'Opção Teste', icon: <span>⭐</span>, onClick: vi.fn() }]
-
-    render(<Card {...baseProps} options={options} />)
-
-    const button = screen.getByRole('button', { name: '' })
-
-    // Primeiro clique: abre
-    fireEvent.click(button)
-    act(() => {
-      vi.advanceTimersByTime(20) // tempo do open
-    })
-    expect(screen.getByText('Opção Teste')).toBeInTheDocument()
-
-    // Segundo clique: fecha
-    fireEvent.click(button)
-
-    // avança o timer do useEffect (200ms)
-    act(() => {
-      vi.advanceTimersByTime(200)
+describe('Card', () => {
+  describe('Card (Provider)', () => {
+    it('should render its children correctly', () => {
+      render(
+        <Card>
+          <div>Card Content</div>
+        </Card>,
+      )
+      expect(screen.getByText('Card Content')).toBeInTheDocument()
     })
 
-    expect(screen.queryByText('Opção Teste')).not.toBeInTheDocument()
+    it('should apply a custom className', () => {
+      const { container } = render(<Card className="my-custom-class" />)
+      // The container's first child is the Card's main div
+      expect(container.firstChild).toHaveClass('my-custom-class')
+    })
+
+    it('should call the onClick handler when clicked', async () => {
+      const user = userEvent.setup()
+      const handleClick = vi.fn()
+      render(<Card onClick={handleClick} />)
+
+      const cardElement = screen.getByTestId('card-container')
+      await user.click(cardElement)
+
+      expect(handleClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('should toggle the background color when options are opened and closed', async () => {
+      const user = userEvent.setup()
+      render(
+        <Card>
+          <Card.FooterButton options={[{ title: 'Opção 1', icon: <i />, onClick: vi.fn() }]}>
+            Ação
+          </Card.FooterButton>
+        </Card>,
+      )
+
+      const cardContainer = screen.getByTestId('card-container')
+      const optionsButton = screen.getByTestId('options-button')
+
+      expect(cardContainer).not.toHaveClass('bg-[#36393F]')
+
+      await user.click(optionsButton)
+
+      await waitFor(() => {
+        expect(cardContainer).toHaveClass('bg-[#36393F]')
+      })
+
+      await user.click(optionsButton)
+
+      await waitFor(() => {
+        expect(cardContainer).not.toHaveClass('bg-[#36393F]')
+      })
+    })
+
+    it('should close the navigation options on the onBlur event', async () => {
+      const user = userEvent.setup()
+      render(
+        <div>
+          <Card>
+            <Card.FooterButton options={[{ title: 'Option 1', icon: <i />, onClick: vi.fn() }]}>
+              Action
+            </Card.FooterButton>
+          </Card>
+          <button>External Button</button>
+        </div>,
+      )
+
+      const cardContainer = screen.getByTestId('card-container')
+      const optionsButton = screen.getByRole('button', { name: /abrir opções/i })
+
+      // Open the menu
+      await user.click(optionsButton)
+      expect(cardContainer).toHaveClass('bg-[#36393F]')
+
+      // Simulate focus moving away from the card to an external element
+      await user.tab() // Focus on the action button
+      await user.tab() // Focus on the options button
+      await user.tab() // Focus on the external button
+
+      expect(cardContainer).not.toHaveClass('bg-[#36393F]')
+    })
   })
 
-  it('should open and close nav options when clicking options button', () => {
-    const optionClick = vi.fn()
-    const options = [{ title: 'Editar', icon: <span>📝</span>, onClick: optionClick }]
-
-    render(<Card {...baseProps} options={options} />)
-
-    expect(screen.queryByText('Editar')).not.toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('button', { name: '' }))
-    act(() => {
-      vi.advanceTimersByTime(20)
+  describe('Card.Header', () => {
+    it('should render its children', () => {
+      render(<Card.Header>Header Title</Card.Header>)
+      expect(screen.getByText('Header Title')).toBeInTheDocument()
     })
-    expect(screen.getByText('Editar')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByText('Editar'))
-    expect(optionClick).toHaveBeenCalled()
-
-    const editDiv = screen.getByText('Editar').closest('div')
-    if (editDiv) {
-      fireEvent.blur(editDiv)
-    }
-
-    act(() => {
-      vi.advanceTimersByTime(200)
-    })
-    expect(screen.queryByText('Editar')).not.toBeInTheDocument()
   })
 
-  it('should close nav options on mouse leave', () => {
-    const options = [{ title: 'Remover', icon: <span>❌</span>, onClick: vi.fn() }]
+  describe('Card.HeaderImages', () => {
+    const primaryImage = { url: 'primary.jpg', alt: 'Primary Image' }
+    const hoverImage = { url: 'hover.jpg', alt: 'Hover Image' }
 
-    render(<Card {...baseProps} options={options} />)
-
-    fireEvent.click(screen.getByRole('button', { name: '' }))
-    act(() => {
-      vi.advanceTimersByTime(20)
+    it('should render only the primary image if it is the only one provided', () => {
+      render(<Card.HeaderImages images={[primaryImage]} />)
+      const images = screen.getAllByRole('img')
+      expect(images).toHaveLength(1)
+      expect(images[0]).toHaveAttribute('src', primaryImage.url)
+      expect(images[0]).toHaveAttribute('alt', primaryImage.alt)
     })
-    expect(screen.getByText('Remover')).toBeInTheDocument()
 
-    const productDiv = screen.getByText('Produto Teste').closest('div')
-    if (productDiv) {
-      fireEvent.mouseLeave(productDiv)
-    }
-
-    act(() => {
-      vi.advanceTimersByTime(200)
+    it('should render both images when two are provided', () => {
+      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
+      const images = screen.getAllByRole('img')
+      expect(images).toHaveLength(2)
+      expect(screen.getByAltText(primaryImage.alt)).toBeInTheDocument()
+      expect(screen.getByAltText(hoverImage.alt)).toBeInTheDocument()
     })
-    expect(screen.queryByText('Remover')).not.toBeInTheDocument()
+
+    it('should apply the correct transition class when a hover image is present', () => {
+      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
+      const primaryImgElement = screen.getByAltText(primaryImage.alt)
+      expect(primaryImgElement).toHaveClass('group-hover/header:opacity-0')
+    })
+
+    it('should apply a custom className', () => {
+      const { container } = render(
+        <Card.HeaderImages images={[primaryImage]} className="custom-images" />,
+      )
+      expect(container.firstChild).toHaveClass('custom-images')
+    })
+  })
+
+  describe('Card.Content', () => {
+    it('should render its children', () => {
+      render(<Card.Content>Main content</Card.Content>)
+      expect(screen.getByText('Main content')).toBeInTheDocument()
+    })
+
+    it('should apply a custom className', () => {
+      const { container } = render(<Card.Content className="custom-content">Content</Card.Content>)
+      expect(container.firstChild).toHaveClass('custom-content')
+    })
+  })
+
+  describe('Card.FooterButton', () => {
+    it('should render the main button with its child content', () => {
+      render(
+        <Card>
+          <Card.FooterButton>Buy Now</Card.FooterButton>
+        </Card>,
+      )
+      expect(screen.getByRole('button', { name: 'Buy Now' })).toBeInTheDocument()
+    })
+
+    it('should call the main button onClick handler and stop event propagation', async () => {
+      const user = userEvent.setup()
+      const handleClick = vi.fn()
+      const handleCardClick = vi.fn()
+      render(
+        <Card onClick={handleCardClick}>
+          <Card.FooterButton onClick={handleClick}>Action</Card.FooterButton>
+        </Card>,
+      )
+
+      await user.click(screen.getByRole('button', { name: 'Action' }))
+      expect(handleClick).toHaveBeenCalledTimes(1)
+      // Verify that the event propagation was stopped
+      expect(handleCardClick).not.toHaveBeenCalled()
+    })
+
+    it('should not render the options button if no options are provided', () => {
+      render(
+        <Card>
+          <Card.FooterButton>Action</Card.FooterButton>
+        </Card>,
+      )
+      const optionsButton = screen.queryByRole('button', { name: /open options/i })
+      expect(optionsButton).not.toBeInTheDocument()
+    })
+
+    it('should toggle the navigation menu visibility when the options button is clicked', async () => {
+      const user = userEvent.setup()
+      const options = [{ title: 'Option 1', icon: <i />, onClick: vi.fn() }]
+      render(
+        <Card>
+          <Card.FooterButton options={options}>Action</Card.FooterButton>
+        </Card>,
+      )
+
+      const optionsButton = screen.getByRole('button', { name: 'Abrir opções do card' })
+      const navMenu = screen.getByRole('navigation', { name: 'Menu de opções' })
+
+      // Menu starts hidden
+      expect(navMenu).toHaveClass('opacity-0')
+
+      // Click to open
+      await user.click(optionsButton)
+      expect(navMenu).toHaveClass('opacity-100')
+
+      // Click to close
+      await user.click(optionsButton)
+      expect(navMenu).toHaveClass('opacity-0')
+    })
+
+    it('should call a menu item onClick handler and stop event propagation', async () => {
+      const user = userEvent.setup()
+      const handleItemClick = vi.fn()
+      const handleCardClick = vi.fn()
+      const options = [{ title: 'Delete', icon: <i>Icon</i>, onClick: handleItemClick }]
+      render(
+        <Card onClick={handleCardClick}>
+          <Card.FooterButton options={options}>Action</Card.FooterButton>
+        </Card>,
+      )
+
+      const optionsButton = screen.getByRole('button', { name: 'Abrir opções do card' })
+
+      await user.click(optionsButton)
+
+      const menuItem = screen.getByRole('button', { name: /Delete/i })
+      await user.click(menuItem)
+
+      expect(handleItemClick).toHaveBeenCalledTimes(1)
+      expect(handleCardClick).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('useCardContext Hook', () => {
+    it('should throw an error when used outside of a CardProvider', () => {
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      function ComponentOutsideContext() {
+        return <Card.FooterButton>Test</Card.FooterButton>
+      }
+
+      expect(() => render(<ComponentOutsideContext />)).toThrow(
+        'useCardContext deve ser usado dentro de CardProvider',
+      )
+
+      spy.mockRestore()
+    })
   })
 })
