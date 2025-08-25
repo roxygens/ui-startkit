@@ -1,36 +1,7 @@
-// Card.test.tsx
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
-
-// Import the Card component and its sub-components
 import { Card } from '.'
-
-// // Mock the 'cn' function so tests don't depend on the actual implementation
-// vi.mock('@/lib/utils', () => ({
-//   cn: (...inputs: any[]): string => {
-//     const classSet = new Set<string>()
-
-//     function processInput(input: any) {
-//       if (!input) return
-
-//       if (typeof input === 'string') {
-//         input.split(' ').forEach((cls) => cls && classSet.add(cls))
-//       } else if (Array.isArray(input)) {
-//         input.forEach(processInput)
-//       } else if (typeof input === 'object') {
-//         for (const key in input) {
-//           if (Object.prototype.hasOwnProperty.call(input, key) && input[key]) {
-//             classSet.add(key)
-//           }
-//         }
-//       }
-//     }
-
-//     inputs.forEach(processInput)
-//     return Array.from(classSet).join(' ')
-//   },
-// }))
 
 describe('Card', () => {
   describe('Card (Provider)', () => {
@@ -45,7 +16,6 @@ describe('Card', () => {
 
     it('should apply a custom className', () => {
       const { container } = render(<Card className="my-custom-class" />)
-      // The container's first child is the Card's main div
       expect(container.firstChild).toHaveClass('my-custom-class')
     })
 
@@ -104,14 +74,12 @@ describe('Card', () => {
       const cardContainer = screen.getByTestId('card-container')
       const optionsButton = screen.getByRole('button', { name: /abrir opções/i })
 
-      // Open the menu
       await user.click(optionsButton)
       expect(cardContainer).toHaveClass('bg-[#36393F]')
 
-      // Simulate focus moving away from the card to an external element
-      await user.tab() // Focus on the action button
-      await user.tab() // Focus on the options button
-      await user.tab() // Focus on the external button
+      await user.tab()
+      await user.tab()
+      await user.tab()
 
       expect(cardContainer).not.toHaveClass('bg-[#36393F]')
     })
@@ -192,7 +160,6 @@ describe('Card', () => {
 
       await user.click(screen.getByRole('button', { name: 'Action' }))
       expect(handleClick).toHaveBeenCalledTimes(1)
-      // Verify that the event propagation was stopped
       expect(handleCardClick).not.toHaveBeenCalled()
     })
 
@@ -218,14 +185,11 @@ describe('Card', () => {
       const optionsButton = screen.getByRole('button', { name: 'Abrir opções do card' })
       const navMenu = screen.getByRole('navigation', { name: 'Menu de opções' })
 
-      // Menu starts hidden
       expect(navMenu).toHaveClass('opacity-0')
 
-      // Click to open
       await user.click(optionsButton)
       expect(navMenu).toHaveClass('opacity-100')
 
-      // Click to close
       await user.click(optionsButton)
       expect(navMenu).toHaveClass('opacity-0')
     })
