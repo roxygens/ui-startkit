@@ -45,7 +45,7 @@ export function Card(props: Props) {
         onMouseLeave={handleCloseNavOptions}
         onClick={onClick}
         className={cn(
-          'cursor-pointer bg-[#1F1F1F] pt-[14px]  pb-[32px] hover:bg-[#36393F] rounded-[8px]',
+          'cursor-pointer bg-[#1F1F1F] pt-[14px] pb-[32px] hover:bg-[#36393F] rounded-[8px]',
           'flex flex-col relative hover:border hover:border-[var(--primary)] rounded-[8px] group/footer-buttons',
           {
             'bg-[#36393F]': isNavOptionsOpen,
@@ -62,7 +62,7 @@ export function Card(props: Props) {
 type CardHeaderProps = {} & PropsWithChildren
 
 Card.Header = function CardHeader({ children }: CardHeaderProps) {
-  return <header className="group/header ">{children}</header>
+  return <header className="group/header">{children}</header>
 }
 
 type Image = {
