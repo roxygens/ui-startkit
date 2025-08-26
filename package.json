@@ -5,7 +5,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run coverage -w=ui",
+    "dev": "npm run storybook -w=ui",
+    "build": "npm run build-storybook -w=ui",
+    "serve": "npx http-server ./packages/ui/storybook-static",
+    "start": "node ./packages/ui/storybook-static"
   },
   "keywords": [],
   "author": "",
