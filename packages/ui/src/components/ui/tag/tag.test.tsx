@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { Tag } from '.'
 
-describe('CategoryTag', () => {
+describe('Tag', () => {
   it('should render the children content correctly', () => {
     render(<Tag>Luvas Desportivas</Tag>)
     expect(screen.getByText('Luvas Desportivas')).toBeInTheDocument()

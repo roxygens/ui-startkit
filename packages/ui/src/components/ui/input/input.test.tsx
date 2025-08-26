@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { Input } from '.'
 
-describe('Input Component', () => {
+describe('Input', () => {
   it('should render the input element correctly', () => {
     render(<Input />)
     const inputElement = screen.getByRole('textbox')

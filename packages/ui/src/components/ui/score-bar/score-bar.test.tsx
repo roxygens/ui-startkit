@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, beforeAll } from 'vitest'
 import { ScoreBar } from '.'
 
-describe('QualityBar', () => {
+describe('ScoreBar', () => {
   const getArrowContainer = (container: HTMLElement): HTMLElement => {
     const svgElement = container.querySelector('svg')
     if (!svgElement?.parentElement) {
@@ -86,7 +86,7 @@ describe('QualityBar', () => {
     })
   })
 
-  describe('QualityBar Color Sections', () => {
+  describe('ScoreBar Color Sections', () => {
     const sectionsData = [
       { name: 'Green', index: 0, hex: '#4CB040', rgb: 'rgb(76, 176, 64)', width: 12 },
       { name: 'Light Green', index: 1, hex: '#67CD4B', rgb: 'rgb(103, 205, 75)', width: 13 },
