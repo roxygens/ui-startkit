@@ -15,8 +15,8 @@ const preview: Preview = {
       default: 'dark',
       values: [
         { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: 'var(----background)' },
-        { name: 'brand', value: 'var(----background)' },
+        { name: 'dark', value: 'var(--background)' },
+        { name: 'brand', value: 'var(--background)' },
       ],
     },
     docs: {
