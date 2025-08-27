@@ -59,10 +59,3 @@ export const Large: Story = {
     size: 'lg',
   },
 }
-
-export const Error: Story = {
-  args: {
-    ...args,
-    'aria-invalid': true,
-  },
-}

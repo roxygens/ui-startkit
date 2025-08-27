@@ -1,67 +1,59 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Input } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Input } from '.'
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
+  parameters: {
+    docs: { page: null },
+  },
   tags: ['autodocs'],
   argTypes: {
-    
     size: {
       options: ['xs', 'sm', 'md', 'lg'],
       control: { type: 'select' },
     },
+    type: {
+      options: ['text', 'email', 'password', 'number', 'tel', 'url'],
+      control: { type: 'select' },
+    },
+    'aria-invalid': {
+      control: { type: 'boolean' },
+    },
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Input>
 
 export const Default: Story = {
   args: {
     placeholder: 'Placeholder',
-    size: 'md' 
+    size: 'md',
   },
-};
-
+}
 
 export const ExtraSmall: Story = {
+  parameters: {
+    docsOnly: true,
+  },
   args: {
     placeholder: 'Placeholder',
-    size: 'xs'
+    size: 'xs',
   },
-};
-
+}
 
 export const Small: Story = {
   args: {
     placeholder: 'Placeholder',
-    size: 'sm'
+    size: 'sm',
   },
-};
+}
 
 export const Large: Story = {
   args: {
     placeholder: 'Placeholder',
-    size: 'lg'
+    size: 'lg',
   },
-};
-
-export const Password: Story = {
-  args: {
-    placeholder: 'Placeholder',
-    type: 'password'
-  },
-};
-
-
-export const Error: Story = {
-  args: {
-    placeholder: 'Placeholder',
-    'aria-invalid': true
-  },
-};
-
-
-
+}
