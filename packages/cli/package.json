@@ -1,10 +1,19 @@
 {
-  "name": "@roxygens/ui-startkit",
+  "name": "cli",
   "version": "0.0.1",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts"
+  },
   "bin": {
-    "ui-startkit": "./src/index.js"
+    "ui-startkit": "./dist/index.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -22,6 +31,7 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@types/prompts": "^2.4.9"
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.5.0"
   }
 }

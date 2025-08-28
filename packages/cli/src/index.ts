@@ -62,89 +62,169 @@ program
       await fs.writeFile('components.json', JSON.stringify(componentsJson, null, 2));
       spinner.succeed('Arquivo `components.json` criado.');
 
-      spinner.start('Adicionando tema do Figma ao CSS...');
+      spinner.start('Adicionando tema ao CSS...');
       const themeConfig = `
       /* Configuração de tema "Skins Games" adicionada por @roxygens/ui-startkit */
-        @import "tailwindcss/preflight";
-        @import "tailwindcss/utilities";
+        @import "tailwindcss";
+        @import "tw-animate-css";
 
-        @layer base {
-          :root {
-            --radius: 0.5rem; /* 8px */
-          }
+        @custom-variant dark (&:is(.dark *));
+
+        @theme inline {
+          --radius-sm: 8px;
+          --radius-md: calc(var(--radius) - 2px);
+          --radius-lg: var(--radius);
+          --radius-xl: calc(var(--radius) + 4px);
+          --color-background: var(--background);
+          --color-foreground: var(--foreground);
+          --color-card: var(--card);
+          --color-card-foreground: var(--card-foreground);
+          --color-popover: var(--popover);
+          --color-popover-foreground: var(--popover-foreground);
+          --color-primary: var(--primary);
+          --color-primary-foreground: var(--primary-foreground);
+          --color-primary-hover: var(--primary-hover);
+          --color-secondary: var(--secondary);
+          --color-secondary-foreground: var(--secondary-foreground);
+          --color-secondary-border: var(--secondary-border);
+          --color-secondary-foreground-border: var(--secondary-foreground-border);
+          --color-secondary-foreground-hover: var(--secondary-foreground-hover);
+          --color-secondary-disabled: var(--secondary-foreground-hover);
+          --color-secondary-foreground-disabled: var(--secondary-foreground-disabled);
+          --color-tertiary: var(--tertiary);
+          --color-tertiary-hover: var(--tertiary-hover);
+          --color-tertiary-foreground: var(--tertiary-foreground);
+          --color-tertiary-border: var(--tertiary-border);
+          --color-tertiary-foreground-border: var(--tertiary-foreground-border);
+          --color-tertiary-foreground-hover: var(--tertiary-foreground-hover);
+          --color-tertiary-disabled: var(--tertiaryy-foreground-hover);
+          --color-tertiary-foreground-disabled: var(--tertiary-foreground-hover);
+          --color-link-foreground: var(--link-foreground);
+          --color-link-foreground-hover: var(--link-foreground-hover);
+          --color-link-foreground-disabled: var(--link-foreground-disabled);
+          --color-muted: var(--muted);
+          --color-muted-foreground: var(--muted-foreground);
+          --color-accent: var(--accent);
+          --color-accent-foreground: var(--accent-foreground);
+          --color-destructive: var(--destructive);
+          --color-border: var(--border);
+          --color-input: var(--input);
+          --color-ring: var(--ring);
+          --color-chart-1: var(--chart-1);
+          --color-chart-2: var(--chart-2);
+          --color-chart-3: var(--chart-3);
+          --color-chart-4: var(--chart-4);
+          --color-chart-5: var(--chart-5);
+          --color-sidebar: var(--sidebar);
+          --color-sidebar-foreground: var(--sidebar-foreground);
+          --color-sidebar-primary: var(--sidebar-primary);
+          --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+          --color-sidebar-accent: var(--sidebar-accent);
+          --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+          --color-sidebar-border: var(--sidebar-border);
+          --color-sidebar-ring: var(--sidebar-ring);
         }
 
-        @theme {
-          /* MODO CLARO (LIGHT MODE) */
-          --background: hsl(0 0% 96.1%); /* #F5F5F5 */
-          --foreground: hsl(220 16% 12%); /* #1A1D23 */
+        :root {
+          --radius: 0.625rem;
+          --background: #0C0E12 ;
+          --foreground: oklch(0.145 0 0);
+          --card: oklch(1 0 0);
+          --card-foreground: oklch(0.145 0 0);
+          --popover: oklch(1 0 0);
+          --primary: #23C7FD;
+          --primary-rgb: 35, 199, 253;
+          --primary-foreground: #031328;
+          --primary-hover: #1AA4D0;
+          --primary-disabled: #434651;
+          --primary-foreground-disabled: #A3A2A8;
+          --secondary: transparent;
+          --secondary-foreground: #FFFFFF;
+          --secondary-border: #3A3A3A;
+          --secondary-foreground-border: #3A3A3A;
+          --secondary-foreground-hover: #23C7FD;
+          --secondary-disabled: #434651;
+          --secondary-foreground-disabled: #A3A2A8;
+          --tertiary: #FFFFFF;
+          --tertiary-hover: #DEDEDE;
+          --tertiary-foreground: #3A3A3A;
+          --tertiary-border: #3A3A3A;
+          --tertiary-foreground-border: #3A3A3A;
+          --tertiary-foreground-hover: #3A3A3A;
+          --tertiary-disabled: #434651;
+          --tertiary-foreground-disabled: #A3A2A8;
+          --link-foreground: #FFFFFF;
+          --link-foreground-hover: #23C7FD;
+          --link-foreground-disabled: #A3A2A8;
+          --muted: oklch(0.97 0 0);
+          --muted-foreground: #707179;
+          --accent: oklch(0.97 0 0);
+          --accent-foreground: oklch(0.205 0 0);
+          --destructive: #EF4444;
+          --border: oklch(0.922 0 0);
+          --input: oklch(0.922 0 0);
+          --ring: oklch(0.708 0 0);
+          --chart-1: oklch(0.646 0.222 41.116);
+          --chart-2: oklch(0.6 0.118 184.704);
+          --chart-3: oklch(0.398 0.07 227.392);
+          --chart-4: oklch(0.828 0.189 84.429);
+          --chart-5: oklch(0.769 0.188 70.08);
+          --sidebar: oklch(0.985 0 0);
+          --sidebar-foreground: oklch(0.145 0 0);
+          --sidebar-primary: oklch(0.205 0 0);
+          --sidebar-primary-foreground: oklch(0.985 0 0);
+          --sidebar-accent: oklch(0.97 0 0);
+          --sidebar-accent-foreground: oklch(0.205 0 0);
+          --sidebar-border: oklch(0.922 0 0);
+          --sidebar-ring: oklch(0.708 0 0);
+          --card-background: #1F1F1F;
+        }
 
-          --card: hsl(0 0% 96.1%); /* #F5F5F5 */
-          --card-foreground: hsl(220 16% 12%); /* #1A1D23 */
-
-          --popover: hsl(0 0% 100%);
-          --popover-foreground: hsl(220 16% 12%);
-
-          --primary: hsl(220 16% 12%); /* #1A1D23 */
-          --primary-foreground: hsl(0 0% 100%); /* #FFFFFF */
-          
-          --secondary: hsl(0 0% 52.2%); /* #858585 */
-          --secondary-foreground: hsl(0 0% 100%); /* #FFFFFF */
-          
-          --muted: hsl(240 5% 90%); /* Um cinza mais claro para texto muted */
-          --muted-foreground: hsl(0 0% 45%);
-
-          --accent: hsl(240 5% 92%); /* Cor de hover sutil */
-          --accent-foreground: hsl(220 16% 12%);
-
-          --destructive: hsl(0 97% 49%); /* #F90404 */
-          --destructive-foreground: hsl(0 0% 100%);
-
-          --border: hsl(240 5% 90%); /* #E4E4E7 */
-          --input: hsl(240 5% 90%);
-          --ring: hsl(220 16% 12%);
-
-          /* MODO ESCURO (DARK MODE) */
-          .dark {
-            --background: hsl(220 15% 8%); /* #111317 */
-            --foreground: hsl(0 0% 100%); /* #FFFFFF */
-
-            --card: hsl(220 16% 12%); /* #1A1D23 */
-            --card-foreground: hsl(0 0% 100%);
-
-            --popover: hsl(220 16% 12%);
-            --popover-foreground: hsl(0 0% 100%);
-
-            --primary: hsl(0 0% 96.1%); /* #F5F5F5 - Botão claro */
-            --primary-foreground: hsl(220 15% 8%); /* #111317 - Texto escuro no botão */
-
-            --secondary: hsl(240 5% 16%); /* #27272A */
-            --secondary-foreground: hsl(0 0% 100%);
-            
-            --muted: hsl(240 5% 16%);
-            --muted-foreground: hsl(0 0% 52.2%);
-
-            --accent: hsl(225 9% 19%); /* Hover um pouco mais claro que o card */
-            --accent-foreground: hsl(0 0% 100%);
-
-            --destructive: hsl(0 97% 49%); /* #F90404 */
-            --destructive-foreground: hsl(0 0% 100%);
-            
-            --border: hsl(225 9% 19%);
-            --input: hsl(225 9% 19%);
-            --ring: hsl(0 0% 96.1%);
-          }
+        .dark {
+          --background: oklch(0.145 0 0);
+          --foreground: oklch(0.985 0 0);
+          --card: oklch(0.205 0 0);
+          --card-foreground: oklch(0.985 0 0);
+          --popover: oklch(0.205 0 0);
+          --popover-foreground: oklch(0.985 0 0);
+          --primary: oklch(0.922 0 0);
+          --primary-foreground: #031328;
+          --primary-hover: #031328;
+          --secondary: oklch(0.269 0 0);
+          --secondary-foreground: oklch(0.985 0 0);
+          --muted: oklch(0.269 0 0);
+          --muted-foreground: oklch(0.708 0 0);
+          --accent: oklch(0.269 0 0);
+          --accent-foreground: oklch(0.985 0 0);
+          --destructive: oklch(0.704 0.191 22.216);
+          --border: oklch(1 0 0 / 10%);
+          --input: oklch(1 0 0 / 15%);
+          --ring: oklch(0.556 0 0);
+          --chart-1: oklch(0.488 0.243 264.376);
+          --chart-2: oklch(0.696 0.17 162.48);
+          --chart-3: oklch(0.769 0.188 70.08);
+          --chart-4: oklch(0.627 0.265 303.9);
+          --chart-5: oklch(0.645 0.246 16.439);
+          --sidebar: oklch(0.205 0 0);
+          --sidebar-foreground: oklch(0.985 0 0);
+          --sidebar-primary: oklch(0.488 0.243 264.376);
+          --sidebar-primary-foreground: oklch(0.985 0 0);
+          --sidebar-accent: oklch(0.269 0 0);
+          --sidebar-accent-foreground: oklch(0.985 0 0);
+          --sidebar-border: oklch(1 0 0 / 10%);
+          --sidebar-ring: oklch(0.556 0 0);
+          --card-background: #1F1F1F;
         }
 
         @layer base {
           * {
-            @apply border-border;
+            @apply border-border outline-ring/50;
           }
           body {
             @apply bg-background text-foreground;
-            font-family: Inter, sans-serif; /* Adicionado para combinar com o Figma */
           }
         }
+
       `;
 
       const originalCss = await fs.readFile(options.tailwindCssFile, 'utf-8');
