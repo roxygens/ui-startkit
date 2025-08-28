@@ -267,7 +267,7 @@ program
     const spinner = ora('Buscando registro de componentes...').start()
     try {
       const REGISTRY_API_URL =
-        'https://api.github.com/repos/jeffnts/ui-startkit/contents/registry.json'
+        'https://api.github.com/repos/roxygens/ui-startkit/contents/registry.json'
 
       const response = await fetch(REGISTRY_API_URL, {
         headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` },

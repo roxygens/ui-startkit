@@ -1,5 +1,5 @@
 {
-  "name": "@jeffnts/ui-startkit",
+  "name": "@roxygens/ui-startkit",
   "version": "0.0.18",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "main": "dist/index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffnts/ui-startkit.git"
+    "url": "git+https://github.com/roxygens/ui-startkit.git"
   },
   "dependencies": {
     "commander": "^14.0.0",
