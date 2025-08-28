@@ -16,7 +16,7 @@ const program = new Command()
 // =================================================================
 program
   .command('init')
-  .description('Inicializa seu projeto com o tema "Skins Games" para Tailwind CSS v4')
+  .description('Inicializa seu projeto com o tema "Default" para Tailwind CSS v4')
   .action(async () => {
     const spinner = ora('Iniciando configuração...').start()
     try {
@@ -26,7 +26,7 @@ program
           type: 'text',
           name: 'tailwindCssFile',
           message: 'Onde está seu arquivo CSS global?',
-          initial: 'src/index.css',
+          initial: 'src/app/globals.css',
         },
         {
           type: 'text',
@@ -64,7 +64,7 @@ program
 
       spinner.start('Adicionando tema ao CSS...')
       const themeConfig = `
-      /* Configuração de tema "Skins Games" adicionada por @roxygens/ui-startkit */
+      /* Configuração de tema "Default" adicionada por @roxygens/ui-startkit */
         @import "tailwindcss";
         @import "tw-animate-css";
 
@@ -328,6 +328,7 @@ program
 
       if (componentData.dependencies?.length > 0) {
         console.log(chalk.yellow('\nEste componente tem dependências adicionais:'))
+        console.log(`npm install ${componentData.dependencies.join(' ')}`)
         await execa('npm', ['install', ...componentData.dependencies], {
           stdio: 'inherit',
           shell: true,

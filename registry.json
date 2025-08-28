@@ -3,7 +3,7 @@
   "components": {
     "button": {
       "name": "Button",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
       "files": [
         {
           "path": "components/ui/button.tsx",
