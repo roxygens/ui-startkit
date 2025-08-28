@@ -1,14 +1,16 @@
 {
   "name": "ui-startkit-monorepo",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "npm run coverage -w=ui",
     "dev": "npm run storybook -w=ui",
-    "build": "npm run build-storybook -w=ui",
-    "serve": "npx http-server ./packages/ui/storybook-static"
+    "build": "npm run build --workspaces",
+    "serve": "npx http-server ./packages/ui/storybook-static",
+    "build-cli" : "npm run build -w=@jeffnts/ui-startkit",
+    "publish-cli": "npm publish -w=@jeffnts/ui-startkit"
   },
   "keywords": [],
   "author": "",

@@ -1,17 +1,25 @@
 {
-  "name": "@roxygens/ui-startkit",
-  "version": "0.0.1",
+  "name": "@jeffnts/ui-startkit",
+  "version": "0.0.13",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
-  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra"
+  },
   "bin": {
-    "ui-startkit": "./src/index.js"
+    "ui-startkit": "./dist/index.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roxygens/ui-startkit.git"
+    "url": "git+https://github.com/jeffnts/ui-startkit.git"
   },
   "dependencies": {
     "commander": "^14.0.0",
@@ -22,6 +30,7 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@types/prompts": "^2.4.9"
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.5.0"
   }
 }
