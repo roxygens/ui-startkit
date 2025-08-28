@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
-import fetch from 'node-fetch';
-import ora from 'ora';
-import prompts from 'prompts';
-import fs from 'fs-extra';
-import path from 'path';
-import { execa } from 'execa';
-import chalk from 'chalk';
+import { Command } from 'commander'
+import fetch from 'node-fetch'
+import ora from 'ora'
+import prompts from 'prompts'
+import fs from 'fs-extra'
+import path from 'path'
+import { execa } from 'execa'
+import chalk from 'chalk'
 
-const program = new Command();
+const program = new Command()
 
 // =================================================================
 // COMANDO INIT (ATUALIZADO COM O TEMA DO FIGMA PARA TAILWIND v4)
@@ -18,9 +18,9 @@ program
   .command('init')
   .description('Inicializa seu projeto com o tema "Skins Games" para Tailwind CSS v4')
   .action(async () => {
-    const spinner = ora('Iniciando configuração...').start();
+    const spinner = ora('Iniciando configuração...').start()
     try {
-      spinner.stop();
+      spinner.stop()
       const options = await prompts([
         {
           type: 'text',
@@ -40,29 +40,29 @@ program
           message: 'Qual alias você quer para os utils?',
           initial: '@/lib/utils',
         },
-      ]);
-      spinner.start('Configurando arquivos...');
+      ])
+      spinner.start('Configurando arquivos...')
 
       const componentsJson = {
-        $schema: "https://ui.shadcn.com/schema.json",
-        style: "default",
+        $schema: 'https://ui.shadcn.com/schema.json',
+        style: 'default',
         rsc: false,
         tsx: true,
         tailwind: {
-          config: "tailwind.config.js",
+          config: 'tailwind.config.js',
           css: options.tailwindCssFile,
-          baseColor: "slate", 
+          baseColor: 'slate',
           cssVariables: true,
         },
         aliases: {
           components: options.componentsAlias,
           utils: options.utilsAlias,
         },
-      };
-      await fs.writeFile('components.json', JSON.stringify(componentsJson, null, 2));
-      spinner.succeed('Arquivo `components.json` criado.');
+      }
+      await fs.writeFile('components.json', JSON.stringify(componentsJson, null, 2))
+      spinner.succeed('Arquivo `components.json` criado.')
 
-      spinner.start('Adicionando tema ao CSS...');
+      spinner.start('Adicionando tema ao CSS...')
       const themeConfig = `
       /* Configuração de tema "Skins Games" adicionada por @roxygens/ui-startkit */
         @import "tailwindcss";
@@ -225,85 +225,98 @@ program
           }
         }
 
-      `;
+      `
 
-      const originalCss = await fs.readFile(options.tailwindCssFile, 'utf-8');
-      await fs.writeFile(options.tailwindCssFile, themeConfig + '\n' + originalCss);
-      spinner.succeed(`Tema "Skins Games" adicionado a \`${options.tailwindCssFile}\`.`);
+      const originalCss = await fs.readFile(options.tailwindCssFile, 'utf-8')
+      await fs.writeFile(options.tailwindCssFile, themeConfig + '\n' + originalCss)
+      spinner.succeed(`Tema "Skins Games" adicionado a \`${options.tailwindCssFile}\`.`)
 
-      spinner.start('Instalando dependências...');
-      const dependencies = ['tailwindcss-animate', 'class-variance-authority', 'clsx', 'tailwind-merge', 'lucide-react'];
-      await execa('npm', ['install', ...dependencies]);
-      spinner.succeed('Dependências instaladas.');
+      spinner.start('Instalando dependências...')
+      const dependencies = [
+        'tailwindcss-animate',
+        'class-variance-authority',
+        'clsx',
+        'tailwind-merge',
+        'lucide-react',
+      ]
+      await execa('npm', ['install', ...dependencies])
+      spinner.succeed('Dependências instaladas.')
 
-      console.log(chalk.green('\n✔ Projeto inicializado com sucesso!'));
-      console.log(chalk.yellow('\n🚨 Lembretes:'));
-      console.log(chalk.yellow('  - Certifique-se de que seu `tailwind.config.js` está configurado para o modo escuro (`darkMode: "class"`).'));
-      console.log(chalk.yellow('  - Adicione a fonte "Inter" ao seu projeto para uma correspondência visual perfeita.'));
-
+      console.log(chalk.green('\n✔ Projeto inicializado com sucesso!'))
+      console.log(chalk.yellow('\n🚨 Lembretes:'))
+      console.log(
+        chalk.yellow(
+          '  - Certifique-se de que seu `tailwind.config.js` está configurado para o modo escuro (`darkMode: "class"`).',
+        ),
+      )
+      console.log(
+        chalk.yellow(
+          '  - Adicione a fonte "Inter" ao seu projeto para uma correspondência visual perfeita.',
+        ),
+      )
     } catch (error) {
-      spinner.fail('Falha na inicialização.');
-      console.error(chalk.red(error));
+      spinner.fail('Falha na inicialização.')
+      console.error(chalk.red(error))
     }
-  });
-
+  })
 
 program
   .command('add <component>')
   .description('Adiciona um componente ao seu projeto')
   .action(async (componentName) => {
-    const spinner = ora('Buscando registro de componentes...').start();
+    const spinner = ora('Buscando registro de componentes...').start()
     try {
-      const REGISTRY_URL = "https://raw.githubusercontent.com/roxygens/ui-startkit/main/registry.json";
-      const response = await fetch(REGISTRY_URL);
-      const registry: any = await response.json();
-      spinner.succeed('Registro encontrado.');
+      const REGISTRY_URL =
+        'https://raw.githubusercontent.com/roxygens/ui-startkit/main/registry.json'
+      const response = await fetch(REGISTRY_URL)
+      const registry: any = await response.json()
+      spinner.succeed('Registro encontrado.')
 
-      const componentData = registry.components[componentName];
+      const componentData = registry.components[componentName]
       if (!componentData) {
-        spinner.fail(`Erro: Componente '${componentName}' não encontrado no registro.`);
-        return;
+        spinner.fail(`Erro: Componente '${componentName}' não encontrado no registro.`)
+        return
       }
-      
-      spinner.start(`Instalando ${componentData.name}...`);
-      
-      let config;
+
+      spinner.start(`Instalando ${componentData.name}...`)
+
+      let config
       try {
-        const configContent = await fs.readFile('components.json', 'utf-8');
-        config = JSON.parse(configContent);
+        const configContent = await fs.readFile('components.json', 'utf-8')
+        config = JSON.parse(configContent)
       } catch (error) {
-        spinner.fail('Erro: Arquivo `components.json` não encontrado. Por favor, execute `npx @roxygens/ui-startkit@latest init` primeiro.');
-        return;
+        spinner.fail(
+          'Erro: Arquivo `components.json` não encontrado. Por favor, execute `npx @roxygens/ui-startkit@latest init` primeiro.',
+        )
+        return
       }
 
       for (const file of componentData.files) {
-        const fileContent = await fetch(file.contentUrl).then(res => res.text());
-        
-        let savePath;
-        if (file.path.includes("lib/utils")) {
-            const utilsDir = config.aliases.utils.replace('@/', 'src/');
-            savePath = path.join(process.cwd(), utilsDir + ".ts");
+        const fileContent = await fetch(file.contentUrl).then((res) => res.text())
+
+        let savePath
+        if (file.path.includes('lib/utils')) {
+          const utilsDir = config.aliases.utils.replace('@/', 'src/')
+          savePath = path.join(process.cwd(), utilsDir + '.ts')
         } else {
-            const componentsDir = config.aliases.components.replace('@/', 'src/');
-            savePath = path.join(process.cwd(), componentsDir, path.basename(file.path));
+          const componentsDir = config.aliases.components.replace('@/', 'src/')
+          savePath = path.join(process.cwd(), componentsDir, path.basename(file.path))
         }
-        
-        await fs.ensureDir(path.dirname(savePath));
-        await fs.writeFile(savePath, fileContent);
+
+        await fs.ensureDir(path.dirname(savePath))
+        await fs.writeFile(savePath, fileContent)
       }
-      
-      spinner.succeed(`${componentData.name} instalado com sucesso!`);
-      
+
+      spinner.succeed(`${componentData.name} instalado com sucesso!`)
+
       if (componentData.dependencies?.length > 0) {
-        console.log(chalk.yellow('\nEste componente tem dependências adicionais:'));
-        console.log(`npm install ${componentData.dependencies.join(' ')}`);
+        console.log(chalk.yellow('\nEste componente tem dependências adicionais:'))
+        console.log(`npm install ${componentData.dependencies.join(' ')}`)
       }
-
     } catch (error) {
-      spinner.fail('Falha ao buscar ou instalar o componente.');
-      console.error(chalk.red(error));
+      spinner.fail('Falha ao buscar ou instalar o componente.')
+      console.error(chalk.red(error))
     }
-  });
+  })
 
-
-program.parse(process.argv);
+program.parse(process.argv)
