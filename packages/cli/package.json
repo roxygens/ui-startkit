@@ -1,6 +1,6 @@
 {
-  "name": "cli",
-  "version": "0.0.1",
+  "name": "@jeffnts/ui-startkit",
+  "version": "0.0.2",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "type": "module",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roxygens/ui-startkit.git"
+    "url": "git+https://github.com/jeffnts/ui-startkit.git"
   },
   "dependencies": {
     "commander": "^14.0.0",
