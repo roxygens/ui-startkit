@@ -1,6 +1,6 @@
 {
   "name": "@jeffnts/ui-startkit",
-  "version": "0.0.7",
+  "version": "0.0.6",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "type": "module",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node18 --legacy-output"
+    "build": "tsup src/index.ts --format cjs --dts --clean"
   },
   "bin": {
     "ui-startkit": "./dist/index.cjs"
