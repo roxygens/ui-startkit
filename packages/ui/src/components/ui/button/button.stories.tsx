@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import {Circle  } from 'lucide-react'
-import { Button } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Circle } from 'lucide-react'
+import { Button } from '.'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -16,82 +16,18 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' },
     },
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Button>
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     children: 'Button',
     variant: 'primary',
     size: 'sm',
     icon: <Circle />,
-    iconPosition: 'both'
+    iconPosition: 'both',
   },
-};
-
-export const PrimaryIcon: Story = {
-  args: {
-    children: 'Button',
-    variant: 'primary',
-    size: 'sm',
-    icon: <Circle />,
-    isIconButton: true
-  },
-};
-
-
-
-export const Secondary: Story = {
-  args: {
-    children: 'Button',
-    variant: 'secondary',
-    size: 'sm',
-    icon: <Circle />,
-    iconPosition: 'both'
-  },
-};
-
-export const SecondaryIcon: Story = {
-  args: {
-    children: 'Button',
-    variant: 'secondary',
-    size: 'sm',
-    icon: <Circle />,
-    isIconButton: true
-  },
-};
-
-export const Tertiary: Story = {
-  args: {
-    children: 'Button',
-    variant: 'tertiary',
-    size: 'sm',
-    icon: <Circle />,
-    iconPosition: 'both'
-  },
-};
-
-export const TertiaryIcon: Story = {
-  args: {
-    children: 'Button',
-    variant: 'tertiary',
-    size: 'sm',
-    icon: <Circle />,
-     isIconButton: true
-  },
-};
-
-
-export const Link: Story = {
-  args: {
-    children: 'Button',
-    variant: 'link',
-    size: 'sm',
-    icon: <Circle />,
-    iconPosition: 'both'
-  },
-};
-
+}

@@ -45,17 +45,3 @@ export const Default: Story = {
     ...args,
   },
 }
-
-export const Small: Story = {
-  args: {
-    ...args,
-    size: 'sm',
-  },
-}
-
-export const Large: Story = {
-  args: {
-    ...args,
-    size: 'lg',
-  },
-}
