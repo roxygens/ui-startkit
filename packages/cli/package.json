@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --esbuild-target=node18 --legacy-output"
   },
   "bin": {
     "ui-startkit": "./dist/index.cjs"
