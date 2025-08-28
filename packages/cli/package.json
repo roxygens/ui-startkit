@@ -1,6 +1,6 @@
 {
-  "name": "@jeffnts/ui-startkit",
-  "version": "0.0.13",
+  "name": "@roxygens/ui-startkit",
+  "version": "0.0.1",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -19,10 +19,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffnts/ui-startkit.git"
+    "url": "git+https://github.com/roxygens/ui-startkit.git"
   },
   "dependencies": {
     "commander": "^14.0.0",
+    "dotenv": "^17.2.1",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.1",
     "node-fetch": "^3.3.2",

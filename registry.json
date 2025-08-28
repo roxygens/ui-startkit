@@ -3,15 +3,15 @@
   "components": {
     "button": {
       "name": "Button",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
       "files": [
         {
           "path": "components/ui/button.tsx",
-          "contentUrl": "https://raw.githubusercontent.com/jeffnts/ui-startkit/refs/heads/main/packages/ui/src/components/ui/button/button.tsx"
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/button/button.tsx"
         },
         {
           "path": "lib/utils.ts",
-          "contentUrl": "https://raw.githubusercontent.com/jeffnts/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
     }

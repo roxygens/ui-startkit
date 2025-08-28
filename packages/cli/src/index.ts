@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+import 'dotenv/config'
 import { Command } from 'commander'
 import fetch from 'node-fetch'
 import ora from 'ora'
@@ -16,7 +16,7 @@ const program = new Command()
 // =================================================================
 program
   .command('init')
-  .description('Inicializa seu projeto com o tema "Skins Games" para Tailwind CSS v4')
+  .description('Inicializa seu projeto com o tema "Default" para Tailwind CSS v4')
   .action(async () => {
     const spinner = ora('Iniciando configuração...').start()
     try {
@@ -26,7 +26,7 @@ program
           type: 'text',
           name: 'tailwindCssFile',
           message: 'Onde está seu arquivo CSS global?',
-          initial: 'src/index.css',
+          initial: 'src/app/globals.css',
         },
         {
           type: 'text',
@@ -64,7 +64,7 @@ program
 
       spinner.start('Adicionando tema ao CSS...')
       const themeConfig = `
-      /* Configuração de tema "Skins Games" adicionada por @roxygens/ui-startkit */
+      /* Configuração de tema "Default" adicionada por @roxygens/ui-startkit */
         @import "tailwindcss";
         @import "tw-animate-css";
 
@@ -266,13 +266,23 @@ program
   .action(async (componentName) => {
     const spinner = ora('Buscando registro de componentes...').start()
     try {
-      const REGISTRY_URL =
-        'https://raw.githubusercontent.com/jeffnts/ui-startkit/main/registry.json'
-      const response = await fetch(REGISTRY_URL)
-      const registry: any = await response.json()
+      const REGISTRY_API_URL =
+        'https://api.github.com/repos/roxygens/ui-startkit/contents/registry.json'
+
+      const response = await fetch(REGISTRY_API_URL, {
+        headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` },
+      })
+
+      const fileData: any = await response.json()
+
+      const registryContent = Buffer.from(fileData.content, 'base64').toString('utf-8')
+      const registry = JSON.parse(registryContent)
+
+      spinner.succeed('Registro encontrado.')
       spinner.succeed('Registro encontrado.')
 
       const componentData = registry.components[componentName]
+
       if (!componentData) {
         spinner.fail(`Erro: Componente '${componentName}' não encontrado no registro.`)
         return
@@ -292,7 +302,14 @@ program
       }
 
       for (const file of componentData.files) {
-        const fileContent = await fetch(file.contentUrl).then((res) => res.text())
+        const fileResponse = await fetch(file.contentUrl, {
+          headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` },
+        })
+
+        if (!fileResponse.ok) {
+          throw new Error(`Erro ao baixar arquivo: ${file.path}`)
+        }
+        const fileContent = await fileResponse.text()
 
         let savePath
         if (file.path.includes('lib/utils')) {
@@ -312,6 +329,10 @@ program
       if (componentData.dependencies?.length > 0) {
         console.log(chalk.yellow('\nEste componente tem dependências adicionais:'))
         console.log(`npm install ${componentData.dependencies.join(' ')}`)
+        await execa('npm', ['install', ...componentData.dependencies], {
+          stdio: 'inherit',
+          shell: true,
+        })
       }
     } catch (error) {
       spinner.fail('Falha ao buscar ou instalar o componente.')
