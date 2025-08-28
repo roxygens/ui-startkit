@@ -2,8 +2,8 @@ name: Publish to GitHub Packages
 
 on:
   release:
-    types: [created] 
-  workflow_dispatch: 
+    types: [created]
+  workflow_dispatch:
 
 jobs:
   publish-cli:
@@ -14,16 +14,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
-          registry-url: 'https://npm.pkg.github.com/' 
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: Authenticate to GitHub Packages
+        run: npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
-        run: npm install 
+        run: npm install
 
       - name: Build CLI
-        run: npm run build 
+        run: npm run build-cli
 
       - name: Publish CLI to GitHub Packages
         run: npm run publish-cli
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

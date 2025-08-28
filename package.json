@@ -9,6 +9,7 @@
     "dev": "npm run storybook -w=ui",
     "build": "npm run build --workspaces",
     "serve": "npx http-server ./packages/ui/storybook-static",
+    "build-cli" : "npm run build -w=@jeffnts/ui-startkit",
     "publish-cli": "npm publish -w=@jeffnts/ui-startkit"
   },
   "keywords": [],
