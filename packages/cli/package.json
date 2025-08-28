@@ -1,6 +1,6 @@
 {
   "name": "@roxygens/ui-startkit",
-  "version": "0.0.18",
+  "version": "0.0.1",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
