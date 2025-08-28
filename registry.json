@@ -1,6 +1,20 @@
 {
   "version": "0.0.1",
   "components": {
+    "badge": {
+      "name": "Badge",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/badge.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/badge/badge.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
     "button": {
       "name": "Button",
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
@@ -8,6 +22,76 @@
         {
           "path": "components/ui/button.tsx",
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/button/button.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+    "card": {
+      "name": "Card",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/card.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/card/card.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+    "input": {
+      "name": "Input",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/input.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/input/input.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+    "score-bar": {
+      "name": "Score Bar",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/score-bar.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/score-bar/score-bar.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+     "select": {
+      "name": "Select",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/select.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/select/select.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+    "tag": {
+      "name": "Tag",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "files": [
+        {
+          "path": "components/ui/tag.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/tag/tag.tsx"
         },
         {
           "path": "lib/utils.ts",
