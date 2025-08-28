@@ -33,27 +33,3 @@ export const Default: Story = {
     size: 'md',
   },
 }
-
-export const ExtraSmall: Story = {
-  parameters: {
-    docsOnly: true,
-  },
-  args: {
-    placeholder: 'Placeholder',
-    size: 'xs',
-  },
-}
-
-export const Small: Story = {
-  args: {
-    placeholder: 'Placeholder',
-    size: 'sm',
-  },
-}
-
-export const Large: Story = {
-  args: {
-    placeholder: 'Placeholder',
-    size: 'lg',
-  },
-}
