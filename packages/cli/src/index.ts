@@ -328,7 +328,10 @@ program
 
       if (componentData.dependencies?.length > 0) {
         console.log(chalk.yellow('\nEste componente tem dependências adicionais:'))
-        console.log(`npm install ${componentData.dependencies.join(' ')}`)
+        await execa('npm', ['install', ...componentData.dependencies], {
+          stdio: 'inherit',
+          shell: true,
+        })
       }
     } catch (error) {
       spinner.fail('Falha ao buscar ou instalar o componente.')
