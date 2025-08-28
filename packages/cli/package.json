@@ -2,15 +2,14 @@
   "name": "@jeffnts/ui-startkit",
   "version": "0.0.6",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
-  "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs --dts --clean"
+    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra"
   },
   "bin": {
     "ui-startkit": "./dist/index.cjs"
