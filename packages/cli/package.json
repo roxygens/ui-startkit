@@ -1,6 +1,6 @@
 {
   "name": "@jeffnts/ui-startkit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "type": "module",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts"
   },
   "bin": {
-    "ui-startkit": "./dist/index.js"
+    "ui-startkit": "./dist/index.cjs"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
