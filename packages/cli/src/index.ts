@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+import 'dotenv/config'
 import { Command } from 'commander'
 import fetch from 'node-fetch'
 import ora from 'ora'
@@ -266,13 +266,23 @@ program
   .action(async (componentName) => {
     const spinner = ora('Buscando registro de componentes...').start()
     try {
-      const REGISTRY_URL =
-        'https://raw.githubusercontent.com/jeffnts/ui-startkit/refs/heads/main/registry.json?token=GHSAT0AAAAAADIQGQBMMIYCK2SMAEZFTUGG2FQYQZQ'
-      const response = await fetch(REGISTRY_URL)
-      const registry: any = await response.json()
+      const REGISTRY_API_URL =
+        'https://api.github.com/repos/jeffnts/ui-startkit/contents/registry.json'
+
+      const response = await fetch(REGISTRY_API_URL, {
+        headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` },
+      })
+
+      const fileData: any = await response.json()
+
+      const registryContent = Buffer.from(fileData.content, 'base64').toString('utf-8')
+      const registry = JSON.parse(registryContent)
+
+      spinner.succeed('Registro encontrado.')
       spinner.succeed('Registro encontrado.')
 
       const componentData = registry.components[componentName]
+
       if (!componentData) {
         spinner.fail(`Erro: Componente '${componentName}' não encontrado no registro.`)
         return
@@ -292,7 +302,14 @@ program
       }
 
       for (const file of componentData.files) {
-        const fileContent = await fetch(file.contentUrl).then((res) => res.text())
+        const fileResponse = await fetch(file.contentUrl, {
+          headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` },
+        })
+
+        if (!fileResponse.ok) {
+          throw new Error(`Erro ao baixar arquivo: ${file.path}`)
+        }
+        const fileContent = await fileResponse.text()
 
         let savePath
         if (file.path.includes('lib/utils')) {
