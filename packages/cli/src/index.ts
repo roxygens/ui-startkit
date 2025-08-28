@@ -267,7 +267,7 @@ program
     const spinner = ora('Buscando registro de componentes...').start()
     try {
       const REGISTRY_URL =
-        'https://raw.githubusercontent.com/jeffnts/ui-startkit/refs/heads/main/registry.json'
+        'https://raw.githubusercontent.com/jeffnts/ui-startkit/refs/heads/main/registry.json?token=GHSAT0AAAAAADIQGQBMMIYCK2SMAEZFTUGG2FQYQZQ'
       const response = await fetch(REGISTRY_URL)
       const registry: any = await response.json()
       spinner.succeed('Registro encontrado.')
