@@ -23,7 +23,7 @@ describe('Tag', () => {
 
     expect(tagElement).toHaveClass('inline-flex')
     expect(tagElement).toHaveClass('items-center')
-    expect(tagElement).toHaveClass('rounded')
+    expect(tagElement).toHaveClass('rounded-[13px]')
     expect(tagElement).toHaveClass('border')
     expect(tagElement).toHaveClass('border-white/15')
     expect(tagElement).toHaveClass('bg-white/5')
@@ -49,7 +49,7 @@ describe('Tag', () => {
     expect(tagElement).toHaveClass('text-white')
     expect(tagElement).not.toHaveClass('text-[#FFF172]')
 
-    expect(tagElement).toHaveClass('rounded')
+    expect(tagElement).toHaveClass('rounded-[13px]')
     expect(tagElement).toHaveClass('uppercase')
   })
 })
