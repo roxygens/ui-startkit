@@ -170,9 +170,115 @@ export const Playground: Story = {
   args: {
     variant: 'Default',
     disabled: false,
+    className: '',
   } as Record<string, unknown>,
-  render: (args: { variant?: CardVariant; disabled?: boolean }) => {
+  render: (args: { variant?: CardVariant; disabled?: boolean; className?: string }) => {
     const variant = args.variant || 'Default'
-    return <Card {...args}>{variants[variant]()}</Card>
+
+    if (variant === 'Remove') {
+      return (
+        <Card onClick={() => {}} disabled={args.disabled} className={args?.className}>
+          <Card.Header>
+            <div className="flex items-center gap-2 mb-[36px]">
+              <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
+              <p className="info-text">Possível de trocar</p>
+            </div>
+
+            <Card.HeaderImages
+              images={[
+                { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+                { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+              ]}
+            />
+
+            <div className="flex flex-row items-start gap-[8px] mb-[8px]">
+              <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+              <Badge value={15} />
+            </div>
+
+            <p className="text-xs text-[#707179]">
+              Preço de referência {formatCurrency(3054.87)} R$
+            </p>
+          </Card.Header>
+
+          <Card.Content>
+            <Tag>Luvas Desportivas</Tag>
+
+            <div className="flex flex-row items-center justify-between text-white">
+              <p className="text-base">Vice</p>
+              <TagIcon width={16} height={16} />
+            </div>
+
+            <p className="text-medium text-[#707179]">
+              Testado no Terreno luvas
+              <br />
+              (Extraordinário) ★
+            </p>
+
+            <ScoreBar value={0.324} />
+          </Card.Content>
+
+          <Card.FooterButton
+            onClick={() => console.log('Remover do carrinho')}
+            options={options}
+            className="bg-destructive text-white"
+          >
+            <div className="flex items-center gap-2 text-white">
+              <Trash width={16} height={16} />
+              <p>REMOVER</p>
+            </div>
+          </Card.FooterButton>
+        </Card>
+      )
+    }
+
+    return (
+      <Card onClick={() => {}} disabled={args.disabled} className={args?.className}>
+        <Card.Header>
+          <div className="flex items-center gap-2 mb-[36px]">
+            <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
+            <p className="info-text">Possível de trocar</p>
+          </div>
+
+          <Card.HeaderImages
+            images={[
+              { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+              { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+            ]}
+          />
+
+          <div className="flex flex-row items-start gap-[8px] mb-[8px]">
+            <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+            <Badge value={15} />
+          </div>
+
+          <p className="text-xs text-[#707179]">Preço de referência {formatCurrency(3054.87)} R$</p>
+        </Card.Header>
+
+        <Card.Content>
+          <Tag>Luvas Desportivas</Tag>
+
+          <div className="flex flex-row items-center justify-between text-white">
+            <p className="text-base">Vice</p>
+            <TagIcon width={16} height={16} />
+          </div>
+
+          <p className="text-medium text-[#707179]">
+            Testado no Terreno luvas
+            <br />
+            (Extraordinário) ★
+          </p>
+
+          <ScoreBar value={0.324} />
+        </Card.Content>
+
+        <Card.FooterButton onClick={() => console.log('Adicionar ao carrinho')} options={options}>
+          <div className="flex items-center gap-2">
+            <ShoppingCart width={16} height={16} />
+            <p>ADICIONAR</p>
+          </div>
+        </Card.FooterButton>
+      </Card>
+    )
   },
 }
