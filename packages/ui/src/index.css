@@ -65,6 +65,7 @@
   --foreground: oklch(0.145 0 0);
   --card: #1F1F1F;
   --card-foreground: oklch(0.145 0 0);
+  --menu-card-background-hover: #2C2C2C;
   --popover: oklch(1 0 0);
   --primary: #23C7FD;
   --primary-rgb: 35, 199, 253;
@@ -109,7 +110,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --card-background: #1F1F1F;
 }
 
 @layer base {

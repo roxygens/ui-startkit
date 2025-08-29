@@ -207,7 +207,7 @@ Card.FooterButton = function CardFooterButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute w-full left-[0] bottom-[50px] bg-[#1F1F1F] 
+          `absolute w-full left-[0] bottom-[50px] bg-[var(--card)] 
           font-inter not-italic font-semibold text-[12px] leading-[18px] text-center 
           text-white rounded-[8px] overflow-hidden`,
           'transform-gpu transition-all duration-200 ease-out',
@@ -220,7 +220,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[#2C2C2C] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
