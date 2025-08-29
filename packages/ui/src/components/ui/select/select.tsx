@@ -22,7 +22,7 @@ const selectVariants = cva(
 
     shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--secondary-border)]
 
-    disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm disabled:bg-[var(--primary-disabled)] disabled:text-[var(--primary-foreground-disabled)]
+    disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
 
     hover:border-[var(--primary)] 
 

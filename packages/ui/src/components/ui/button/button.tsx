@@ -10,11 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-primary text-primary-foreground hover:bg-primary-hover disabled:bg-[var(--primary-disabled)] disabled:text-[var(--primary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
+          'bg-primary text-primary-foreground hover:bg-primary-hover disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
         secondary:
-          'bg-secondary text-secondary-foreground border border-secondary-border hover:text-secondary-foreground-hover disabled:bg-[var(--secondary-disabled)] disabled:text-[var(--secondary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
+          'bg-secondary text-secondary-foreground border border-secondary-border hover:text-secondary-foreground-hover disabled:bg-[var(--disabled)] disabled:text-[var(--secondary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
         tertiary:
-          'bg-tertiary text-tertiary-foreground border border-tertiary-border hover:bg-tertiary-hover hover:text-tertiary-foreground-hover disabled:bg-[var(--tertiary-disabled)] disabled:text-[var(--tertiary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
+          'bg-tertiary text-tertiary-foreground border border-tertiary-border hover:bg-tertiary-hover hover:text-tertiary-foreground-hover disabled:bg-[var(--disabled)] disabled:text-[var(--tertiary-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
         link: 'text-link-foreground hover:text-link-foreground-hover disabled:text-[var(--link-foreground-disabled)] disabled:cursor-not-allowed shadow-xs rounded-sm font-inter font-semibold text-sm leading-[20px]  flex-none order-1 grow-0 ',
       },
       size: {

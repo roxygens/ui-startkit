@@ -3,7 +3,7 @@
   "components": {
     "badge": {
       "name": "Badge",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": ["class-variance-authority"],
       "files": [
         {
           "path": "components/ui/badge.tsx",
@@ -17,7 +17,7 @@
     },
     "button": {
       "name": "Button",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
           "path": "components/ui/button.tsx",
@@ -31,7 +31,7 @@
     },
     "card": {
       "name": "Card",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": [],
       "files": [
         {
           "path": "components/ui/card.tsx",
@@ -45,7 +45,7 @@
     },
     "input": {
       "name": "Input",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": ["class-variance-authority"],
       "files": [
         {
           "path": "components/ui/input.tsx",
@@ -73,7 +73,7 @@
     },
      "select": {
       "name": "Select",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": ["@radix-ui/react-select", "class-variance-authority"],
       "files": [
         {
           "path": "components/ui/select.tsx",
