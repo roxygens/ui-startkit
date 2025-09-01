@@ -293,7 +293,7 @@ CardMini.FooterButton = function CardMiniFooterButton({
   className,
   children,
   ...rest
-}: CardContentProps) {
+}: CardFooterButtonProps) {
   return (
     <Card.FooterButton className={cn(className)} {...rest}>
       {children}

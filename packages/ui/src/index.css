@@ -137,7 +137,7 @@
   }
 
   .text-lg {
-    @apply  not-italic text-[14.72px] leading-[22.08px] tracking-[0] 
+    @apply  not-italic text-[14.72px] leading-[22.08px] tracking-[0];
   }
 
   .text-2xl {
