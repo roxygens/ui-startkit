@@ -1,7 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
-import { Card } from '.'
+import { EllipsisVertical } from 'lucide-react'
+import { Card, CardMini } from '.'
 
 describe('Card', () => {
   describe('Card (Provider)', () => {
@@ -230,6 +231,132 @@ describe('Card', () => {
       )
 
       spy.mockRestore()
+    })
+  })
+
+  describe('CardMini', () => {
+    it('should render CardMini container with children', () => {
+      render(
+        <CardMini>
+          <span data-testid="child">Child</span>
+        </CardMini>,
+      )
+
+      const container = screen.getByTestId('card-mini-container')
+      expect(container).toBeInTheDocument()
+      expect(screen.getByTestId('child')).toBeInTheDocument()
+    })
+
+    it('should call onClick when container is clicked', () => {
+      const handleClick = vi.fn()
+      render(<CardMini onClick={handleClick}>Content</CardMini>)
+
+      fireEvent.click(screen.getByTestId('card-mini-container'))
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    it('should apply custom className to container', () => {
+      render(<CardMini className="custom-class">Content</CardMini>)
+      expect(screen.getByTestId('card-mini-container')).toHaveClass('custom-class')
+    })
+  })
+
+  describe('CardMini.Header', () => {
+    it('should render header with children', () => {
+      render(
+        <CardMini>
+          <CardMini.Header>
+            <h1 data-testid="header-text">Header</h1>
+          </CardMini.Header>
+        </CardMini>,
+      )
+      expect(screen.getByTestId('header-text')).toBeInTheDocument()
+    })
+  })
+
+  describe('CardMini.Images', () => {
+    const primaryImage = { url: '/img1.png', alt: 'Primary' }
+    const hoverImage = { url: '/img2.png', alt: 'Hover' }
+
+    it('should render primary image', () => {
+      render(
+        <CardMini>
+          <CardMini.Images images={[primaryImage]} />
+        </CardMini>,
+      )
+      expect(screen.getByAltText('Primary')).toBeInTheDocument()
+    })
+
+    it('should render hover image when provided', () => {
+      render(
+        <CardMini>
+          <CardMini.Images images={[primaryImage, hoverImage]} />
+        </CardMini>,
+      )
+      expect(screen.getByAltText('Hover')).toBeInTheDocument()
+    })
+  })
+
+  describe('CardMini.Content', () => {
+    it('should render content with children', () => {
+      render(
+        <CardMini>
+          <CardMini.Content>
+            <p data-testid="content-text">Content</p>
+          </CardMini.Content>
+        </CardMini>,
+      )
+      expect(screen.getByTestId('content-text')).toBeInTheDocument()
+    })
+  })
+
+  describe('CardMini.FooterButton', () => {
+    const options = [
+      { icon: <EllipsisVertical data-testid="icon" />, title: 'Option 1', onClick: vi.fn() },
+    ]
+
+    it('should render footer button with children', () => {
+      render(
+        <CardMini>
+          <CardMini.FooterButton>Click me</CardMini.FooterButton>
+        </CardMini>,
+      )
+      expect(screen.getByText('Click me')).toBeInTheDocument()
+    })
+
+    it('should call onClick when footer button is clicked', () => {
+      const handleClick = vi.fn()
+      render(
+        <CardMini>
+          <CardMini.FooterButton onClick={handleClick}>Click me</CardMini.FooterButton>
+        </CardMini>,
+      )
+
+      fireEvent.click(screen.getByText('Click me'))
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    it('should render options menu when provided', () => {
+      render(
+        <CardMini>
+          <CardMini.FooterButton options={options}>Click me</CardMini.FooterButton>
+        </CardMini>,
+      )
+
+      expect(screen.getByTestId('options-button')).toBeInTheDocument()
+    })
+
+    it('should call option onClick when menu item is clicked', () => {
+      render(
+        <CardMini>
+          <CardMini.FooterButton options={options}>Click me</CardMini.FooterButton>
+        </CardMini>,
+      )
+
+      fireEvent.click(screen.getByTestId('options-button'))
+      fireEvent.click(screen.getByText('Option 1'))
+
+      expect(options[0].onClick).toHaveBeenCalled()
     })
   })
 })

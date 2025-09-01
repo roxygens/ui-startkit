@@ -123,12 +123,9 @@
 }
 
 @layer utilities {
-  .text-2xl {
-    @apply  not-italic font-bold text-[24px] leading-[32px];
-  }
 
-  .text-xs {
-    @apply font-medium text-xs leading-[18px];
+  .text-body {
+    @apply font-normal not-italic text-[11.78px] leading-[17.66px] tracking-[0] text-center ;
   }
 
   .text-base  {
@@ -137,6 +134,14 @@
 
   .text-medium {
    @apply font-medium text-sm leading-5; 
+  }
+
+  .text-lg {
+    @apply  not-italic text-[14.72px] leading-[22.08px] tracking-[0];
+  }
+
+  .text-2xl {
+    @apply  not-italic font-bold text-[24px] leading-[32px];
   }
 
   .card-shadow {
