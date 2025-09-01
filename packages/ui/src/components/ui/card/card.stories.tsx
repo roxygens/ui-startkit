@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tag } from '@/components/ui/tag'
 import { ScoreBar } from '@/components/ui/score-bar'
 import { formatCurrency } from '@/utils'
-import { Card } from '.'
+import { Card, CardMini } from '.'
 
 const options = [
   {
@@ -38,7 +38,7 @@ const options = [
   },
 ]
 
-type CardVariant = 'Default' | 'Remove'
+type CardVariant = 'Default' | 'Remove' | 'Mini' | 'List'
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
@@ -47,7 +47,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['Default', 'Remove'],
+      options: ['Default', 'Remove', 'Mini', 'List'],
       description: 'Seleciona a variante do Card',
     },
     disabled: { control: 'boolean' },
@@ -122,6 +122,34 @@ export const Playground: Story = {
             </div>
           </Card.FooterButton>
         </Card>
+      )
+    }
+
+    if (variant === 'Mini') {
+      return (
+        <CardMini onClick={() => {}} disabled={args.disabled} className={args?.className}>
+          <CardMini.Header>
+            <CardMini.Images
+              images={[
+                { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+                { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+              ]}
+            />
+          </CardMini.Header>
+
+          <CardMini.Content>
+            <p className="text-xs text-white">Vice</p>
+            <div className="flex items-baseline gap-[4px]">
+              <p className="text-body text-[var(--muted-foreground)]">De</p>
+
+              <p className="text-white font-bold text-lg">R$ {formatCurrency(3254.05)}</p>
+            </div>
+          </CardMini.Content>
+
+          <Card.FooterButton onClick={() => console.log('Adicionar ao carrinho')}>
+            Ver 23 Ofertas
+          </Card.FooterButton>
+        </CardMini>
       )
     }
 

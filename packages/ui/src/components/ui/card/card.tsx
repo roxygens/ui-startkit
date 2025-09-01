@@ -49,7 +49,7 @@ export function Card(props: Props) {
         onClick={onClick}
         className={cn(
           'cursor-pointer bg-[var(--card)] rounded-[8px] card-shadow group/card',
-          'flex flex-col relative hover:border hover:border-[var(--primary)] rounded-[8px] group/footer-buttons',
+          'flex flex-col relative hover:border-[2px] hover:border-[var(--primary)] rounded-[8px] group/footer-buttons',
           {
             'bg-[#36393F]': isNavOptionsOpen,
           },
@@ -62,10 +62,10 @@ export function Card(props: Props) {
   )
 }
 
-type CardHeaderProps = {} & PropsWithChildren
+type CardHeaderProps = { className?: string } & PropsWithChildren
 
-Card.Header = function CardHeader({ children }: CardHeaderProps) {
-  return <header className="group/header px-[16px] pt-[16px]">{children}</header>
+Card.Header = function CardHeader({ children, className }: CardHeaderProps) {
+  return <header className={cn('group/header px-[16px] pt-[16px]', className)}>{children}</header>
 } as React.FC<CardHeaderProps>
 
 type Image = {
@@ -170,10 +170,11 @@ Card.FooterButton = function CardFooterButton({
             h-0 flex justify-between items-stretch 
             text-[var(--primary-foreground)] bg-[var(--primary)] 
             font-inter font-semibold text-xs leading-[18px] 
-            rounded-b-[8px]
+            rounded-b-[6px]
             transform-gpu transition-all duration-300 ease-in-out
             opacity-0 -translate-y-4 pointer-events-none
-            group-hover/footer-buttons:h-[50px] group-hover/footer-buttons:opacity-100 group-hover/footer-buttons:translate-y-0 group-hover/footer-buttons:pointer-events-auto  
+            hover:opacity-80
+            group-hover/footer-buttons:h-[50px] group-hover/footer-buttons:opacity-100 group-hover/footer-buttons:translate-y-0 group-hover/footer-buttons:pointer-events-auto
             
             `,
           className,
@@ -194,7 +195,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             data-testid="options-button"
             onClick={handleOpenNavOptions}
-            className={cn('cursor-pointer py-[18px] px-[6px] border-l border-black/20')}
+            className={cn('cursor-pointer px-[6px] border-l border-black/20')}
             style={{ borderColor: 'currentColor' }}
             aria-label="Abrir opções do card"
             disabled={disabled}
@@ -220,7 +221,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
@@ -231,3 +232,73 @@ Card.FooterButton = function CardFooterButton({
 } as React.FC<CardFooterButtonProps>
 
 Card.FooterButton.displayName = 'Card.FooterButton'
+
+export function CardMini(props: Props) {
+  const { children, onClick, className, disabled } = props
+
+  return (
+    <CardContext.Provider
+      value={{ disabled, isNavOptionsOpen: false, setIsNavOptionsOpen: () => {} }}
+    >
+      <div
+        data-testid="card-mini-container"
+        onClick={onClick}
+        className={cn(
+          'cursor-pointer bg-[var(--card)] rounded-b-[5.89px] card-shadow group/card',
+          'flex flex-col relative !border-t-[3px] !border-t-[var(--primary)] group/footer-buttons ',
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </CardContext.Provider>
+  )
+}
+
+CardMini.Header = function CardMiniHeader({ children, className }: CardHeaderProps) {
+  return (
+    <Card.Header className={cn('px-[16px] pt-[32px] pb-[12px]', className)}>{children}</Card.Header>
+  )
+} as React.FC<CardHeaderProps>
+
+CardMini.Header.displayName = 'CardMini.Header'
+
+CardMini.Images = function CardMiniImages(props: CardHeaderImagesProps) {
+  return (
+    <Card.HeaderImages
+      images={props.images}
+      className={cn('m-0 group-hover/card:m-0', props.className)}
+    />
+  )
+} as React.FC<CardHeaderImagesProps>
+
+CardMini.Images.displayName = 'CardMini.Images'
+
+CardMini.Content = function CardMiniContent({ children, className }: CardContentProps) {
+  return (
+    <Card.Content
+      className={cn(
+        'flex flex-col items-center gap-[8px] p-[0] mt-[12px] mb-[20px] group-hover/card:mb-[20px]',
+        className,
+      )}
+    >
+      {children}
+    </Card.Content>
+  )
+} as React.FC<CardContentProps>
+
+CardMini.Content.displayName = 'CardMini.Content'
+
+CardMini.FooterButton = function CardMiniFooterButton({
+  className,
+  children,
+  ...rest
+}: CardContentProps) {
+  return (
+    <Card.FooterButton className={cn(className)} {...rest}>
+      {children}
+    </Card.FooterButton>
+  )
+} as React.FC<CardFooterButtonProps>
+
+CardMini.FooterButton.displayName = 'CardMini.FooterButton'
