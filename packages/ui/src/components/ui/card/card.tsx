@@ -63,7 +63,7 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
     <div
       className={cn(
         'cursor-pointer bg-[var(--card)] rounded-[.5rem] card-shadow p-[1rem] ',
-        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]  group-hover/card:border-b-0',
+        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]  group-hover/card:border-b-[transparent] group-hover/card:border-b-[.13rem]',
         {
           'bg-[var(--card-hover)]': isNavOptionsOpen,
         },
@@ -85,10 +85,16 @@ type Image = {
 type CardImagesProps = {
   images: Image[]
   className?: string
+  imageClassName?: string
   hoverInterval?: number
 }
 
-Card.Images = function CardImages({ images, className, hoverInterval = 1000 }: CardImagesProps) {
+Card.Images = function CardImages({
+  images,
+  className,
+  imageClassName,
+  hoverInterval = 1000,
+}: CardImagesProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
 
@@ -126,7 +132,10 @@ Card.Images = function CardImages({ images, className, hoverInterval = 1000 }: C
       onMouseLeave={handleMouseLeave}
     >
       <img
-        className="h-[96px] mx-auto object-cover transition-opacity duration-300 ease-in-out"
+        className={cn(
+          'h-[96px] mx-auto object-cover transition-opacity duration-300 ease-in-out',
+          imageClassName,
+        )}
         src={currentImage.url}
         alt={currentImage.alt}
         loading="lazy"
@@ -178,14 +187,14 @@ Card.FooterButton = function CardFooterButton({
     <>
       <footer
         className={cn(
-          ` group/footer-button 
-            absolute left-0  right-0 
+          `
+            absolute left-0  right-0 top-[99%]
             flex justify-between items-stretch 
             font-inter font-semibold text-xs leading-[1.13rem] 
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
             pointer-events-none opacity-0
             group-hover/card:pointer-events-auto group-hover/card:opacity-100
-            group-hover/card:border-[var(--primary)]  group-hover/card:border-x-[.13rem]  group-hover/card:border-b-[.13rem]  group-hover/card:rounded-x-[0.35rem] group-hover/card:rounded-b-[0.35rem]
+            group-hover/card:border-[var(--primary)]  group-hover/card:border-x-[.13rem]   group-hover/card:border-b-[.13rem]  group-hover/card:rounded-x-[0.35rem] group-hover/card:rounded-b-[0.35rem]
             `,
           className,
           {
@@ -196,7 +205,7 @@ Card.FooterButton = function CardFooterButton({
         <button
           onClick={handleClickButton}
           className={cn(
-            'cursor-pointer h-[2.7rem] flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-bl-[0.2rem]',
+            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-bl-[0.2rem]',
             {
               'rounded-br-[0.35rem]': !options?.length,
             },
@@ -329,6 +338,18 @@ CardList.Content = function CardListContent({ children, className }: CardContent
 } as React.FC<CardContentProps>
 
 CardList.Content.displayName = 'CardList.Content'
+
+CardList.Images = function CardListImage({ className, imageClassName, ...rest }: CardImagesProps) {
+  return (
+    <Card.Images
+      {...rest}
+      className={cn('mb-0', className)}
+      imageClassName={cn('h-[74px]', imageClassName)}
+    />
+  )
+} as React.FC<CardImagesProps>
+
+CardList.Images.displayName = 'CardList.Images'
 
 type CardListBoxProps = {} & PropsWithChildren
 

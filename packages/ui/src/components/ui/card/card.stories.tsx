@@ -85,7 +85,7 @@ export const Playground: Story = {
       return (
         <CardList onClick={() => {}} disabled={args.disabled} className={args?.className}>
           <CardList.Content>
-            <Card.Images
+            <CardList.Images
               images={[
                 { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
                 { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
