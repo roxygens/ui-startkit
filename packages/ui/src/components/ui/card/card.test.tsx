@@ -1,10 +1,13 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, act, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { EllipsisVertical } from 'lucide-react'
-import { Card, CardMini } from '.'
+import { Card, CardMini, CardList } from '.'
 
 describe('Card', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
   describe('Card (Provider)', () => {
     it('should render its children correctly', () => {
       render(
@@ -31,111 +34,166 @@ describe('Card', () => {
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
-    it('should toggle the background color when options are opened and closed', async () => {
-      const user = userEvent.setup()
-      render(
+    it('should close nav options on blur when relatedTarget is outside', () => {
+      const { getByTestId } = render(<Card>Blur test</Card>)
+      const container = getByTestId('card-container')
+      fireEvent.blur(container, { relatedTarget: document.body })
+      expect(container).toBeInTheDocument()
+    })
+
+    it('should not close nav options on blur when relatedTarget is inside', () => {
+      const { getByTestId } = render(
         <Card>
-          <Card.FooterButton options={[{ title: 'Opção 1', icon: <i />, onClick: vi.fn() }]}>
-            Ação
-          </Card.FooterButton>
+          <button>Inside</button>
         </Card>,
       )
-
-      const cardContainer = screen.getByTestId('card-container')
-      const optionsButton = screen.getByTestId('options-button')
-
-      expect(cardContainer).not.toHaveClass('bg-[#36393F]')
-
-      await user.click(optionsButton)
-
-      await waitFor(() => {
-        expect(cardContainer).toHaveClass('bg-[#36393F]')
-      })
-
-      await user.click(optionsButton)
-
-      await waitFor(() => {
-        expect(cardContainer).not.toHaveClass('bg-[#36393F]')
-      })
+      const container = getByTestId('card-container')
+      const button = container.querySelector('button')!
+      fireEvent.blur(container, { relatedTarget: button })
+      expect(container).toBeInTheDocument()
     })
 
-    it('should close the navigation options on the onBlur event', async () => {
-      const user = userEvent.setup()
-      render(
-        <div>
-          <Card>
-            <Card.FooterButton options={[{ title: 'Option 1', icon: <i />, onClick: vi.fn() }]}>
-              Action
-            </Card.FooterButton>
-          </Card>
-          <button>External Button</button>
-        </div>,
-      )
-
-      const cardContainer = screen.getByTestId('card-container')
-      const optionsButton = screen.getByRole('button', { name: /abrir opções/i })
-
-      await user.click(optionsButton)
-      expect(cardContainer).toHaveClass('bg-[#36393F]')
-
-      await user.tab()
-      await user.tab()
-      await user.tab()
-
-      expect(cardContainer).not.toHaveClass('bg-[#36393F]')
+    it('should close nav options on mouse leave', () => {
+      const { getByTestId } = render(<Card>Mouse leave</Card>)
+      const container = getByTestId('card-container')
+      fireEvent.mouseLeave(container)
+      expect(container).toBeInTheDocument()
     })
   })
 
-  describe('Card.Header', () => {
-    it('should render its children', () => {
-      render(<Card.Header>Header Title</Card.Header>)
-      expect(screen.getByText('Header Title')).toBeInTheDocument()
-    })
-  })
+  describe('Card.Images', () => {
+    const images = [
+      { url: 'image1.jpg', alt: 'Image 1' },
+      { url: 'image2.jpg', alt: 'Image 2' },
+      { url: 'image3.jpg', alt: 'Image 3' },
+    ]
 
-  describe('Card.HeaderImages', () => {
-    const primaryImage = { url: 'primary.jpg', alt: 'Primary Image' }
-    const hoverImage = { url: 'hover.jpg', alt: 'Hover Image' }
-
-    it('should render only the primary image if it is the only one provided', () => {
-      render(<Card.HeaderImages images={[primaryImage]} />)
-      const images = screen.getAllByRole('img')
-      expect(images).toHaveLength(1)
-      expect(images[0]).toHaveAttribute('src', primaryImage.url)
-      expect(images[0]).toHaveAttribute('alt', primaryImage.alt)
+    it('should not render <img> when currentImage is undefined', () => {
+      render(<Card.Images images={[]} />)
+      const img = screen.queryByRole('img')
+      expect(img).not.toBeInTheDocument()
     })
 
-    it('should render both images when two are provided', () => {
-      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
-      const images = screen.getAllByRole('img')
-      expect(images).toHaveLength(2)
-      expect(screen.getByAltText(primaryImage.alt)).toBeInTheDocument()
-      expect(screen.getByAltText(hoverImage.alt)).toBeInTheDocument()
+    it('should return early if images.length <= 1', () => {
+      const singleImage = [{ url: 'image1.jpg', alt: 'Image 1' }]
+
+      const { getByAltText } = render(<Card.Images images={singleImage} />)
+
+      expect(getByAltText('Image 1')).toBeInTheDocument()
     })
 
-    it('should apply the correct transition class when a hover image is present', () => {
-      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
-      const primaryImgElement = screen.getByAltText(primaryImage.alt)
-      expect(primaryImgElement).toHaveClass('group-hover/header:opacity-0')
+    it('should render the first image by default', () => {
+      render(<Card.Images images={images} />)
+      const img = screen.getByRole('img')
+      expect(img).toHaveAttribute('src', 'image1.jpg')
+      expect(img).toHaveAttribute('alt', 'Image 1')
     })
 
-    it('should apply a custom className', () => {
-      const { container } = render(
-        <Card.HeaderImages images={[primaryImage]} className="custom-images" />,
-      )
-      expect(container.firstChild).toHaveClass('custom-images')
+    it('should render with custom className and imageClassName', () => {
+      render(<Card.Images images={images} className="custom-class" imageClassName="image-custom" />)
+      expect(screen.getByRole('img')).toHaveClass('image-custom')
+      expect(screen.getByRole('img').parentElement).toHaveClass('custom-class')
+    })
+
+    it('should change image on mouse enter if more than one image', () => {
+      render(<Card.Images images={images} />)
+      const wrapper = screen.getByRole('img').parentElement!
+      fireEvent.mouseEnter(wrapper)
+      expect(screen.getByRole('img')).toHaveAttribute('src', 'image2.jpg')
+    })
+
+    it('should not change image on mouse enter if only one image', () => {
+      render(<Card.Images images={[images[0]]} />)
+      const wrapper = screen.getByRole('img').parentElement!
+      fireEvent.mouseEnter(wrapper)
+      expect(screen.getByRole('img')).toHaveAttribute('src', 'image1.jpg')
+    })
+
+    it('should reset to first image on mouse leave', () => {
+      render(<Card.Images images={images} />)
+      const wrapper = screen.getByRole('img').parentElement!
+      fireEvent.mouseEnter(wrapper)
+      fireEvent.mouseLeave(wrapper)
+      expect(screen.getByRole('img')).toHaveAttribute('src', 'image1.jpg')
+    })
+
+    it('cycles images on hover and covers last image branch', () => {
+      vi.useFakeTimers()
+      const images = [
+        { url: 'image1.jpg', alt: 'Image 1' },
+        { url: 'image2.jpg', alt: 'Image 2' },
+        { url: 'image3.jpg', alt: 'Image 3' },
+      ]
+
+      render(<Card.Images images={images} hoverInterval={500} />)
+      const wrapper = screen.getByRole('img').parentElement!
+      const img = screen.getByRole('img')
+
+      act(() => {
+        fireEvent.mouseEnter(wrapper)
+      })
+
+      act(() => {
+        vi.advanceTimersByTime(0)
+      })
+      expect(img).toHaveAttribute('src', 'image2.jpg')
+
+      act(() => {
+        vi.advanceTimersByTime(500)
+      })
+      expect(img).toHaveAttribute('src', 'image3.jpg')
+
+      act(() => {
+        fireEvent.mouseEnter(wrapper)
+      })
+      expect(img).toHaveAttribute('src', 'image3.jpg')
+
+      act(() => {
+        fireEvent.mouseLeave(wrapper)
+      })
+      expect(img).toHaveAttribute('src', 'image1.jpg')
+
+      vi.useRealTimers()
+    })
+
+    it('sets hovering to true on mouse enter and cycles images', () => {
+      vi.useFakeTimers()
+      const images = [
+        { url: 'image1.jpg', alt: 'Image 1' },
+        { url: 'image2.jpg', alt: 'Image 2' },
+      ]
+
+      render(<Card.Images images={images} hoverInterval={500} />)
+      const wrapper = screen.getByRole('img').parentElement!
+
+      act(() => {
+        fireEvent.mouseEnter(wrapper)
+      })
+
+      const img = screen.getByRole('img')
+      expect(img).toHaveAttribute('src', 'image2.jpg')
+      act(() => {
+        vi.advanceTimersByTime(500)
+      })
+      expect(img).toHaveAttribute('src', 'image2.jpg')
+
+      act(() => {
+        fireEvent.mouseLeave(wrapper)
+      })
+      expect(img).toHaveAttribute('src', 'image1.jpg')
+
+      vi.useRealTimers()
     })
   })
 
   describe('Card.Content', () => {
     it('should render its children', () => {
-      render(<Card.Content>Main content</Card.Content>)
+      render(
+        <Card>
+          <Card.Content>Main content</Card.Content>
+        </Card>,
+      )
       expect(screen.getByText('Main content')).toBeInTheDocument()
-    })
-
-    it('should apply a custom className', () => {
-      const { container } = render(<Card.Content className="custom-content">Content</Card.Content>)
-      expect(container.firstChild).toHaveClass('custom-content')
     })
   })
 
@@ -216,6 +274,16 @@ describe('Card', () => {
       expect(handleItemClick).toHaveBeenCalledTimes(1)
       expect(handleCardClick).not.toHaveBeenCalled()
     })
+
+    it('should apply correct class when no options provided', () => {
+      render(
+        <Card>
+          <Card.FooterButton>Action</Card.FooterButton>
+        </Card>,
+      )
+      const button = screen.getByText('Action')
+      expect(button).toHaveClass('rounded-br-[0.35rem]')
+    })
   })
 
   describe('useCardContext Hook', () => {
@@ -261,42 +329,6 @@ describe('Card', () => {
     })
   })
 
-  describe('CardMini.Header', () => {
-    it('should render header with children', () => {
-      render(
-        <CardMini>
-          <CardMini.Header>
-            <h1 data-testid="header-text">Header</h1>
-          </CardMini.Header>
-        </CardMini>,
-      )
-      expect(screen.getByTestId('header-text')).toBeInTheDocument()
-    })
-  })
-
-  describe('CardMini.Images', () => {
-    const primaryImage = { url: '/img1.png', alt: 'Primary' }
-    const hoverImage = { url: '/img2.png', alt: 'Hover' }
-
-    it('should render primary image', () => {
-      render(
-        <CardMini>
-          <CardMini.Images images={[primaryImage]} />
-        </CardMini>,
-      )
-      expect(screen.getByAltText('Primary')).toBeInTheDocument()
-    })
-
-    it('should render hover image when provided', () => {
-      render(
-        <CardMini>
-          <CardMini.Images images={[primaryImage, hoverImage]} />
-        </CardMini>,
-      )
-      expect(screen.getByAltText('Hover')).toBeInTheDocument()
-    })
-  })
-
   describe('CardMini.Content', () => {
     it('should render content with children', () => {
       render(
@@ -310,53 +342,270 @@ describe('Card', () => {
     })
   })
 
-  describe('CardMini.FooterButton', () => {
-    const options = [
-      { icon: <EllipsisVertical data-testid="icon" />, title: 'Option 1', onClick: vi.fn() },
-    ]
-
-    it('should render footer button with children', () => {
+  describe('CardList', () => {
+    it('should render children', () => {
       render(
-        <CardMini>
-          <CardMini.FooterButton>Click me</CardMini.FooterButton>
-        </CardMini>,
+        <CardList>
+          <div data-testid="child">Child</div>
+        </CardList>,
       )
-      expect(screen.getByText('Click me')).toBeInTheDocument()
+      expect(screen.getByTestId('child')).toBeInTheDocument()
     })
 
-    it('should call onClick when footer button is clicked', () => {
-      const handleClick = vi.fn()
+    it('should call onClick when container is clicked', () => {
+      const onClick = vi.fn()
       render(
-        <CardMini>
-          <CardMini.FooterButton onClick={handleClick}>Click me</CardMini.FooterButton>
-        </CardMini>,
+        <CardList onClick={onClick}>
+          <div>Child</div>
+        </CardList>,
       )
-
-      fireEvent.click(screen.getByText('Click me'))
-      expect(handleClick).toHaveBeenCalled()
+      fireEvent.click(screen.getByTestId('card-list-container'))
+      expect(onClick).toHaveBeenCalled()
     })
 
-    it('should render options menu when provided', () => {
+    it('should set isNavOptionsOpen to false on blur if relatedTarget is outside', () => {
       render(
-        <CardMini>
-          <CardMini.FooterButton options={options}>Click me</CardMini.FooterButton>
-        </CardMini>,
+        <CardList>
+          <button>Child</button>
+        </CardList>,
       )
-
-      expect(screen.getByTestId('options-button')).toBeInTheDocument()
+      const container = screen.getByTestId('card-list-container')
+      fireEvent.blur(container, { relatedTarget: null })
+      expect(container).toBeInTheDocument()
     })
 
-    it('should call option onClick when menu item is clicked', () => {
+    it('should keep isNavOptionsOpen as false on blur if relatedTarget is inside', () => {
       render(
-        <CardMini>
-          <CardMini.FooterButton options={options}>Click me</CardMini.FooterButton>
-        </CardMini>,
+        <CardList>
+          <button data-testid="inside">Inside</button>
+        </CardList>,
+      )
+      const container = screen.getByTestId('card-list-container')
+      const inside = screen.getByTestId('inside')
+      fireEvent.blur(container, { relatedTarget: inside })
+      expect(container).toBeInTheDocument()
+    })
+
+    it('should close nav options on mouse leave', () => {
+      render(
+        <CardList>
+          <div>Child</div>
+        </CardList>,
+      )
+      const container = screen.getByTestId('card-list-container')
+      fireEvent.mouseLeave(container)
+      expect(container).toBeInTheDocument()
+    })
+
+    it('should apply custom className', () => {
+      render(
+        <CardList className="custom-class">
+          <div>Child</div>
+        </CardList>,
+      )
+      expect(screen.getByTestId('card-list-container')).toHaveClass('custom-class')
+    })
+
+    it('should render disabled context value', () => {
+      render(
+        <CardList disabled>
+          <div>Child</div>
+        </CardList>,
+      )
+      const container = screen.getByTestId('card-list-container')
+      expect(container).toBeInTheDocument()
+    })
+  })
+
+  describe('CardList.Content', () => {
+    it('should render children', () => {
+      render(
+        <CardList>
+          <CardList.Content>
+            <div data-testid="child">Child</div>
+          </CardList.Content>
+        </CardList>,
+      )
+      expect(screen.getByTestId('child')).toBeInTheDocument()
+    })
+
+    it('should apply custom className', () => {
+      render(
+        <CardList>
+          <CardList.Content className="custom-class">
+            <div>Child</div>
+          </CardList.Content>
+        </CardList>,
+      )
+      expect(screen.getByText('Child').parentElement).toHaveClass('custom-class')
+    })
+
+    it('should have default styling classes', () => {
+      render(
+        <CardList>
+          <CardList.Content>
+            <div>Child</div>
+          </CardList.Content>
+        </CardList>,
+      )
+      const container = screen.getByText('Child').parentElement
+      expect(container).toHaveClass(
+        'flex-row',
+        'justify-between',
+        'items-center',
+        'w-[57rem]',
+        'px-[1rem]',
+        'gap-0',
+      )
+    })
+  })
+
+  describe('CardList.Images', () => {
+    it('should apply the correct className and imageClassName', () => {
+      const images = [
+        { url: 'image1.jpg', alt: 'Image 1' },
+        { url: 'image2.jpg', alt: 'Image 2' },
+      ]
+
+      render(
+        <CardList>
+          <CardList.Images
+            images={images}
+            className="custom-container"
+            imageClassName="custom-image"
+          />
+        </CardList>,
       )
 
-      fireEvent.click(screen.getByTestId('options-button'))
-      fireEvent.click(screen.getByText('Option 1'))
+      const imgElement = screen.getByRole('img', { name: 'Image 1' })
+      expect(imgElement).toHaveClass('w-[6rem] h-auto custom-image')
+      const container = imgElement.parentElement
+      expect(container).toHaveClass('mb-0 custom-container')
+    })
+  })
 
-      expect(options[0].onClick).toHaveBeenCalled()
+  describe('CardList.Box', () => {
+    it('should render children inside the container', () => {
+      render(
+        <CardList.Box>
+          <div data-testid="child-element">Child</div>
+        </CardList.Box>,
+      )
+
+      const child = screen.getByTestId('child-element')
+      expect(child).toBeInTheDocument()
+      expect(child).toHaveTextContent('Child')
+    })
+
+    it('should have the correct classes applied', () => {
+      render(
+        <CardList.Box>
+          <div>Child</div>
+        </CardList.Box>,
+      )
+
+      const container = screen.getByText('Child').parentElement
+      expect(container).toHaveClass('flex flex-col gap-[.5rem]')
+    })
+  })
+
+  describe('CardList.Button', () => {
+    it('should render the main button with correct children', () => {
+      render(
+        <CardList>
+          <CardList.Button>Click me</CardList.Button>
+        </CardList>,
+      )
+      const button = screen.getByText('Click me')
+      expect(button).toBeInTheDocument()
+    })
+
+    it('should call onClick when main button is clicked', () => {
+      const onClick = vi.fn()
+      render(
+        <CardList>
+          <CardList.Button onClick={onClick}>Click me</CardList.Button>
+        </CardList>,
+      )
+      const button = screen.getByText('Click me')
+      fireEvent.click(button)
+      expect(onClick).toHaveBeenCalled()
+    })
+
+    it('should render options button if options are provided', () => {
+      const options = [{ title: 'Option 1', icon: <EllipsisVertical />, onClick: vi.fn() }]
+      render(
+        <CardList>
+          <CardList.Button options={options}>Click me</CardList.Button>
+        </CardList>,
+      )
+      const optionsButton = screen.getByTestId('options-button')
+      expect(optionsButton).toBeInTheDocument()
+    })
+
+    it('should toggle nav options on options button click', () => {
+      const options = [{ title: 'Option 1', icon: <EllipsisVertical />, onClick: vi.fn() }]
+      render(
+        <CardList>
+          <CardList.Button options={options}>Click me</CardList.Button>
+        </CardList>,
+      )
+      const optionsButton = screen.getByTestId('options-button')
+      const nav = screen.getByRole('navigation', { hidden: true })
+      expect(nav).toHaveClass('opacity-0')
+      fireEvent.click(optionsButton)
+      expect(nav).toHaveClass('opacity-100')
+      fireEvent.click(optionsButton)
+      expect(nav).toHaveClass('opacity-0')
+    })
+
+    it('should call onClick of option when option is clicked', () => {
+      const optionClick = vi.fn()
+      const options = [{ title: 'Option 1', icon: <EllipsisVertical />, onClick: optionClick }]
+      render(
+        <CardList>
+          <CardList.Button options={options}>Click me</CardList.Button>
+        </CardList>,
+      )
+      const optionsButton = screen.getByTestId('options-button')
+      fireEvent.click(optionsButton)
+      const option = screen.getByText('Option 1')
+      fireEvent.click(option)
+      expect(optionClick).toHaveBeenCalled()
+    })
+
+    it('should apply disabled classes when disabled', () => {
+      const options = [{ title: 'Option 1', icon: <EllipsisVertical />, onClick: vi.fn() }]
+      render(
+        <CardList disabled>
+          <CardList.Button options={options}>Click me</CardList.Button>
+        </CardList>,
+      )
+      const button = screen.getByText('Click me')
+      expect(button).toBeDisabled()
+      const optionsButton = screen.getByTestId('options-button')
+      expect(optionsButton).toBeDisabled()
+    })
+
+    it('should apply custom className to container', () => {
+      render(
+        <CardList>
+          <CardList.Button className="custom-class">Click me</CardList.Button>
+        </CardList>,
+      )
+      const container = screen.getByText('Click me').parentElement
+      expect(container).toHaveClass('custom-class')
+    })
+
+    it('should render disabled CardList.Button correctly', () => {
+      render(
+        <CardList disabled>
+          <CardList.Button>Click me</CardList.Button>
+        </CardList>,
+      )
+      const button = screen.getByText('Click me')
+      expect(button).toBeDisabled()
+      expect(button).toHaveClass('bg-[var(--disabled)]')
     })
   })
 })

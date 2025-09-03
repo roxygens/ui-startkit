@@ -5,7 +5,12 @@ const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',
   component: Tag,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    size: {
+      options: ['md', 'lg'],
+      control: { type: 'select' },
+    },
+  },
 }
 
 export default meta

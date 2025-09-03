@@ -1,5 +1,5 @@
 'use client'
-import { useState, type PropsWithChildren, createContext, useContext } from 'react'
+import { useState, useEffect, type PropsWithChildren, createContext, useContext } from 'react'
 import { EllipsisVertical } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -47,14 +47,7 @@ export function Card(props: Props) {
         onBlur={handleBlur}
         onMouseLeave={handleCloseNavOptions}
         onClick={onClick}
-        className={cn(
-          'cursor-pointer bg-[var(--card)] rounded-[8px] card-shadow group/card',
-          'flex flex-col relative hover:border-[2px] hover:border-[var(--primary)] rounded-[8px] group/footer-buttons',
-          {
-            'bg-[#36393F]': isNavOptionsOpen,
-          },
-          className,
-        )}
+        className={cn('relative group/card', className)}
       >
         {children}
       </div>
@@ -62,61 +55,20 @@ export function Card(props: Props) {
   )
 }
 
-type CardHeaderProps = { className?: string } & PropsWithChildren
-
-Card.Header = function CardHeader({ children, className }: CardHeaderProps) {
-  return <header className={cn('group/header px-[16px] pt-[16px]', className)}>{children}</header>
-} as React.FC<CardHeaderProps>
-
-type Image = {
-  url: string
-  alt: string
-}
-
-type CardHeaderImagesProps = {
-  images: Image[]
-  className?: string
-}
-
-Card.Header.displayName = 'Card.Header'
-
-Card.HeaderImages = function CardHeaderImages({ images, className }: CardHeaderImagesProps) {
-  const [primaryImage, hoverImage] = images
-
-  return (
-    <div className={cn('relative h-auto mb-[50px] group-hover/card:mb-[16px]', className)}>
-      <img
-        className={cn('h-[96px] mx-auto', {
-          'transition-opacity duration-300 group-hover/header:opacity-0': hoverImage,
-        })}
-        src={primaryImage.url}
-        alt={primaryImage.alt}
-      />
-
-      {hoverImage && (
-        <img
-          className="
-                mx-auto
-                absolute inset-0 h-[96px] object-cover 
-                opacity-0 group-hover/header:opacity-100 
-                transition-opacity duration-300 ease-in-out
-              "
-          src={hoverImage.url}
-          alt={hoverImage.alt}
-        />
-      )}
-    </div>
-  )
-} as React.FC<CardHeaderImagesProps>
-
-Card.HeaderImages.displayName = 'Card.HeaderImages'
-
 type CardContentProps = { className?: string } & PropsWithChildren
 
 Card.Content = function CardContent({ children, className }: CardContentProps) {
+  const { isNavOptionsOpen } = useCardContext()
   return (
     <div
-      className={cn('flex flex-col gap-[8px] p-[16px] mb-[16px] group-hover/card:mb-0', className)}
+      className={cn(
+        'cursor-pointer bg-[var(--card)] rounded-[.5rem] card-shadow p-[1rem] ',
+        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]',
+        {
+          'bg-[var(--card-hover)]': isNavOptionsOpen,
+        },
+        className,
+      )}
     >
       {children}
     </div>
@@ -124,6 +76,77 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
 } as React.FC<CardContentProps>
 
 Card.Content.displayName = 'Card.Content'
+
+type Image = {
+  url: string
+  alt: string
+}
+
+type CardImagesProps = {
+  images: Image[]
+  className?: string
+  imageClassName?: string
+  hoverInterval?: number
+}
+
+Card.Images = function CardImages({
+  images,
+  className,
+  imageClassName,
+  hoverInterval = 1000,
+}: CardImagesProps) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isHovering, setIsHovering] = useState(false)
+
+  useEffect(() => {
+    if (!isHovering) return
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        if (prev >= images.length - 1) return prev
+        return prev + 1
+      })
+    }, hoverInterval)
+
+    return () => clearInterval(interval)
+  }, [isHovering, images.length, hoverInterval])
+
+  const handleMouseEnter = () => {
+    if (images.length > 1) {
+      setIsHovering(true)
+      setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : prev))
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+    setCurrentIndex(0)
+  }
+
+  const currentImage = images?.[currentIndex]
+
+  return (
+    <div
+      className={cn('relative h-auto mb-[16px]', className)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {!!currentImage && (
+        <img
+          className={cn(
+            'h-[5.9rem] mx-auto object-cover transition-opacity duration-300 ease-in-out',
+            imageClassName,
+          )}
+          src={currentImage?.url}
+          alt={currentImage?.alt}
+          loading="lazy"
+        />
+      )}
+    </div>
+  )
+} as React.FC<CardImagesProps>
+
+Card.Images.displayName = 'Card.Images'
 
 type Option = {
   icon: React.ReactNode
@@ -157,35 +180,36 @@ Card.FooterButton = function CardFooterButton({
 
   function handleClickButton(e: React.MouseEvent) {
     e.stopPropagation()
-    if (onClick) {
-      onClick()
-    }
+    onClick?.()
   }
 
   return (
     <>
       <footer
         className={cn(
-          ` 
-            h-0 flex justify-between items-stretch 
-            text-[var(--primary-foreground)] bg-[var(--primary)] 
-            font-inter font-semibold text-xs leading-[18px] 
-            rounded-b-[6px]
-            transform-gpu transition-all duration-300 ease-in-out
-            opacity-0 -translate-y-4 pointer-events-none
-            hover:opacity-80
-            group-hover/footer-buttons:h-[50px] group-hover/footer-buttons:opacity-100 group-hover/footer-buttons:translate-y-0 group-hover/footer-buttons:pointer-events-auto
-            
+          `
+            absolute left-0  right-0 top-[99%]
+            flex justify-between items-stretch 
+            font-inter font-semibold text-xs leading-[1.13rem] 
+            transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
+            pointer-events-none opacity-0
+            group-hover/card:pointer-events-auto group-hover/card:opacity-100
+            group-hover/card:border-[var(--primary)]  group-hover/card:border-x-[.13rem]   group-hover/card:border-b-[.13rem]  group-hover/card:rounded-x-[0.35rem] group-hover/card:rounded-b-[0.35rem]
             `,
           className,
-          {
-            'bg-[var(--disabled)] text-[#515559]': disabled,
-          },
         )}
       >
         <button
           onClick={handleClickButton}
-          className={'cursor-pointer flex w-full items-center justify-center py-[16px]'}
+          className={cn(
+            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-bl-[0.2rem]',
+            {
+              'rounded-br-[0.35rem]': !options?.length,
+              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                disabled,
+            },
+            className,
+          )}
           disabled={disabled}
         >
           {children}
@@ -195,7 +219,14 @@ Card.FooterButton = function CardFooterButton({
           <button
             data-testid="options-button"
             onClick={handleOpenNavOptions}
-            className={cn('cursor-pointer px-[6px] border-l border-black/20')}
+            className={cn(
+              'cursor-pointer px-[.38rem] border-l border-black/20 bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-br-[0.2rem]',
+              {
+                'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                  disabled,
+              },
+              className,
+            )}
             style={{ borderColor: 'currentColor' }}
             aria-label="Abrir opções do card"
             disabled={disabled}
@@ -208,10 +239,10 @@ Card.FooterButton = function CardFooterButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute w-full left-[0] bottom-[50px] bg-[var(--card)] 
-          font-inter not-italic font-semibold text-[12px] leading-[18px] text-center 
-          text-white rounded-[8px] overflow-hidden`,
-          'transform-gpu transition-all duration-200 ease-out',
+          `absolute w-full left-[0] bottom-0 bg-[var(--card)] 
+          font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
+          text-white rounded-t-[.5rem] overflow-hidden`,
+          'transform-gpu transition-transform duration-200 ease-out',
           isNavOptionsOpen
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4 pointer-events-none',
@@ -221,7 +252,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
@@ -244,8 +275,7 @@ export function CardMini(props: Props) {
         data-testid="card-mini-container"
         onClick={onClick}
         className={cn(
-          'cursor-pointer bg-[var(--card)] rounded-b-[5.89px] card-shadow group/card',
-          'flex flex-col relative !border-t-[3px] !border-t-[var(--primary)] group/footer-buttons ',
+          'relative  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-[var(--primary)]',
           className,
         )}
       >
@@ -255,30 +285,11 @@ export function CardMini(props: Props) {
   )
 }
 
-CardMini.Header = function CardMiniHeader({ children, className }: CardHeaderProps) {
-  return (
-    <Card.Header className={cn('px-[16px] pt-[32px] pb-[12px]', className)}>{children}</Card.Header>
-  )
-} as React.FC<CardHeaderProps>
-
-CardMini.Header.displayName = 'CardMini.Header'
-
-CardMini.Images = function CardMiniImages(props: CardHeaderImagesProps) {
-  return (
-    <Card.HeaderImages
-      images={props.images}
-      className={cn('m-0 group-hover/card:m-0', props.className)}
-    />
-  )
-} as React.FC<CardHeaderImagesProps>
-
-CardMini.Images.displayName = 'CardMini.Images'
-
 CardMini.Content = function CardMiniContent({ children, className }: CardContentProps) {
   return (
     <Card.Content
       className={cn(
-        'flex flex-col items-center gap-[8px] p-[0] mt-[12px] mb-[20px] group-hover/card:mb-[20px]',
+        '!border-0 !rounded-t-[0] rounded-b-[.35rem] text-center flex flex-col items-center',
         className,
       )}
     >
@@ -289,16 +300,162 @@ CardMini.Content = function CardMiniContent({ children, className }: CardContent
 
 CardMini.Content.displayName = 'CardMini.Content'
 
-CardMini.FooterButton = function CardMiniFooterButton({
-  className,
-  children,
-  ...rest
-}: CardFooterButtonProps) {
+export function CardList(props: Props) {
+  const [isNavOptionsOpen, setIsNavOptionsOpen] = useState(false)
+
+  const { children, onClick, className, disabled } = props
+
+  function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsNavOptionsOpen(false)
+    }
+  }
+
+  function handleCloseNavOptions() {
+    setIsNavOptionsOpen(false)
+  }
+
   return (
-    <Card.FooterButton className={cn(className)} {...rest}>
+    <CardContext.Provider value={{ disabled, isNavOptionsOpen, setIsNavOptionsOpen }}>
+      <div
+        data-testid="card-list-container"
+        onBlur={handleBlur}
+        onMouseLeave={handleCloseNavOptions}
+        onClick={onClick}
+        className={cn('relative group/card', className)}
+      >
+        {children}
+      </div>
+    </CardContext.Provider>
+  )
+}
+
+CardList.Content = function CardListContent({ children, className }: CardContentProps) {
+  return (
+    <Card.Content
+      className={cn(
+        'flex-row justify-between items-center group-hover/card:rounded-b-[.5rem] hover:border-b-[.13rem] group-hover/card:border-b-[var(--primary)] w-[57rem] px-[1rem] gap-0',
+        className,
+      )}
+    >
       {children}
-    </Card.FooterButton>
+    </Card.Content>
+  )
+} as React.FC<CardContentProps>
+
+CardList.Content.displayName = 'CardList.Content'
+
+CardList.Images = function CardListImage({ className, imageClassName, ...rest }: CardImagesProps) {
+  return (
+    <Card.Images
+      {...rest}
+      className={cn('mb-0', className)}
+      imageClassName={cn('w-[6rem] h-auto', imageClassName)}
+    />
+  )
+} as React.FC<CardImagesProps>
+
+CardList.Images.displayName = 'CardList.Images'
+
+type CardListBoxProps = {} & PropsWithChildren
+
+CardList.Box = function CardListBox({ children }: CardListBoxProps) {
+  return <div className="flex flex-col gap-[.5rem]">{children}</div>
+} as React.FC<CardListBoxProps>
+
+CardList.Box.displayName = 'CardList.Box'
+
+CardList.Button = function CardListButton({
+  children,
+  onClick,
+  options,
+  className,
+}: CardFooterButtonProps) {
+  const { isNavOptionsOpen, setIsNavOptionsOpen, disabled } = useCardContext()
+
+  function handleOpenNavOptions() {
+    setIsNavOptionsOpen((state) => !state)
+  }
+
+  function handleClickMenuItem(e: React.MouseEvent, onClick: () => void) {
+    e.stopPropagation()
+    onClick?.()
+  }
+
+  return (
+    <div
+      className={cn(
+        ` relative
+          text-[var(--primary-foreground)] hidden cursor-pointer 
+          group-hover/card:flex justify-between items-stretch 
+          font-inter font-semibold text-xs leading-[1.13rem] 
+        `,
+        className,
+        {
+          'bg-[var(--disabled)] text-[var(--disabled-foreground)]': disabled,
+          '!rounded-t-[0]': isNavOptionsOpen,
+        },
+      )}
+    >
+      <button
+        className={cn(
+          'cursor-pointer rounded-l-[0.35rem] flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+          {
+            '!rounded-t-[0]': isNavOptionsOpen,
+            'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+              disabled,
+          },
+        )}
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {children}
+      </button>
+
+      {options?.length && (
+        <button
+          data-testid="options-button"
+          onClick={handleOpenNavOptions}
+          className={cn(
+            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-r-[0.35rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+            {
+              '!rounded-t-[0]': isNavOptionsOpen,
+              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                disabled,
+            },
+          )}
+          style={{ borderColor: 'currentColor' }}
+          aria-label="Abrir opções do card"
+          disabled={disabled}
+        >
+          <EllipsisVertical />
+        </button>
+      )}
+
+      <nav
+        aria-label="Menu de opções"
+        className={cn(
+          `absolute w-full left-[0] bottom-[100%] bg-[var(--card)] 
+          font-inter not-italic font-semibold text-[.6rem] leading-[1.15rem] text-center 
+          text-white rounded-t-[.5rem] overflow-hidden`,
+          'transform-gpu transition-transform duration-200 ease-out',
+          isNavOptionsOpen
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4 pointer-events-none',
+        )}
+      >
+        {options?.map((option) => (
+          <button
+            key={option.title}
+            onClick={(e) => handleClickMenuItem(e, option.onClick)}
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
+          >
+            {option.icon} <p>{option.title}</p>
+          </button>
+        ))}
+      </nav>
+    </div>
   )
 } as React.FC<CardFooterButtonProps>
 
-CardMini.FooterButton.displayName = 'CardMini.FooterButton'
+CardList.Button.displayName = 'CardList.Button'

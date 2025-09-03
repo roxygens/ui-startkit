@@ -23,13 +23,13 @@ describe('Tag', () => {
 
     expect(tagElement).toHaveClass('inline-flex')
     expect(tagElement).toHaveClass('items-center')
-    expect(tagElement).toHaveClass('rounded-[13px]')
+    expect(tagElement).toHaveClass('rounded-[1rem]')
     expect(tagElement).toHaveClass('border')
     expect(tagElement).toHaveClass('border-white/15')
     expect(tagElement).toHaveClass('bg-white/5')
-    expect(tagElement).toHaveClass('px-2')
-    expect(tagElement).toHaveClass('py-[6px]')
-    expect(tagElement).toHaveClass('text-xs')
+    expect(tagElement).toHaveClass('px-[.66rem]')
+    expect(tagElement).toHaveClass('py-[.22rem]')
+    expect(tagElement).toHaveClass('text-[.6rem]')
     expect(tagElement).toHaveClass('font-semibold')
     expect(tagElement).toHaveClass('uppercase')
     expect(tagElement).toHaveClass('tracking-wider')
@@ -49,7 +49,17 @@ describe('Tag', () => {
     expect(tagElement).toHaveClass('text-white')
     expect(tagElement).not.toHaveClass('text-[#FFF172]')
 
-    expect(tagElement).toHaveClass('rounded-[13px]')
+    expect(tagElement).toHaveClass('rounded-[1rem]')
     expect(tagElement).toHaveClass('uppercase')
+  })
+
+  it('should render the correct styles for the lg size', () => {
+    const testContent = 'Custom Tag'
+    const { container } = render(<Tag size="lg">{testContent}</Tag>)
+    const tagElement = container.firstChild
+
+    expect(tagElement).toHaveClass('px-[1rem]')
+    expect(tagElement).toHaveClass('py-[.25rem]')
+    expect(tagElement).toHaveClass('text-xs')
   })
 })

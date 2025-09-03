@@ -64,6 +64,7 @@
   --background: #0C0E12;
   --foreground: oklch(0.145 0 0);
   --card: #1F1F1F;
+  --card-hover: #36393F;
   --card-foreground: oklch(0.145 0 0);
   --menu-card-background-hover: #2C2C2C;
   --popover: oklch(1 0 0);
@@ -72,6 +73,7 @@
   --primary-foreground: #031328;
   --primary-hover: #1AA4D0;
   --disabled: #434651;
+  --disabled-foreground: #515559;
   --primary-foreground-disabled: #A3A2A8;
   --secondary: transparent;
   --secondary-foreground: #FFFFFF;
