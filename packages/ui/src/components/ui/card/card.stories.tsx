@@ -74,7 +74,10 @@ export const Playground: Story = {
             </div>
           </CardMini.Content>
 
-          <Card.FooterButton onClick={() => console.log('Adicionar ao carrinho')}>
+          <Card.FooterButton
+            className="border-none"
+            onClick={() => console.log('Adicionar ao carrinho')}
+          >
             <div className="flex items-center gap-2">23 Ofertas</div>
           </Card.FooterButton>
         </CardMini>

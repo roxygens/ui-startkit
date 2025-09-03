@@ -197,9 +197,6 @@ Card.FooterButton = function CardFooterButton({
             group-hover/card:border-[var(--primary)]  group-hover/card:border-x-[.13rem]   group-hover/card:border-b-[.13rem]  group-hover/card:rounded-x-[0.35rem] group-hover/card:rounded-b-[0.35rem]
             `,
           className,
-          {
-            'bg-[var(--disabled)] text-[var(--disabled-foreground)]': disabled,
-          },
         )}
       >
         <button
@@ -208,6 +205,8 @@ Card.FooterButton = function CardFooterButton({
             'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-bl-[0.2rem]',
             {
               'rounded-br-[0.35rem]': !options?.length,
+              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                disabled,
             },
             className,
           )}
@@ -222,6 +221,10 @@ Card.FooterButton = function CardFooterButton({
             onClick={handleOpenNavOptions}
             className={cn(
               'cursor-pointer px-[.38rem] border-l border-black/20 bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-br-[0.2rem]',
+              {
+                'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                  disabled,
+              },
               className,
             )}
             style={{ borderColor: 'currentColor' }}
@@ -268,16 +271,16 @@ export function CardMini(props: Props) {
     <CardContext.Provider
       value={{ disabled, isNavOptionsOpen: false, setIsNavOptionsOpen: () => {} }}
     >
-      <Card
+      <div
         data-testid="card-mini-container"
         onClick={onClick}
         className={cn(
-          '!border-b-0 !border-x-0 !border-t-[3px] !border-t-[var(--primary)]',
+          'relative group/card !border-b-0 !border-x-0 !border-t-[3px] !border-t-[var(--primary)]',
           className,
         )}
       >
         {children}
-      </Card>
+      </div>
     </CardContext.Provider>
   )
 }
@@ -396,6 +399,8 @@ CardList.Button = function CardListButton({
           'cursor-pointer rounded-l-[0.35rem] flex w-full items-center justify-center px-[.66rem] h-[2.7rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
           {
             '!rounded-t-[0]': isNavOptionsOpen,
+            'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+              disabled,
           },
         )}
         onClick={onClick}
@@ -412,6 +417,8 @@ CardList.Button = function CardListButton({
             'cursor-pointer px-[.4rem] border-l border-black/20 rounded-r-[0.35rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
             {
               '!rounded-t-[0]': isNavOptionsOpen,
+              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                disabled,
             },
           )}
           style={{ borderColor: 'currentColor' }}
