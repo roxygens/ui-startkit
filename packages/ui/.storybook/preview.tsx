@@ -27,7 +27,7 @@ const preview: Preview = {
     (Story, context) => {
       if (context.viewMode === 'docs') {
         return (
-          <div className="flex items-center justify-center py-[60px]">
+          <div className="flex items-center justify-center py-[100px]">
             <Story />
           </div>
         )

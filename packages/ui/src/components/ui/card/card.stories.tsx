@@ -9,6 +9,11 @@ import { Card, CardMini, CardList } from '.'
 
 const options = [
   {
+    icon: <MoveUpRight width={16} height={16} />,
+    title: 'Inspecionar no jogo',
+    onClick: () => console.log('Clicked - Inspecionar no jogo'),
+  },
+  {
     icon: <Steam width={16} height={16} />,
     title: 'Ver no Steam',
     onClick: () => console.log('Clicked - Ver no Steam'),
@@ -67,7 +72,8 @@ export const Playground: Story = {
             />
 
             <p className="text-xs text-white">Vice</p>
-            <div className="flex items-baseline gap-[4px]">
+
+            <div className="flex items-baseline gap-[.25rem] text-center">
               <p className="text-body text-[var(--muted-foreground)]">De</p>
 
               <p className="text-white font-bold text-lg">R$ {formatCurrency(3254.05)}</p>
@@ -117,12 +123,12 @@ export const Playground: Story = {
             </CardList.Box>
 
             <CardList.Box>
-              <div className="flex flex-row items-start gap-[8px]">
+              <div className="flex flex-row items-start gap-[.5rem]">
                 <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
                 <Badge value={15} />
               </div>
 
-              <p className="text-xs text-[#707179] mb-[8px]">
+              <p className="text-xs text-[#707179] mb-[.5rem]">
                 Preço de referência {formatCurrency(3054.87)} R$
               </p>
             </CardList.Box>
@@ -153,12 +159,12 @@ export const Playground: Story = {
             ]}
           />
 
-          <div className="flex flex-row items-start gap-[8px]">
+          <div className="flex flex-row items-start gap-[.5rem]">
             <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
             <Badge value={15} />
           </div>
 
-          <p className="text-xs text-[#707179] mb-[8px]">
+          <p className="text-xs text-[#707179] mb-[.5rem]">
             Preço de referência {formatCurrency(3054.87)} R$
           </p>
 

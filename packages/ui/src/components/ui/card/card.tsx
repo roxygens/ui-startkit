@@ -63,7 +63,7 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
     <div
       className={cn(
         'cursor-pointer bg-[var(--card)] rounded-[.5rem] card-shadow p-[1rem] ',
-        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]  group-hover/card:border-b-[transparent] group-hover/card:border-b-[.13rem]',
+        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]',
         {
           'bg-[var(--card-hover)]': isNavOptionsOpen,
         },
@@ -240,7 +240,7 @@ Card.FooterButton = function CardFooterButton({
         aria-label="Menu de opções"
         className={cn(
           `absolute w-full left-[0] bottom-0 bg-[var(--card)] 
-          font-inter not-italic font-semibold text-[12px] leading-[1.13rem] text-center 
+          font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
           text-white rounded-t-[.5rem] overflow-hidden`,
           'transform-gpu transition-transform duration-200 ease-out',
           isNavOptionsOpen
@@ -252,7 +252,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
@@ -275,7 +275,7 @@ export function CardMini(props: Props) {
         data-testid="card-mini-container"
         onClick={onClick}
         className={cn(
-          'relative group/card !border-b-0 !border-x-0 !border-t-[3px] !border-t-[var(--primary)]',
+          'relative  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-[var(--primary)]',
           className,
         )}
       >
@@ -288,7 +288,10 @@ export function CardMini(props: Props) {
 CardMini.Content = function CardMiniContent({ children, className }: CardContentProps) {
   return (
     <Card.Content
-      className={cn('!border-0 !rounded-t-[0] rounded-b-[.35rem] text-center', className)}
+      className={cn(
+        '!border-0 !rounded-t-[0] rounded-b-[.35rem] text-center flex flex-col items-center',
+        className,
+      )}
     >
       {children}
     </Card.Content>
@@ -396,7 +399,7 @@ CardList.Button = function CardListButton({
     >
       <button
         className={cn(
-          'cursor-pointer rounded-l-[0.35rem] flex w-full items-center justify-center px-[.66rem] h-[2.7rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+          'cursor-pointer rounded-l-[0.35rem] flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
           {
             '!rounded-t-[0]': isNavOptionsOpen,
             'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
@@ -433,8 +436,8 @@ CardList.Button = function CardListButton({
         aria-label="Menu de opções"
         className={cn(
           `absolute w-full left-[0] bottom-[100%] bg-[var(--card)] 
-          font-inter not-italic font-semibold text-[12px] leading-[18px] text-center 
-          text-white rounded-t-[8px] overflow-hidden`,
+          font-inter not-italic font-semibold text-[.6rem] leading-[1.15rem] text-center 
+          text-white rounded-t-[.5rem] overflow-hidden`,
           'transform-gpu transition-transform duration-200 ease-out',
           isNavOptionsOpen
             ? 'opacity-100 translate-y-0'
@@ -445,7 +448,7 @@ CardList.Button = function CardListButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[20px] py-[10px] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[10px] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
