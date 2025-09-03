@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 const tagVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-[1rem] border border-white/15 bg-white/5  font-semibold uppercase tracking-wider text-[#FFF172] w-fit',
+  'inline-flex items-center justify-center gap-2 rounded-[1rem] border border-white/15 bg-white/5 font-semibold uppercase tracking-wider text-[#FFF172] w-fit',
   {
     variants: {
       size: {
