@@ -328,7 +328,7 @@ CardList.Content = function CardListContent({ children, className }: CardContent
   return (
     <Card.Content
       className={cn(
-        'flex-row justify-between items-center group-hover/card:rounded-b-[.5rem] hover:border-b-[.13rem] group-hover/card:border-b-[var(--primary)] w-[57rem] px-[2rem] gap-0',
+        'flex-row justify-between items-center group-hover/card:rounded-b-[.5rem] hover:border-b-[.13rem] group-hover/card:border-b-[var(--primary)] w-[57rem] px-[1rem] gap-0',
         className,
       )}
     >
