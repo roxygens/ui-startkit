@@ -93,12 +93,12 @@ describe('Card', () => {
     })
   })
 
-  describe('Card.HeaderImages', () => {
+  describe('Card.Images', () => {
     const primaryImage = { url: 'primary.jpg', alt: 'Primary Image' }
     const hoverImage = { url: 'hover.jpg', alt: 'Hover Image' }
 
     it('should render only the primary image if it is the only one provided', () => {
-      render(<Card.HeaderImages images={[primaryImage]} />)
+      render(<Card.Images images={[primaryImage]} />)
       const images = screen.getAllByRole('img')
       expect(images).toHaveLength(1)
       expect(images[0]).toHaveAttribute('src', primaryImage.url)
@@ -106,7 +106,7 @@ describe('Card', () => {
     })
 
     it('should render both images when two are provided', () => {
-      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
+      render(<Card.Images images={[primaryImage, hoverImage]} />)
       const images = screen.getAllByRole('img')
       expect(images).toHaveLength(2)
       expect(screen.getByAltText(primaryImage.alt)).toBeInTheDocument()
@@ -114,14 +114,14 @@ describe('Card', () => {
     })
 
     it('should apply the correct transition class when a hover image is present', () => {
-      render(<Card.HeaderImages images={[primaryImage, hoverImage]} />)
+      render(<Card.Images images={[primaryImage, hoverImage]} />)
       const primaryImgElement = screen.getByAltText(primaryImage.alt)
       expect(primaryImgElement).toHaveClass('group-hover/header:opacity-0')
     })
 
     it('should apply a custom className', () => {
       const { container } = render(
-        <Card.HeaderImages images={[primaryImage]} className="custom-images" />,
+        <Card.Images images={[primaryImage]} className="custom-images" />,
       )
       expect(container.firstChild).toHaveClass('custom-images')
     })

@@ -1,1 +1,1 @@
-export { Card, CardMini } from './card'
+export { Card, CardMini, CardList } from './card'
