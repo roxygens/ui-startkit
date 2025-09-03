@@ -99,7 +99,7 @@ Card.Images = function CardImages({
   const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
-    if (!isHovering || images.length <= 1) return
+    if (!isHovering) return
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => {
@@ -123,7 +123,7 @@ Card.Images = function CardImages({
     setCurrentIndex(0)
   }
 
-  const currentImage = images[currentIndex]
+  const currentImage = images?.[currentIndex]
 
   return (
     <div
@@ -131,15 +131,17 @@ Card.Images = function CardImages({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img
-        className={cn(
-          'h-[96px] mx-auto object-cover transition-opacity duration-300 ease-in-out',
-          imageClassName,
-        )}
-        src={currentImage.url}
-        alt={currentImage.alt}
-        loading="lazy"
-      />
+      {!!currentImage && (
+        <img
+          className={cn(
+            'h-[5.9rem] mx-auto object-cover transition-opacity duration-300 ease-in-out',
+            imageClassName,
+          )}
+          src={currentImage?.url}
+          alt={currentImage?.alt}
+          loading="lazy"
+        />
+      )}
     </div>
   )
 } as React.FC<CardImagesProps>
@@ -178,9 +180,7 @@ Card.FooterButton = function CardFooterButton({
 
   function handleClickButton(e: React.MouseEvent) {
     e.stopPropagation()
-    if (onClick) {
-      onClick()
-    }
+    onClick?.()
   }
 
   return (
@@ -350,7 +350,7 @@ CardList.Images = function CardListImage({ className, imageClassName, ...rest }:
     <Card.Images
       {...rest}
       className={cn('mb-0', className)}
-      imageClassName={cn('h-[74px]', imageClassName)}
+      imageClassName={cn('w-[6rem] h-auto', imageClassName)}
     />
   )
 } as React.FC<CardImagesProps>
@@ -379,7 +379,7 @@ CardList.Button = function CardListButton({
 
   function handleClickMenuItem(e: React.MouseEvent, onClick: () => void) {
     e.stopPropagation()
-    onClick()
+    onClick?.()
   }
 
   return (

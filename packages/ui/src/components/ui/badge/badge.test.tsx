@@ -24,11 +24,11 @@ describe('Badge', () => {
       render(<Badge value={20} size="lg" />)
       const badgeElement = screen.getByText('-20%')
 
-      expect(badgeElement).toHaveClass('px-[12px]')
-      expect(badgeElement).toHaveClass('py-[6px]')
-      expect(badgeElement).toHaveClass('rounded-[24px]')
-      expect(badgeElement).toHaveClass('text-[12px]')
-      expect(badgeElement).toHaveClass('leading-[15px]')
+      expect(badgeElement).toHaveClass('px-[.38rem]')
+      expect(badgeElement).toHaveClass('py-[.38rem]')
+      expect(badgeElement).toHaveClass('rounded-[1.5rem]')
+      expect(badgeElement).toHaveClass('text-[.75rem]')
+      expect(badgeElement).toHaveClass('leading-[.95rem]')
     })
   })
 
@@ -39,7 +39,7 @@ describe('Badge', () => {
     expect(badgeElement).toHaveClass('mt-4')
     expect(badgeElement).toHaveClass('animate-pulse')
 
-    expect(badgeElement).toHaveClass('rounded-[24px]')
+    expect(badgeElement).toHaveClass('rounded-[1.5rem]')
   })
 
   it('should apply the correct linear-gradient background style', () => {
