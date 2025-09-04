@@ -63,8 +63,8 @@
   --radius: 0.625rem;
   --background: #0C0E12;
   --foreground: oklch(0.145 0 0);
-  --card: #1F1F1F;
-  --card-hover: #36393F;
+  --card: #1A1A1A;
+  --card-hover: #1F1F1F;
   --card-foreground: oklch(0.145 0 0);
   --menu-card-background-hover: #2C2C2C;
   --popover: oklch(1 0 0);
@@ -153,6 +153,10 @@
 
   .info-text {
     @apply text-[var(--primary)]  font-medium text-xs leading-[15px];
+  }
+
+  .text-yellow-20 {
+    color: #FFF172;
   }
 }
 

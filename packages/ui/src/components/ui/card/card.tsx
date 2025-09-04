@@ -62,8 +62,8 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
   return (
     <div
       className={cn(
-        'cursor-pointer bg-[var(--card)] rounded-[.5rem] card-shadow p-[1rem] ',
-        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] hover:border-t-[.13rem]  group-hover/card:border-t-[var(--primary)] rounded-[.5rem] hover:border-x-[.13rem] group-hover/card:border-x-[var(--primary)]',
+        'cursor-pointer bg-[var(--card)] card-shadow p-[1rem]',
+        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px]',
         {
           'bg-[var(--card-hover)]': isNavOptionsOpen,
         },
@@ -194,7 +194,6 @@ Card.FooterButton = function CardFooterButton({
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
             pointer-events-none opacity-0
             group-hover/card:pointer-events-auto group-hover/card:opacity-100
-            group-hover/card:border-[var(--primary)]  group-hover/card:border-x-[.13rem]   group-hover/card:border-b-[.13rem]  group-hover/card:rounded-x-[0.35rem] group-hover/card:rounded-b-[0.35rem]
             `,
           className,
         )}
@@ -202,9 +201,8 @@ Card.FooterButton = function CardFooterButton({
         <button
           onClick={handleClickButton}
           className={cn(
-            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-bl-[0.2rem]',
+            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
             {
-              'rounded-br-[0.35rem]': !options?.length,
               'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
                 disabled,
             },
@@ -220,7 +218,7 @@ Card.FooterButton = function CardFooterButton({
             data-testid="options-button"
             onClick={handleOpenNavOptions}
             className={cn(
-              'cursor-pointer px-[.38rem] border-l border-black/20 bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70  rounded-br-[0.2rem]',
+              'cursor-pointer px-[.8rem] border-l border-black/20 bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
               {
                 'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
                   disabled,
@@ -241,8 +239,7 @@ Card.FooterButton = function CardFooterButton({
         className={cn(
           `absolute w-full left-[0] bottom-0 bg-[var(--card)] 
           font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
-          text-white rounded-t-[.5rem] overflow-hidden`,
-          'transform-gpu transition-transform duration-200 ease-out',
+          text-white overflow-hidden`,
           isNavOptionsOpen
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4 pointer-events-none',
@@ -333,10 +330,7 @@ export function CardList(props: Props) {
 CardList.Content = function CardListContent({ children, className }: CardContentProps) {
   return (
     <Card.Content
-      className={cn(
-        'flex-row justify-between items-center group-hover/card:rounded-b-[.5rem] hover:border-b-[.13rem] group-hover/card:border-b-[var(--primary)] w-[57rem] px-[1rem] gap-0',
-        className,
-      )}
+      className={cn('flex-row justify-between items-center w-[57rem] px-[1rem] gap-0', className)}
     >
       {children}
     </Card.Content>

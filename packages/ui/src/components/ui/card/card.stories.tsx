@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Tag as TagIcon, RefreshCcw, ShoppingCart, MoveUpRight, Search, Plus } from 'lucide-react'
+import { RefreshCcw, ShoppingCart, MoveUpRight, Search, Plus } from 'lucide-react'
 import { Steam } from '@/utils/icons'
-import { Badge } from '@/components/ui/badge'
-import { Tag } from '@/components/ui/tag'
 import { ScoreBar } from '@/components/ui/score-bar'
 import { formatCurrency } from '@/utils'
 import { Card, CardMini, CardList } from '.'
@@ -102,9 +100,7 @@ export const Playground: Story = {
             />
 
             <CardList.Box>
-              <Tag>Luvas Desportivas</Tag>
-
-              <p className="text-base text-white">Vice</p>
+              <p className="text-base text-yellow-200 uppercase">Vice</p>
 
               <div className="flex items-center gap-2">
                 <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
@@ -123,14 +119,12 @@ export const Playground: Story = {
             </CardList.Box>
 
             <CardList.Box>
-              <div className="flex flex-row items-start gap-[.5rem]">
+              <div className="flex flex-row items-center gap-[.5rem]">
                 <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
-                <Badge value={15} />
+                <p className="info-text">-15%</p>
               </div>
 
-              <p className="text-xs text-[#707179] mb-[.5rem]">
-                Preço de referência {formatCurrency(3054.87)} R$
-              </p>
+              <p className="text-medium text-[#707179]">Steam R$ {formatCurrency(3054.87)}</p>
             </CardList.Box>
 
             <CardList.Button options={options}>
@@ -147,7 +141,7 @@ export const Playground: Story = {
     return (
       <Card onClick={() => {}} disabled={args.disabled} className={args?.className}>
         <Card.Content>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-center">
             <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
             <p className="info-text">Possível de trocar</p>
           </div>
@@ -159,20 +153,17 @@ export const Playground: Story = {
             ]}
           />
 
-          <div className="flex flex-row items-start gap-[.5rem]">
+          <div className="flex flex-row items-center gap-[.5rem]">
             <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
-            <Badge value={15} />
+            <p className="info-text">-15%</p>
           </div>
 
-          <p className="text-xs text-[#707179] mb-[.5rem]">
-            Preço de referência {formatCurrency(3054.87)} R$
+          <p className="text-medium text-[#707179] mb-[.5rem]">
+            Steam R$ {formatCurrency(3054.87)}
           </p>
 
-          <Tag size="lg">Luvas Desportivas</Tag>
-
           <div className="flex flex-row items-center justify-between text-white">
-            <p className="text-base">Vice</p>
-            <TagIcon width={16} height={16} />
+            <p className="text-base text-yellow-200 uppercase">Vice</p>
           </div>
 
           <p className="text-medium text-[#707179]">
