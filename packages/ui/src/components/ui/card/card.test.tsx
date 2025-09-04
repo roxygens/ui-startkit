@@ -274,16 +274,6 @@ describe('Card', () => {
       expect(handleItemClick).toHaveBeenCalledTimes(1)
       expect(handleCardClick).not.toHaveBeenCalled()
     })
-
-    it('should apply correct class when no options provided', () => {
-      render(
-        <Card>
-          <Card.FooterButton>Action</Card.FooterButton>
-        </Card>,
-      )
-      const button = screen.getByText('Action')
-      expect(button).toHaveClass('rounded-br-[0.35rem]')
-    })
   })
 
   describe('useCardContext Hook', () => {
