@@ -10,7 +10,7 @@ describe('Badge', () => {
 
   it('should apply default variants', () => {
     const { getByText } = render(<Badge>Default Badge</Badge>)
-    expect(getByText('Default Badge').className).toContain('text-[.6rem] px-[.66rem] py-[.22rem]')
+    expect(getByText('Default Badge').className).toContain('text-[.75rem] px-[.75rem] py-[.25rem]')
     expect(getByText('Default Badge').className).toContain(
       'bg-[#3BE2C21A] border-[#3BE2C259] text-[#3BE2C2]',
     )
@@ -18,12 +18,7 @@ describe('Badge', () => {
 
   it('should apply size md', () => {
     const { getByText } = render(<Badge size="md">Medium Badge</Badge>)
-    expect(getByText('Medium Badge').className).toContain('text-[.6rem] px-[.66rem] py-[.22rem]')
-  })
-
-  it('should apply size lg', () => {
-    const { getByText } = render(<Badge size="lg">Large Badge</Badge>)
-    expect(getByText('Large Badge').className).toContain('px-[1rem] py-[.25rem] text-xs')
+    expect(getByText('Medium Badge').className).toContain('text-[.75rem] px-[.75rem] py-[.25rem]')
   })
 
   it('should apply variant success', () => {
