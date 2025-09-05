@@ -12,7 +12,7 @@ describe('Badge', () => {
     const { getByText } = render(<Badge>Default Badge</Badge>)
     expect(getByText('Default Badge').className).toContain('text-[.6rem] px-[.66rem] py-[.22rem]')
     expect(getByText('Default Badge').className).toContain(
-      'g-[#3BE2C21A] border-[#3BE2C259] text-[#3BE2C2]',
+      'bg-[#3BE2C21A] border-[#3BE2C259] text-[#3BE2C2]',
     )
   })
 
