@@ -2,11 +2,11 @@ import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 const badgeVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-[1rem] border font-semibold uppercase tracking-wider w-fit',
+  'inline-flex items-center justify-center gap-2 border font-semibold uppercase tracking-wider w-fit',
   {
     variants: {
       size: {
-        md: 'text-[.75rem] px-[.75rem] py-[.25rem]',
+        md: 'text-[.75rem] px-[.75rem] py-[.25rem] rounded-[.815rem]',
       },
       variant: {
         success: 'bg-[#54DC621A] border-[#54DC6259] text-[#54DC62]',
