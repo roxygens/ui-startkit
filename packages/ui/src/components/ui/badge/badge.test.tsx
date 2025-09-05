@@ -1,53 +1,68 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { Badge } from '.'
 
 describe('Badge', () => {
-  it('should render correctly and display the formatted discount value', () => {
-    render(<Badge value={15} />)
-    const badgeElement = screen.getByText('-15%')
-
-    expect(badgeElement).toBeInTheDocument()
+  it('should render children', () => {
+    const { getByText } = render(<Badge>Test Badge</Badge>)
+    expect(getByText('Test Badge')).toBeInTheDocument()
   })
 
-  it('should have the base CSS classes applied', () => {
-    render(<Badge value={10} />)
-    const badgeElement = screen.getByText('-10%')
-
-    expect(badgeElement).toHaveClass('font-inter')
-    expect(badgeElement).toHaveClass('font-semibold')
-    expect(badgeElement).toHaveClass('text-white')
+  it('should apply default variants', () => {
+    const { getByText } = render(<Badge>Default Badge</Badge>)
+    expect(getByText('Default Badge').className).toContain('text-[.6rem] px-[.66rem] py-[.22rem]')
+    expect(getByText('Default Badge').className).toContain(
+      'g-[#3BE2C21A] border-[#3BE2C259] text-[#3BE2C2]',
+    )
   })
 
-  describe('Variants', () => {
-    it('should apply the correct classes for the default "lg" size', () => {
-      render(<Badge value={20} size="lg" />)
-      const badgeElement = screen.getByText('-20%')
-
-      expect(badgeElement).toHaveClass('px-[.38rem]')
-      expect(badgeElement).toHaveClass('py-[.38rem]')
-      expect(badgeElement).toHaveClass('rounded-[1.5rem]')
-      expect(badgeElement).toHaveClass('text-[.75rem]')
-      expect(badgeElement).toHaveClass('leading-[.95rem]')
-    })
+  it('should apply size md', () => {
+    const { getByText } = render(<Badge size="md">Medium Badge</Badge>)
+    expect(getByText('Medium Badge').className).toContain('text-[.6rem] px-[.66rem] py-[.22rem]')
   })
 
-  it('should correctly merge additional classes passed via className prop', () => {
-    render(<Badge value={25} className="mt-4 animate-pulse" />)
-    const badgeElement = screen.getByText('-25%')
-
-    expect(badgeElement).toHaveClass('mt-4')
-    expect(badgeElement).toHaveClass('animate-pulse')
-
-    expect(badgeElement).toHaveClass('rounded-[1.5rem]')
+  it('should apply size lg', () => {
+    const { getByText } = render(<Badge size="lg">Large Badge</Badge>)
+    expect(getByText('Large Badge').className).toContain('px-[1rem] py-[.25rem] text-xs')
   })
 
-  it('should apply the correct linear-gradient background style', () => {
-    render(<Badge value={30} />)
-    const badgeElement = screen.getByText('-30%')
+  it('should apply variant success', () => {
+    const { getByText } = render(<Badge variant="success">Success Badge</Badge>)
+    expect(getByText('Success Badge').className).toContain(
+      'bg-[#54DC621A] border-[#54DC6259] text-[#54DC62]',
+    )
+  })
 
-    expect(badgeElement.style.backgroundImage).toContain('linear-gradient')
-    expect(badgeElement.style.backgroundImage).toContain('var(--primary)')
-    expect(badgeElement.style.backgroundImage).toContain('color-mix')
+  it('should apply variant info', () => {
+    const { getByText } = render(<Badge variant="info">Info Badge</Badge>)
+    expect(getByText('Info Badge').className).toContain(
+      'bg-[#3BE2C21A] border-[#3BE2C259] text-[#3BE2C2]',
+    )
+  })
+
+  it('should apply variant warning', () => {
+    const { getByText } = render(<Badge variant="warning">Warning Badge</Badge>)
+    expect(getByText('Warning Badge').className).toContain(
+      'text-[#FFF172] border-white/15 bg-white/5',
+    )
+  })
+
+  it('should apply variant danger', () => {
+    const { getByText } = render(<Badge variant="danger">Danger Badge</Badge>)
+    expect(getByText('Danger Badge').className).toContain(
+      'bg-[#FF99211A] border-[#FF992159] text-[#FF9921]',
+    )
+  })
+
+  it('should apply variant critical', () => {
+    const { getByText } = render(<Badge variant="critical">Critical Badge</Badge>)
+    expect(getByText('Critical Badge').className).toContain(
+      'bg-[#FFFFFF0D] border-[#FFFFFF26] text-[#FF6868]',
+    )
+  })
+
+  it('should merge custom className', () => {
+    const { getByText } = render(<Badge className="custom-class">Custom Badge</Badge>)
+    expect(getByText('Custom Badge').className).toContain('custom-class')
   })
 })

@@ -7,7 +7,11 @@ const meta: Meta<typeof Badge> = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ['lg'],
+      options: ['md', 'lg'],
+      control: { type: 'select' },
+    },
+    variant: {
+      options: ['success', 'info', 'warning', 'danger', 'critical'],
       control: { type: 'select' },
     },
   },
@@ -17,9 +21,8 @@ export default meta
 
 type Story = StoryObj<typeof Badge>
 
-export const Large: Story = {
+export const Default: Story = {
   args: {
-    value: 15,
-    size: 'lg',
+    children: 'Luvas Esportivas',
   },
 }
