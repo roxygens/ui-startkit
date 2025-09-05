@@ -7,7 +7,7 @@ const meta: Meta<typeof Badge> = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ['md', 'lg'],
+      options: ['md'],
       control: { type: 'select' },
     },
     variant: {

@@ -6,8 +6,7 @@ const badgeVariants = cva(
   {
     variants: {
       size: {
-        md: 'text-[.6rem] px-[.66rem] py-[.22rem]',
-        lg: 'px-[1rem] py-[.25rem] text-xs',
+        md: 'text-[.75rem] px-[.75rem] py-[.25rem]',
       },
       variant: {
         success: 'bg-[#54DC621A] border-[#54DC6259] text-[#54DC62]',
