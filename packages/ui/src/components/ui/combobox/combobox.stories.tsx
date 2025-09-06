@@ -40,5 +40,6 @@ export const Default: Story = {
     searchPlaceholder: 'Search framework',
     options,
     className: 'min-w-[200px]',
+    onChange: () => {},
   },
 }
