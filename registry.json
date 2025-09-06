@@ -85,13 +85,13 @@
         }
       ]
     },
-    "tag": {
-      "name": "Tag",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+    "combobox": {
+      "name": "Combobox",
+      "dependencies": ["@radix-ui/react-popover"],
       "files": [
         {
-          "path": "components/ui/tag.tsx",
-          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/tag/tag.tsx"
+          "path": "components/ui/combobox.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/combobox/combobox.tsx"
         },
         {
           "path": "lib/utils.ts",
