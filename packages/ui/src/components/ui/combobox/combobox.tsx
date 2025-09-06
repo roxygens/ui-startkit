@@ -10,7 +10,7 @@ type ComboboxOption = {
 
 type ComboboxProps = {
   options: ComboboxOption[]
-  value?: string
+  defaultValue?: string
   onChange: (value: string) => void
   placeholder?: string
   searchPlaceholder?: string
@@ -20,7 +20,7 @@ type ComboboxProps = {
 
 export const Combobox: React.FC<ComboboxProps> = ({
   options,
-  value,
+  defaultValue = '',
   onChange,
   placeholder = 'Selecione',
   searchPlaceholder = 'Pesquisar...',
@@ -28,7 +28,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
   className,
 }) => {
   const [search, setSearch] = useState('')
-  const [internalValue, setInternalValue] = useState(value)
+  const [internalValue, setInternalValue] = useState('')
   const [open, setOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState<number>(-1)
   const itemRefs = useRef<HTMLButtonElement[]>([])
@@ -83,6 +83,10 @@ export const Combobox: React.FC<ComboboxProps> = ({
       itemRefs.current[focusedIndex].focus()
     }
   }, [focusedIndex])
+
+  useEffect(() => {
+    setInternalValue(defaultValue)
+  }, [defaultValue])
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>

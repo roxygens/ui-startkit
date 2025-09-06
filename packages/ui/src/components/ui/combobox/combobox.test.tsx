@@ -33,7 +33,7 @@ describe('Combobox', () => {
   })
 
   it('should render with the label of the provided value', () => {
-    setup({ value: 'banana' })
+    setup({ defaultValue: 'banana' })
     expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
   })
 
@@ -60,7 +60,7 @@ describe('Combobox', () => {
   })
 
   it('should deselect the value if the currently selected item is clicked again', async () => {
-    const { user, onChange } = setup({ value: 'banana' })
+    const { user, onChange } = setup({ defaultValue: 'banana' })
 
     await user.click(screen.getByRole('button', { name: 'Banana' }))
 
