@@ -58,6 +58,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-neutral-900: #1C1C1E;
+  --color-neutral-gray: #707179;
 }
 
 :root {
@@ -130,6 +131,14 @@
 
   .text-body {
     @apply font-normal not-italic text-[11.78px] leading-[17.66px] tracking-[0] text-center ;
+  }
+
+  .text-xs {
+    @apply  font-normal text-[0.75rem] leading-[150%] tracking-[0.015em];
+  }
+
+  .text-sm {
+    @apply ont-normal text-[0.88rem] leading-[150%] tracking-[0.005em];
   }
 
   .text-base  {
