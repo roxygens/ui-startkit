@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils'
 const inputVariants = cva(
   `
     file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--secondary-border)]
-    dark:bg-input/30  flex h-9 w-full min-w-0 rounded-[8px] bg-transparent px-3 py-1 text-base shadow-xs 
-    transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm 
+    flex h-9 w-full min-w-0 rounded-[0.25rem] bg-neutral-900 px-3 py-1 text-base shadow-xs 
+    transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0  file:text-sm 
     file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
 
     text-white 
