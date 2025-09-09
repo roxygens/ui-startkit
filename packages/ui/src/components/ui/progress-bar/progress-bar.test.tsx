@@ -19,7 +19,7 @@ describe('ProgressBar', () => {
     expect(percentage).toHaveStyle({ marginLeft: '0.75rem' })
   })
 
-  it('should render with percentage on the bottom-left and correct styles', () => {
+  it('should render with percentage on the bottom and correct styles', () => {
     render(<ProgressBar value={75} showPercentage="bottom" />)
     const percentage = screen.getByText('75%')
     expect(percentage).toBeInTheDocument()
