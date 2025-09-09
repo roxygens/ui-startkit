@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 
 export type ProgressBarProps = {
   value: number
-  showPercentage?: 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'none'
+  showPercentage?: 'left' | 'right' | 'bottom' | 'none'
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ value, showPercentage }) => {
@@ -12,7 +12,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ value, showPercentage 
     <div
       className={cn('flex w-full relative', {
         'flex-row items-center': showPercentage === 'left' || showPercentage === 'right',
-        'flex-col': showPercentage === 'bottom-left' || showPercentage === 'bottom-right',
+        'flex-col': showPercentage === 'bottom',
       })}
     >
       {showPercentage === 'left' && (
@@ -32,7 +32,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ value, showPercentage 
       >
         <div
           role="progressbar"
-          className={'h-full transition-[width] duration-300 ease-in-out rounded bg-primary'}
+          className={'h-full rounded bg-primary'}
           style={{
             borderRadius: '0.5rem',
             width: percentage,
@@ -40,12 +40,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ value, showPercentage 
         />
       </div>
 
-      {['bottom-left', 'bottom-right'].includes(showPercentage as 'none') && (
+      {showPercentage === 'bottom' && (
         <p
           className="absolute text-xs text-white"
           style={{
             marginTop: '0.75rem',
-            right: showPercentage === 'bottom-right' ? 0 : undefined,
+            left: percentage,
+            transform: `translateX(-${percentage})`,
           }}
         >
           {percentage}

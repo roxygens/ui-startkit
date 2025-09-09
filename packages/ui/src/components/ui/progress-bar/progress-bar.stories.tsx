@@ -16,7 +16,7 @@ const meta: Meta<typeof ProgressBar> = {
       },
     },
     showPercentage: {
-      options: ['left', 'right', 'bottom-left', 'bottom-right', 'none'],
+      options: ['left', 'right', 'bottom', 'none'],
       control: { type: 'select' },
     },
   },

@@ -19,21 +19,13 @@ describe('ProgressBar', () => {
     expect(percentage).toHaveStyle({ marginLeft: '0.75rem' })
   })
 
-  it('should render with percentage on the bottom-left and correct styles', () => {
-    render(<ProgressBar value={75} showPercentage="bottom-left" />)
+  it('should render with percentage on the bottom and correct styles', () => {
+    render(<ProgressBar value={75} showPercentage="bottom" />)
     const percentage = screen.getByText('75%')
     expect(percentage).toBeInTheDocument()
     expect(percentage).toHaveClass('absolute text-xs text-white')
     expect(percentage).toHaveStyle({ marginTop: '0.75rem' })
     expect(percentage).not.toHaveStyle({ right: '0' })
-  })
-
-  it('should render with percentage on the bottom-right and correct styles', () => {
-    render(<ProgressBar value={100} showPercentage="bottom-right" />)
-    const percentage = screen.getByText('100%')
-    expect(percentage).toBeInTheDocument()
-    expect(percentage).toHaveClass('absolute text-xs text-white')
-    expect(percentage).toHaveStyle({ marginTop: '0.75rem', right: '0' })
   })
 
   it('should not render percentage when showPercentage is none', () => {
