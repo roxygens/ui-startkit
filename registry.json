@@ -98,6 +98,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+     "input-otp": {
+      "name": "InputOtp",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "components/ui/input-otp.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/input-otp/input-otp.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
