@@ -1,93 +1,198 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect } from 'vitest'
-import { SelectInput } from '.'
+import { describe, it, expect, vi } from 'vitest'
+import { Select } from './select'
 
 const mockOptions = [
-  { label: 'Maçã', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Uva', value: 'grape' },
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
 ]
 
-describe('Select', () => {
+const searchPlaceholderText = 'Pesquisar...'
+const defaultPlaceholderText = 'Selecione'
+
+const setup = (props = {}) => {
   const user = userEvent.setup()
+  const defaultProps = {
+    options: mockOptions,
+    onChange: vi.fn(),
+    isCombobox: true,
+  }
+  const view = render(<Select {...defaultProps} {...props} />)
+  return {
+    user,
+    onChange: defaultProps.onChange,
+    ...view,
+  }
+}
 
-  it('should render with a placeholder', () => {
-    render(
-      <SelectInput options={mockOptions} placeholder="Selecione uma fruta" selectLabel="Frutas" />,
-    )
+describe('Select', () => {
+  describe('Rendering and Initial State', () => {
+    it('should render with the default placeholder when no value is provided', () => {
+      setup()
+      expect(screen.getByRole('button', { name: defaultPlaceholderText })).toBeInTheDocument()
+    })
 
-    const trigger = screen.getByRole('combobox')
-    expect(trigger).toBeInTheDocument()
-    expect(trigger).toHaveTextContent('Selecione uma fruta')
+    it('should render with the label of the provided default value', () => {
+      setup({ defaultValue: 'banana' })
+      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
+    })
+
+    it('should render as disabled when the disabled prop is true', () => {
+      setup({ disabled: true })
+      expect(screen.getByRole('button')).toBeDisabled()
+    })
+
+    it('should have aria-invalid attribute when aria-invalid prop is true', () => {
+      setup({ 'aria-invalid': true })
+      expect(screen.getByRole('button')).toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should apply a custom className to the trigger button', () => {
+      setup({ className: 'my-custom-select' })
+      expect(screen.getByRole('button')).toHaveClass('my-custom-select')
+    })
+
+    it.each([
+      ['xs', 'h-[1.5rem] text-xs'],
+      ['sm', 'h-[2rem] text-sm'],
+      ['md', 'h-[2.25rem] text-sm'],
+      ['lg', 'h-[2.5rem] text-sm'],
+    ])('should apply the correct styles for size %s', (size, expectedClass) => {
+      setup({ size })
+      const trigger = screen.getByRole('button')
+      expect(trigger).toHaveClass(expectedClass)
+    })
   })
 
-  it('should open the dropdown, display options, and update the value on selection', async () => {
-    render(
-      <SelectInput options={mockOptions} placeholder="Selecione uma fruta" selectLabel="Frutas" />,
-    )
+  describe('Interactions', () => {
+    it('should open the popover and display options when the trigger is clicked', async () => {
+      const { user } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-    const trigger = screen.getByRole('combobox')
+      expect(await screen.findByRole('button', { name: 'Apple' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Cherry' })).toBeInTheDocument()
+      expect(screen.getByPlaceholderText(searchPlaceholderText)).toBeInTheDocument()
+    })
 
-    await user.click(trigger)
+    it('should update trigger, call onChange, and close popover when an option is selected', async () => {
+      const { user, onChange } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-    expect(screen.getByText('Frutas')).toBeInTheDocument()
-    const optionBanana = await screen.findByText('Banana')
-    expect(optionBanana).toBeInTheDocument()
-    expect(screen.getByText('Maçã')).toBeInTheDocument()
+      const appleOption = await screen.findByRole('button', { name: 'Apple' })
+      await user.click(appleOption)
 
-    await user.click(optionBanana)
+      expect(onChange).toHaveBeenCalledWith('apple')
+      expect(screen.getByRole('button', { name: 'Apple' })).toBeInTheDocument()
+      expect(screen.queryByPlaceholderText(searchPlaceholderText)).not.toBeInTheDocument()
+    })
 
-    expect(screen.queryByText('Maçã')).not.toBeInTheDocument()
+    it('should deselect the value if the currently selected item is clicked again', async () => {
+      const { user, onChange } = setup({ defaultValue: 'banana' })
+      await user.click(screen.getByRole('button', { name: 'Banana' }))
 
-    expect(trigger).toHaveTextContent('Banana')
-    expect(trigger).not.toHaveTextContent('Selecione uma fruta')
+      const popoverContent = await screen.findByRole('dialog')
+
+      const bananaOption = within(popoverContent).getByRole('button', { name: 'Banana' })
+      await user.click(bananaOption)
+
+      expect(onChange).toHaveBeenCalledWith('')
+      expect(screen.getByRole('button', { name: defaultPlaceholderText })).toBeInTheDocument()
+    })
+    it('should not open the popover if disabled', async () => {
+      const { user } = setup({ disabled: true })
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+      expect(screen.queryByPlaceholderText(searchPlaceholderText)).not.toBeInTheDocument()
+    })
+
+    it('should display the empty state placeholder when no options match the search', async () => {
+      const { user } = setup({ emptyStatePlaceholder: 'No results found' })
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+
+      const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
+      await user.type(searchInput, 'xyz')
+
+      expect(await screen.findByText('No results found')).toBeInTheDocument()
+    })
   })
 
-  it('should be disabled when the disabled prop is true', async () => {
-    render(
-      <SelectInput
-        options={mockOptions}
-        placeholder="Selecione uma fruta"
-        selectLabel="Frutas"
-        disabled
-      />,
-    )
-    const trigger = screen.getByRole('combobox')
-    expect(trigger).toBeDisabled()
+  describe('Keyboard Navigation', () => {
+    it('should close the popover when the Escape key is pressed', async () => {
+      const { user } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-    await user.click(trigger)
+      const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
+      expect(searchInput).toBeInTheDocument()
 
-    expect(screen.queryByText('Maçã')).not.toBeInTheDocument()
+      await user.keyboard('{Escape}')
+      expect(screen.queryByPlaceholderText(searchPlaceholderText)).not.toBeInTheDocument()
+    })
+
+    it('should navigate options with ArrowDown and select with Enter', async () => {
+      const { user, onChange } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+
+      const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
+      expect(searchInput).toHaveFocus()
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Apple' })).toHaveFocus())
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Banana' })).toHaveFocus())
+
+      await user.keyboard('{Enter}')
+      expect(onChange).toHaveBeenCalledWith('banana')
+      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
+    })
+
+    it('should navigate options with ArrowUp and wrap around to the end', async () => {
+      const { user } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+      await screen.findByPlaceholderText(searchPlaceholderText)
+
+      await user.keyboard('{ArrowUp}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Cherry' })).toHaveFocus())
+
+      await user.keyboard('{ArrowUp}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Banana' })).toHaveFocus())
+    })
+
+    it('should navigate options with ArrowDown and wrap around to the start', async () => {
+      const { user } = setup()
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+      await screen.findByPlaceholderText(searchPlaceholderText)
+
+      await user.keyboard('{ArrowUp}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Cherry' })).toHaveFocus())
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Apple' })).toHaveFocus())
+    })
   })
 
-  it('should apply size variant classes correctly', () => {
-    render(<SelectInput options={mockOptions} placeholder="Select" selectLabel="Label" size="sm" />)
-    const trigger = screen.getByRole('combobox')
-    expect(trigger).toHaveClass('h-[32px]')
-  })
+  describe('Non-Combobox Mode', () => {
+    it('should open and show options without a search input', async () => {
+      const { user } = setup({ isCombobox: false })
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-  it('should APPLY the hover class when aria-invalid prop is not provided', () => {
-    render(<SelectInput options={mockOptions} placeholder="Válido por padrão" />)
+      expect(await screen.findByRole('button', { name: 'Apple' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
+      expect(screen.queryByPlaceholderText(searchPlaceholderText)).not.toBeInTheDocument()
+    })
 
-    const icon = screen.getByTestId('select-chevron-icon')
+    it('should still select an option on click', async () => {
+      const { user, onChange } = setup({ isCombobox: false })
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-    expect(icon.classList).toContain('group-hover:text-[var(--primary)]')
-  })
+      const cherryOption = await screen.findByRole('button', { name: 'Cherry' })
+      await user.click(cherryOption)
 
-  it('should NOT apply the hover class when the component is invalid (aria-invalid={true})', () => {
-    render(<SelectInput options={mockOptions} placeholder="Inválido" aria-invalid={true} />)
-
-    const icon = screen.getByTestId('select-chevron-icon')
-
-    expect(icon.classList).not.toContain('group-hover:text-[var(--primary)]')
-  })
-
-  it('should forward the ref to the trigger element', () => {
-    const ref = React.createRef<HTMLButtonElement>()
-    render(<SelectInput ref={ref} options={mockOptions} placeholder="Select" selectLabel="Label" />)
-
-    expect(ref.current).toBe(screen.getByRole('combobox'))
+      expect(onChange).toHaveBeenCalledWith('cherry')
+      expect(screen.getByRole('button', { name: 'Cherry' })).toBeInTheDocument()
+    })
   })
 })

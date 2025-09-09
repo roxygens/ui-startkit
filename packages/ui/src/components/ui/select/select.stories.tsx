@@ -1,10 +1,12 @@
-//test
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { SelectInput } from '.'
+import { Select } from '.'
 
-const meta: Meta<typeof SelectInput> = {
+const meta: Meta<typeof Select> = {
   title: 'Components/Select',
-  component: SelectInput,
+  component: Select,
+  parameters: {
+    docs: { page: null },
+  },
   tags: ['autodocs'],
   argTypes: {
     size: {
@@ -16,33 +18,35 @@ const meta: Meta<typeof SelectInput> = {
 
 export default meta
 
-type Size = 'xs' | 'sm' | 'md' | 'lg'
+type Story = StoryObj<typeof Select>
 
-type Story = StoryObj<typeof SelectInput>
-
-const args = {
-  placeholder: 'Selecione o item',
-  selectLabel: 'Selecione o item',
-  options: [
-    {
-      label: 'Opção 1',
-      value: 'Opção 1',
-    },
-    {
-      label: 'Opção 2',
-      value: 'Opção 2',
-    },
-    {
-      label: 'Opção 3',
-      value: 'Opção 3',
-    },
-  ],
-  size: 'md' as Size,
-  className: 'w-full',
-}
+const options = [
+  {
+    label: 'Next.js',
+    value: 'Next.js',
+  },
+  {
+    label: 'SvelteKit',
+    value: 'SvelteKit',
+  },
+  {
+    label: 'Nuxt.js',
+    value: 'Nuxt.js',
+  },
+  {
+    label: 'Remix',
+    value: 'Remix',
+  },
+]
 
 export const Default: Story = {
   args: {
-    ...args,
+    placeholder: 'Select framework...',
+    searchPlaceholder: 'Search framework',
+    options,
+    className: 'min-w-[200px]',
+    onChange: (value) => {
+      console.log(value)
+    },
   },
 }
