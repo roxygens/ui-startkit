@@ -71,9 +71,9 @@ describe('Select', () => {
       const { user } = setup()
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-      expect(await screen.findByRole('button', { name: 'Apple' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Cherry' })).toBeInTheDocument()
+      expect(await screen.findByRole('option', { name: 'Apple' })).toBeInTheDocument()
+      expect(screen.getByRole('option', { name: 'Banana' })).toBeInTheDocument()
+      expect(screen.getByRole('option', { name: 'Cherry' })).toBeInTheDocument()
       expect(screen.getByPlaceholderText(searchPlaceholderText)).toBeInTheDocument()
     })
 
@@ -81,7 +81,7 @@ describe('Select', () => {
       const { user, onChange } = setup()
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-      const appleOption = await screen.findByRole('button', { name: 'Apple' })
+      const appleOption = await screen.findByRole('option', { name: 'Apple' })
       await user.click(appleOption)
 
       expect(onChange).toHaveBeenCalledWith('apple')
@@ -95,7 +95,7 @@ describe('Select', () => {
 
       const popoverContent = await screen.findByRole('dialog')
 
-      const bananaOption = within(popoverContent).getByRole('button', { name: 'Banana' })
+      const bananaOption = within(popoverContent).getByRole('option', { name: 'Banana' })
       await user.click(bananaOption)
 
       expect(onChange).toHaveBeenCalledWith('')
@@ -121,7 +121,7 @@ describe('Select', () => {
 
   describe('Keyboard Navigation', () => {
     it('should close the popover when the Escape key is pressed', async () => {
-      const { user } = setup()
+      const { user } = setup({ isCombobox: true })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
       const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
@@ -132,17 +132,17 @@ describe('Select', () => {
     })
 
     it('should navigate options with ArrowDown and select with Enter', async () => {
-      const { user, onChange } = setup()
+      const { user, onChange } = setup({ isCombobox: true })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
       const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
       expect(searchInput).toHaveFocus()
 
       await user.keyboard('{ArrowDown}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Apple' })).toHaveFocus())
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toHaveFocus())
 
       await user.keyboard('{ArrowDown}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Banana' })).toHaveFocus())
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Banana' })).toHaveFocus())
 
       await user.keyboard('{Enter}')
       expect(onChange).toHaveBeenCalledWith('banana')
@@ -150,27 +150,40 @@ describe('Select', () => {
     })
 
     it('should navigate options with ArrowUp and wrap around to the end', async () => {
-      const { user } = setup()
+      const { user } = setup({ isCombobox: true })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
       await screen.findByPlaceholderText(searchPlaceholderText)
 
       await user.keyboard('{ArrowUp}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Cherry' })).toHaveFocus())
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Cherry' })).toHaveFocus())
 
       await user.keyboard('{ArrowUp}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Banana' })).toHaveFocus())
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Banana' })).toHaveFocus())
     })
 
-    it('should navigate options with ArrowDown and wrap around to the start', async () => {
-      const { user } = setup()
+    it('should move focus from first option back to search input with ArrowUp', async () => {
+      const { user } = setup({ isCombobox: true })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
-      await screen.findByPlaceholderText(searchPlaceholderText)
 
-      await user.keyboard('{ArrowUp}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Cherry' })).toHaveFocus())
+      const searchInput = await screen.findByPlaceholderText(searchPlaceholderText)
 
       await user.keyboard('{ArrowDown}')
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Apple' })).toHaveFocus())
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toHaveFocus())
+
+      await user.keyboard('{ArrowUp}')
+
+      await waitFor(() => expect(searchInput).toHaveFocus())
+    })
+
+    it('should navigate options with ArrowUp and wrap around to the end', async () => {
+      const { user } = setup({ isCombobox: false })
+      await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toHaveFocus())
+
+      await user.keyboard('{ArrowUp}')
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Cherry' })).toHaveFocus())
     })
   })
 
@@ -179,8 +192,8 @@ describe('Select', () => {
       const { user } = setup({ isCombobox: false })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-      expect(await screen.findByRole('button', { name: 'Apple' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Banana' })).toBeInTheDocument()
+      expect(await screen.findByRole('option', { name: 'Apple' })).toBeInTheDocument()
+      expect(screen.getByRole('option', { name: 'Banana' })).toBeInTheDocument()
       expect(screen.queryByPlaceholderText(searchPlaceholderText)).not.toBeInTheDocument()
     })
 
@@ -188,7 +201,7 @@ describe('Select', () => {
       const { user, onChange } = setup({ isCombobox: false })
       await user.click(screen.getByRole('button', { name: defaultPlaceholderText }))
 
-      const cherryOption = await screen.findByRole('button', { name: 'Cherry' })
+      const cherryOption = await screen.findByRole('option', { name: 'Cherry' })
       await user.click(cherryOption)
 
       expect(onChange).toHaveBeenCalledWith('cherry')

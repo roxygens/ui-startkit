@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, forwardRef, useEffect } from 'react'
 import * as Popover from '@radix-ui/react-popover'
 import { Search, Check, ChevronsUpDown } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -69,139 +69,171 @@ type SelectProps = {
   'aria-invalid'?: boolean
 } & VariantProps<typeof selectVariants>
 
-export const Select: React.FC<SelectProps> = ({
-  options,
-  defaultValue = '',
-  onChange,
-  placeholder = 'Selecione',
-  searchPlaceholder = 'Pesquisar...',
-  emptyStatePlaceholder = 'Sem dados',
-  className,
-  isCombobox,
-  size,
-  disabled,
-  ...rest
-}) => {
-  const [search, setSearch] = useState('')
-  const [internalValue, setInternalValue] = useState('')
-  const [open, setOpen] = useState(false)
-  const [focusedIndex, setFocusedIndex] = useState<number>(-1)
-  const itemRefs = useRef<HTMLButtonElement[]>([])
-  const inputRef = useRef<HTMLInputElement>(null)
+export const Select = forwardRef<HTMLInputElement, SelectProps>(
+  (
+    {
+      options,
+      defaultValue = '',
+      onChange,
+      placeholder = 'Selecione',
+      searchPlaceholder = 'Pesquisar...',
+      emptyStatePlaceholder = 'Sem dados',
+      className,
+      isCombobox,
+      size,
+      disabled,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [search, setSearch] = useState('')
+    const [internalValue, setInternalValue] = useState('')
+    const [open, setOpen] = useState(false)
+    const [focusedIndex, setFocusedIndex] = useState<number>(-1)
 
-  const isInvalid = rest['aria-invalid']
+    const triggerRef = useRef<HTMLButtonElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const listRef = useRef<HTMLDivElement>(null)
+    const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
 
-  const filteredOptions = options.filter((opt) =>
-    opt.label.toLowerCase().includes(search.toLowerCase()),
-  )
+    const isInvalid = rest['aria-invalid']
 
-  function handleSelect(optionValue: string) {
-    const newValue = optionValue === internalValue ? '' : optionValue
-    setInternalValue(newValue)
-    onChange(newValue)
-    setOpen(false)
-  }
+    const filteredOptions = options.filter((opt) =>
+      opt.label.toLowerCase().includes(search.toLowerCase()),
+    )
 
-  function clearSearch() {
-    setSearch('')
-  }
+    function handleSelect(optionValue: string) {
+      const newValue = optionValue === internalValue ? '' : optionValue
+      setInternalValue(newValue)
+      onChange(newValue)
 
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(e.target.value)
-    setFocusedIndex(0)
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      setFocusedIndex((prev) => (prev + 1) % filteredOptions.length)
+      setOpen(false)
+      triggerRef.current?.focus()
     }
 
-    if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      setFocusedIndex((prev) => (prev <= 0 ? filteredOptions.length - 1 : prev - 1))
+    function clearSearch() {
+      setSearch('')
     }
 
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      if (filteredOptions[focusedIndex]) {
-        handleSelect(filteredOptions[focusedIndex].value)
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+      setSearch(e.target.value)
+      setFocusedIndex(0)
+    }
+
+    function handleKeyDown(e: React.KeyboardEvent) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        if (document.activeElement === inputRef.current) {
+          setFocusedIndex(0)
+        } else {
+          setFocusedIndex((prev) => (prev + 1) % filteredOptions.length)
+        }
+      }
+
+      if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        if (focusedIndex === 0 && isCombobox) {
+          setFocusedIndex(-1)
+          inputRef.current?.focus()
+        } else {
+          setFocusedIndex((prev) => (prev <= 0 ? filteredOptions.length - 1 : prev - 1))
+        }
+      }
+
+      if (e.key === 'Enter' && focusedIndex !== -1) {
+        e.preventDefault()
+        if (filteredOptions[focusedIndex]) {
+          handleSelect(filteredOptions[focusedIndex].value)
+        }
+      }
+
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        setOpen(false)
+        triggerRef.current?.focus()
       }
     }
 
-    if (e.key === 'Escape') {
-      e.preventDefault()
-      setOpen(false)
-    }
-  }
+    useEffect(() => {
+      if (open && focusedIndex >= 0 && itemRefs.current[focusedIndex]) {
+        const item = itemRefs.current[focusedIndex]
+        item?.focus()
+        item?.scrollIntoView({ block: 'nearest' })
+      }
+    }, [focusedIndex, open])
 
-  useEffect(() => {
-    if (focusedIndex >= 0 && itemRefs.current[focusedIndex]) {
-      itemRefs.current[focusedIndex].focus()
-    }
-  }, [focusedIndex])
+    useEffect(() => {
+      setInternalValue(defaultValue)
+    }, [defaultValue])
 
-  useEffect(() => {
-    setInternalValue(defaultValue)
-  }, [defaultValue])
+    return (
+      <Popover.Root open={open} onOpenChange={setOpen}>
+        <Popover.Trigger asChild>
+          <button
+            ref={triggerRef}
+            className={cn(selectVariants({ size, className }))}
+            type="button"
+            onClick={clearSearch}
+            disabled={disabled}
+            aria-invalid={isInvalid}
+          >
+            {options?.find((opt) => opt.value === internalValue)?.label || placeholder}
+            <ChevronsUpDown className="w-[0.89rem] h-[0.89rem] opacity-50" />
+            <input type="hidden" {...rest} ref={ref} disabled={disabled} />
+          </button>
+        </Popover.Trigger>
 
-  return (
-    <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger asChild>
-        <button
-          className={cn(selectVariants({ size, className }))}
-          type="button"
-          onClick={clearSearch}
-          disabled={disabled}
-          aria-invalid={isInvalid}
-        >
-          {options?.find((opt) => opt.value === internalValue)?.label || placeholder}
-          <ChevronsUpDown className="w-[0.89rem] h-[0.89rem] opacity-50" />
-        </button>
-      </Popover.Trigger>
-
-      <Popover.Portal>
-        <Popover.Content
-          side="bottom"
-          align="start"
-          sideOffset={4}
-          className="bg-neutral-900 w-[var(--radix-popover-trigger-width)] rounded-none hover:rounded-none shadow-lg z-50"
-          onKeyDown={handleKeyDown}
-        >
-          <div className="flex flex-col font-normal text-[0.75rem] leading-[1.25rem]">
-            {isCombobox && (
-              <>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]" />
-                  <input
-                    ref={inputRef}
-                    className={cn(
-                      popoverContentItemVariants({ size }),
-                      'bg-neutral-800 placeholder:text-[var(--muted-foreground)] pl-9 focus:ring-0 rounded-none',
-                    )}
-                    placeholder={searchPlaceholder}
-                    onChange={handleSearch}
-                    autoFocus
-                  />
-                </div>
-
-                {!filteredOptions.length && (
-                  <div className={cn(popoverContentItemVariants({ size }), 'rounded-none')}>
-                    {emptyStatePlaceholder}
+        <Popover.Portal>
+          <Popover.Content
+            side="bottom"
+            align="start"
+            sideOffset={4}
+            className="bg-neutral-900 w-[var(--radix-popover-trigger-width)] rounded-none hover:rounded-none shadow-lg z-50 overflow-hidden"
+            onKeyDown={handleKeyDown}
+          >
+            <div
+              ref={listRef}
+              className="flex flex-col font-normal text-[0.75rem] leading-[1.25rem] max-h-60 overflow-y-auto"
+            >
+              {isCombobox && (
+                <>
+                  <div className="relative p-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]" />
+                    <input
+                      ref={inputRef}
+                      className={cn(
+                        popoverContentItemVariants({ size }),
+                        'bg-neutral-800 placeholder:text-[var(--muted-foreground)] pl-9 focus:ring-0 rounded-none w-full',
+                      )}
+                      placeholder={searchPlaceholder}
+                      onChange={handleSearch}
+                      value={search}
+                    />
                   </div>
-                )}
-              </>
-            )}
 
-            {filteredOptions.map((option, index) => (
-              <Popover.Close asChild key={option.value}>
+                  {!filteredOptions.length && search && (
+                    <div className={cn(popoverContentItemVariants({ size }), 'rounded-none')}>
+                      {emptyStatePlaceholder}
+                    </div>
+                  )}
+                </>
+              )}
+
+              {filteredOptions.map((option, index) => (
                 <button
+                  key={option.value}
                   ref={(el) => {
-                    itemRefs.current[index] = el!
+                    itemRefs.current[index] = el
                   }}
+                  role="option"
+                  aria-selected={internalValue === option.value}
+                  data-focused={focusedIndex === index}
                   tabIndex={-1}
                   onClick={() => handleSelect(option.value)}
-                  className={cn(popoverContentItemVariants({ size }), 'rounded-none')}
+                  className={cn(
+                    popoverContentItemVariants({ size }),
+                    'rounded-none data-[focused=true]:bg-neutral-800',
+                  )}
                 >
                   {option.label}
                   <Check
@@ -211,11 +243,13 @@ export const Select: React.FC<SelectProps> = ({
                     )}
                   />
                 </button>
-              </Popover.Close>
-            ))}
-          </div>
-        </Popover.Content>
-      </Popover.Portal>
-    </Popover.Root>
-  )
-}
+              ))}
+            </div>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
+    )
+  },
+)
+
+Select.displayName = 'Select'
