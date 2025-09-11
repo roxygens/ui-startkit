@@ -113,5 +113,19 @@
         }
       ]
     }
-  }
+  },
+  "tooltip": {
+      "name": "Tooltip",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "components/ui/tooltip.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/tooltip/tooltip.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    }
 }
