@@ -112,9 +112,8 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
-    }
-  },
-  "tooltip": {
+    },
+    "tooltip": {
       "name": "Tooltip",
       "dependencies": [],
       "files": [
@@ -128,4 +127,5 @@
         }
       ]
     }
+  }
 }
