@@ -42,6 +42,11 @@ const meta: Meta<typeof Card> = {
     },
     disabled: { control: 'boolean' },
     onClick: { action: 'onClick' },
+    amount: {
+      control: 'number',
+      default: 6,
+      description: 'Selecione a quantidade de itens que serão exibidos na tela',
+    },
   } as Record<string, unknown>,
 }
 
@@ -54,61 +59,144 @@ export const Playground: Story = {
     variant: 'Default',
     disabled: false,
     className: '',
+    amount: 6,
   } as Record<string, unknown>,
-  render: (args: { variant?: CardVariant; disabled?: boolean; className?: string }) => {
+  render: (args: {
+    variant?: CardVariant
+    disabled?: boolean
+    className?: string
+    amount?: number
+  }) => {
     const variant = args.variant || 'Default'
 
     if (variant === 'Mini') {
       return (
-        <CardMini onClick={() => {}} disabled={args.disabled} className={args?.className}>
-          <CardMini.Content>
-            <Card.Images
-              images={[
-                { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
-                { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
-              ]}
-            />
+        <div className="flex flex-wrap gap-y-2 justify-center items-center">
+          {Array.from({ length: args?.amount || 6 }).map((_, index) => (
+            <CardMini
+              key={index}
+              onClick={() => {}}
+              disabled={args.disabled}
+              className={args?.className}
+            >
+              <CardMini.Content>
+                <Card.Images
+                  images={[
+                    { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+                    { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+                  ]}
+                />
 
-            <p className="text-xs text-white">Vice</p>
+                <p className="text-xs text-white">Vice</p>
 
-            <div className="flex items-baseline gap-[.25rem] text-center">
-              <p className="text-body text-[var(--muted-foreground)]">De</p>
+                <div className="flex items-baseline gap-[.25rem] text-center">
+                  <p className="text-body text-[var(--muted-foreground)]">De</p>
 
-              <p className="text-white font-bold text-lg">R$ {formatCurrency(3254.05)}</p>
-            </div>
-          </CardMini.Content>
+                  <p className="text-white font-bold text-lg">R$ {formatCurrency(3254.05)}</p>
+                </div>
+              </CardMini.Content>
 
-          <Card.FooterButton
-            className="border-none"
-            onClick={() => console.log('Adicionar ao carrinho')}
-          >
-            <div className="flex items-center gap-2">23 Ofertas</div>
-          </Card.FooterButton>
-        </CardMini>
+              <Card.FooterButton
+                className="border-none"
+                onClick={() => console.log('Adicionar ao carrinho')}
+              >
+                <div className="flex items-center gap-2">23 Ofertas</div>
+              </Card.FooterButton>
+            </CardMini>
+          ))}
+        </div>
       )
     }
 
     if (variant === 'List') {
       return (
-        <CardList onClick={() => {}} disabled={args.disabled} className={args?.className}>
-          <CardList.Content>
-            <CardList.Images
-              images={[
-                { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
-                { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
-              ]}
-            />
+        <div className="flex flex-wrap gap-4 justify-center items-center">
+          {Array.from({ length: args?.amount || 6 }).map((_, index) => (
+            <CardList
+              key={index}
+              onClick={() => {}}
+              disabled={args.disabled}
+              className={args?.className}
+            >
+              <CardList.Content>
+                <CardList.Images
+                  images={[
+                    { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+                    { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+                  ]}
+                />
 
-            <CardList.Box>
-              <p className="text-base text-yellow-200 uppercase">Vice</p>
+                <CardList.Box>
+                  <p className="text-base text-yellow-200 uppercase">Vice</p>
 
-              <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
+                    <p className="info-text">Possível de trocar</p>
+                  </div>
+                </CardList.Box>
+
+                <CardList.Box>
+                  <p className="text-medium text-[#707179]">
+                    Testado no Terreno luvas
+                    <br />
+                    (Extraordinário) ★
+                  </p>
+
+                  <ScoreBar value={0.324} />
+                </CardList.Box>
+
+                <CardList.Box>
+                  <div className="flex flex-row items-center gap-[.5rem]">
+                    <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+                    <p className="info-text">-15%</p>
+                  </div>
+
+                  <p className="text-medium text-[#707179]">Steam R$ {formatCurrency(3054.87)}</p>
+                </CardList.Box>
+
+                <CardList.Button options={options}>
+                  <div className="flex items-center gap-2">
+                    <ShoppingCart width={16} height={16} />
+                    <p>ADICIONAR</p>
+                  </div>
+                </CardList.Button>
+              </CardList.Content>
+            </CardList>
+          ))}
+        </div>
+      )
+    }
+
+    return (
+      <div className="relative flex flex-wrap justify-center gap-4 items-center">
+        {Array.from({ length: args?.amount || 6 }).map((_, index) => (
+          <Card key={index} onClick={() => {}} disabled={args.disabled} className={args?.className}>
+            <Card.Content>
+              <div className="flex items-center gap-2 justify-center">
                 <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
                 <p className="info-text">Possível de trocar</p>
               </div>
-            </CardList.Box>
 
-            <CardList.Box>
+              <Card.Images
+                images={[
+                  { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
+                  { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
+                ]}
+              />
+
+              <div className="flex flex-row items-center gap-[.5rem]">
+                <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+                <p className="info-text">-15%</p>
+              </div>
+
+              <p className="text-medium text-[#707179] mb-[.5rem]">
+                Steam R$ {formatCurrency(3054.87)}
+              </p>
+
+              <div className="flex flex-row items-center justify-between text-white">
+                <p className="text-base text-yellow-200 uppercase">Vice</p>
+              </div>
+
               <p className="text-medium text-[#707179]">
                 Testado no Terreno luvas
                 <br />
@@ -116,72 +204,21 @@ export const Playground: Story = {
               </p>
 
               <ScoreBar value={0.324} />
-            </CardList.Box>
+            </Card.Content>
 
-            <CardList.Box>
-              <div className="flex flex-row items-center gap-[.5rem]">
-                <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
-                <p className="info-text">-15%</p>
-              </div>
-
-              <p className="text-medium text-[#707179]">Steam R$ {formatCurrency(3054.87)}</p>
-            </CardList.Box>
-
-            <CardList.Button options={options}>
+            <Card.FooterButton
+              onClick={() => console.log('Adicionar ao carrinho')}
+              options={options}
+              className="shadow-xl"
+            >
               <div className="flex items-center gap-2">
                 <ShoppingCart width={16} height={16} />
                 <p>ADICIONAR</p>
               </div>
-            </CardList.Button>
-          </CardList.Content>
-        </CardList>
-      )
-    }
-
-    return (
-      <Card onClick={() => {}} disabled={args.disabled} className={args?.className}>
-        <Card.Content>
-          <div className="flex items-center gap-2 justify-center">
-            <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
-            <p className="info-text">Possível de trocar</p>
-          </div>
-
-          <Card.Images
-            images={[
-              { url: '/images/card/luvas-1.png', alt: 'Imagem 1' },
-              { url: '/images/card/luvas-2.png', alt: 'Imagem 2' },
-            ]}
-          />
-
-          <div className="flex flex-row items-center gap-[.5rem]">
-            <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
-            <p className="info-text">-15%</p>
-          </div>
-
-          <p className="text-medium text-[#707179] mb-[.5rem]">
-            Steam R$ {formatCurrency(3054.87)}
-          </p>
-
-          <div className="flex flex-row items-center justify-between text-white">
-            <p className="text-base text-yellow-200 uppercase">Vice</p>
-          </div>
-
-          <p className="text-medium text-[#707179]">
-            Testado no Terreno luvas
-            <br />
-            (Extraordinário) ★
-          </p>
-
-          <ScoreBar value={0.324} />
-        </Card.Content>
-
-        <Card.FooterButton onClick={() => console.log('Adicionar ao carrinho')} options={options}>
-          <div className="flex items-center gap-2">
-            <ShoppingCart width={16} height={16} />
-            <p>ADICIONAR</p>
-          </div>
-        </Card.FooterButton>
-      </Card>
+            </Card.FooterButton>
+          </Card>
+        ))}
+      </div>
     )
   },
 }

@@ -9,7 +9,7 @@
     "dev": "npm run storybook -w=ui",
     "build": "npm run build --workspaces",
     "serve": "npx http-server ./packages/ui/storybook-static",
-    "build-cli" : "npm run build -w=@roxygens/ui-startkit",
+    "build-cli": "npm run build -w=@roxygens/ui-startkit",
     "publish-cli": "npm publish -w=@roxygens/ui-startkit"
   },
   "keywords": [],

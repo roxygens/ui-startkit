@@ -468,7 +468,7 @@ describe('Card', () => {
       )
 
       const imgElement = screen.getByRole('img', { name: 'Image 1' })
-      expect(imgElement).toHaveClass('w-[6rem] h-auto custom-image')
+      expect(imgElement).toHaveClass('h-[5.9rem] custom-image')
       const container = imgElement.parentElement
       expect(container).toHaveClass('mb-0 custom-container')
     })
