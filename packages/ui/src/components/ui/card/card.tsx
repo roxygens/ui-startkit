@@ -134,7 +134,7 @@ Card.Images = function CardImages({
       {!!currentImage && (
         <img
           className={cn(
-            'h-[5.9rem] mx-auto object-cover transition-opacity duration-300 ease-in-out',
+            'h-[5.9rem] w-[8rem] mx-auto object-cover transition-opacity duration-300 ease-in-out',
             imageClassName,
           )}
           src={currentImage?.url}
@@ -188,11 +188,11 @@ Card.FooterButton = function CardFooterButton({
       <footer
         className={cn(
           `
-            absolute left-0  right-0 top-[99%]
+            sm:absolute sm:z-50 left-0  right-0 top-[100%]
             flex justify-between items-stretch 
             font-inter font-semibold text-xs leading-[1.13rem] 
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
-            pointer-events-none opacity-0
+            pointer-events-none sm:opacity-0 
             group-hover/card:pointer-events-auto group-hover/card:opacity-100
             `,
           className,
@@ -201,7 +201,7 @@ Card.FooterButton = function CardFooterButton({
         <button
           onClick={handleClickButton}
           className={cn(
-            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary-hover)]',
             {
               'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
                 disabled,
@@ -218,7 +218,7 @@ Card.FooterButton = function CardFooterButton({
             data-testid="options-button"
             onClick={handleOpenNavOptions}
             className={cn(
-              'cursor-pointer px-[.8rem] border-l border-black/20 bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+              'cursor-pointer px-[.8rem] border-l border-black/20 bg-[var(--primary)]  hover:bg-[var(--primary-hover)]',
               {
                 'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
                   disabled,
@@ -237,7 +237,7 @@ Card.FooterButton = function CardFooterButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute w-full left-[0] bottom-0 bg-[var(--card)] 
+          `absolute w-full left-[0] bottom-[2.9rem] sm:bottom-0 bg-[var(--card)] 
           font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
           text-white overflow-hidden`,
           isNavOptionsOpen
@@ -272,7 +272,7 @@ export function CardMini(props: Props) {
         data-testid="card-mini-container"
         onClick={onClick}
         className={cn(
-          'relative  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-[var(--primary)]',
+          'relative rounded-none  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-[var(--primary)]',
           className,
         )}
       >
@@ -285,10 +285,7 @@ export function CardMini(props: Props) {
 CardMini.Content = function CardMiniContent({ children, className }: CardContentProps) {
   return (
     <Card.Content
-      className={cn(
-        '!border-0 !rounded-t-[0] rounded-b-[.35rem] text-center flex flex-col items-center',
-        className,
-      )}
+      className={cn('!border-0 !rounded-t-[0]  text-center flex flex-col items-center', className)}
     >
       {children}
     </Card.Content>
@@ -344,7 +341,7 @@ CardList.Images = function CardListImage({ className, imageClassName, ...rest }:
     <Card.Images
       {...rest}
       className={cn('mb-0', className)}
-      imageClassName={cn('w-[6rem] h-auto', imageClassName)}
+      imageClassName={cn('h-[5.9rem]', imageClassName)}
     />
   )
 } as React.FC<CardImagesProps>
