@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { RefreshCcw, ShoppingCart, MoveUpRight, Search, Plus } from 'lucide-react'
 import { Steam } from '@/utils/icons'
