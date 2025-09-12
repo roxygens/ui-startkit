@@ -83,7 +83,7 @@ describe('Checkbox', () => {
           break
       }
 
-      cleanup() // limpa o DOM para a próxima iteração
+      cleanup()
     })
   })
 
