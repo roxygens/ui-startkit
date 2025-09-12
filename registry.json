@@ -3,7 +3,7 @@
   "components": {
     "badge": {
       "name": "Badge",
-      "dependencies": ["class-variance-authority"],
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/badge.tsx",
@@ -17,7 +17,7 @@
     },
     "button": {
       "name": "Button",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/button.tsx",
@@ -31,7 +31,7 @@
     },
     "card": {
       "name": "Card",
-      "dependencies": [],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/card.tsx",
@@ -45,7 +45,7 @@
     },
     "input": {
       "name": "Input",
-      "dependencies": ["class-variance-authority"],
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/input.tsx",
@@ -59,21 +59,17 @@
     },
     "score-bar": {
       "name": "Score Bar",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge", "tw-animate-css"],
+      "dependencies": [],
       "files": [
         {
           "path": "components/ui/score-bar.tsx",
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/score-bar/score-bar.tsx"
-        },
-        {
-          "path": "lib/utils.ts",
-          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
     },
      "select": {
       "name": "Select",
-      "dependencies": ["@radix-ui/react-popover"],
+      "dependencies": ["@radix-ui/react-popover", "class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/select.tsx",
@@ -87,7 +83,7 @@
     },
      "input-otp": {
       "name": "InputOtp",
-      "dependencies": [],
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/input-otp.tsx",
@@ -101,7 +97,7 @@
     },
     "progress-bar": {
       "name": "Progress Bar",
-      "dependencies": [],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/progress-bar.tsx",
@@ -115,7 +111,7 @@
     },
     "tooltip": {
       "name": "Tooltip",
-      "dependencies": [],
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/tooltip.tsx",
@@ -129,11 +125,25 @@
     },
     "tabs": {
       "name": "Tabs",
-      "dependencies": ["@radix-ui/react-tabs"],
+      "dependencies": ["@radix-ui/react-tabs", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/tabs.tsx",
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/tabs/tabs.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
+    },
+     "checkbox": {
+      "name": "Checkbox",
+      "dependencies": ["@radix-ui/react-checkbox", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/checkbox.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/checkbox/checkbox.tsx"
         },
         {
           "path": "lib/utils.ts",

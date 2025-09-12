@@ -2,7 +2,6 @@ import React, { useState, useRef, forwardRef, useEffect } from 'react'
 import * as Popover from '@radix-ui/react-popover'
 import { Search, Check, ChevronsUpDown } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
-
 import { cn } from '@/lib/utils'
 
 const selectVariants = cva(

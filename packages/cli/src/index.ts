@@ -81,13 +81,7 @@ program
       spinner.succeed(`Tema "Skins Games" adicionado a \`${options.tailwindCssFile}\`.`)
 
       spinner.start('Instalando dependências...')
-      const dependencies = [
-        'tailwindcss-animate',
-        'clsx',
-        'tailwind-merge',
-        'lucide-react',
-        'tw-animate-css',
-      ]
+      const dependencies = ['tailwindcss-animate', 'lucide-react', 'tw-animate-css']
       await execa('npm', ['install', ...dependencies])
       spinner.succeed('Dependências instaladas.')
 
