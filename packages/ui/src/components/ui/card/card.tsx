@@ -63,7 +63,7 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
     <div
       className={cn(
         'cursor-pointer bg-[var(--card)] card-shadow p-[1rem]',
-        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px]',
+        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] border-none',
         {
           'bg-[var(--card-hover)]': isNavOptionsOpen,
         },
