@@ -150,6 +150,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+    "radio-group": {
+      "name": "Radio Group",
+      "dependencies": ["@radix-ui/react-radio-group", "class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/radio-group.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/radio-group/radio-group.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
