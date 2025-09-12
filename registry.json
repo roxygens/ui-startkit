@@ -139,7 +139,7 @@
     },
      "checkbox": {
       "name": "Checkbox",
-      "dependencies": ["@radix-ui/react-checkbox", "clsx", "tailwind-merge"],
+      "dependencies": ["@radix-ui/react-checkbox", "class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/checkbox.tsx",

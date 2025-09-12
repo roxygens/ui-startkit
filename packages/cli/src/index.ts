@@ -124,7 +124,6 @@ program
       const registry = JSON.parse(registryContent)
 
       spinner.succeed('Registro encontrado.')
-      spinner.succeed('Registro encontrado.')
 
       const componentData = registry.components[componentName]
 
