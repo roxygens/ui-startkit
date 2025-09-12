@@ -60,6 +60,9 @@
   --color-neutral-900: #1C1C1E;
   --color-neutral-950: #141415;
   --color-neutral-gray: #707179;
+  --color-gray-50: #13161B;
+  --color-gray-200: #373A41;
+  --color-gray-700: #CECFD2;
 }
 
 :root {
