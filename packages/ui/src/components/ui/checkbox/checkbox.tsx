@@ -8,7 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 const checkboxVariants = cva(
   `
-    peer group shrink-0 rounded-[0.19rem] border border-white shadow-xs mt-[0.15rem]
+    peer group shrink-0 rounded-[0.19rem] border border-neutral-gray shadow-xs mt-[0.15rem]
     transition-shadow outline-none 
     data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground 
     dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary 
@@ -112,7 +112,11 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
       </CheckboxPrimitive.Root>
 
       <div className="flex flex-col">
-        {label && <p className={labelVariants({ size })}>{label}</p>}
+        {label && (
+          <label htmlFor={label} className={labelVariants({ size })}>
+            {label}
+          </label>
+        )}
         {description && <p className={descriptionVariants({ size })}>{description}</p>}
       </div>
     </div>
