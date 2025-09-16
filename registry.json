@@ -164,6 +164,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+    "switch": {
+      "name": "Switch",
+      "dependencies": ["@radix-ui/react-switch", "class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/switch.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/switch/switch.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
