@@ -38,7 +38,7 @@ export const Default: Story = {
       },
       {
         label: 'Item disabled',
-        value: 'item_disabed',
+        value: 'item_disabled',
         disabled: true,
       },
     ],

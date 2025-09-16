@@ -137,10 +137,8 @@ export function RadioGroup({ size, className, defaultValue, options, ...props }:
   const [selected, setSelected] = useState<string | undefined>()
 
   const handleContainerClick = (option: Option) => {
-    if (option.description) {
-      const el = document.getElementById(option.value)
-      if (el) el.click()
-    }
+    const el = document.getElementById(option.value)
+    if (el) el.click()
   }
 
   function handleChangeValue(value: string) {
