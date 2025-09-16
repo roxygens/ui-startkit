@@ -80,7 +80,7 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
   }
 
   const handleContainerClick = () => {
-    if (description && checkboxRef.current) {
+    if (checkboxRef.current) {
       checkboxRef.current.click()
     }
   }
@@ -113,7 +113,7 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
 
       <div className="flex flex-col">
         {label && (
-          <label htmlFor={label} className={labelVariants({ size })}>
+          <label htmlFor={props?.id} className={labelVariants({ size })}>
             {label}
           </label>
         )}
