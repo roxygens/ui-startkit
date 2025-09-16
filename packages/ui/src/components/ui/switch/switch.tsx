@@ -86,7 +86,7 @@ type Props = {
   VariantProps<typeof switchVariants>
 
 function Switch({ className, size, label, description, ...props }: Props) {
-  const checkboxRef = useRef<HTMLButtonElement | null>(null)
+  const switchRef = useRef<HTMLButtonElement | null>(null)
   const [checked, setChecked] = useState(false)
 
   function handleCheck(e: React.MouseEvent<HTMLButtonElement>) {
@@ -95,8 +95,8 @@ function Switch({ className, size, label, description, ...props }: Props) {
   }
 
   const handleContainerClick = () => {
-    if (checkboxRef.current) {
-      checkboxRef.current.click()
+    if (switchRef.current) {
+      switchRef.current.click()
     }
   }
 
@@ -111,7 +111,7 @@ function Switch({ className, size, label, description, ...props }: Props) {
     >
       <SwitchPrimitive.Root
         {...props}
-        ref={checkboxRef}
+        ref={switchRef}
         data-slot="switch"
         className={cn(switchVariants({ size, className }))}
         onClick={handleCheck}
