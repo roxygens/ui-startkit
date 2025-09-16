@@ -142,6 +142,9 @@ export function RadioGroup({ size, className, defaultValue, options, ...props }:
   }
 
   function handleChangeValue(value: string) {
+    if (props.onValueChange) {
+      props.onValueChange(value)
+    }
     setSelected(value)
   }
 

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { RadioGroup } from '.'
 
 describe('RadioGroup', () => {
@@ -14,6 +14,27 @@ describe('RadioGroup', () => {
     expect(screen.getByText('Option 1')).toBeInTheDocument()
     expect(screen.getByText('Option 2')).toBeInTheDocument()
     expect(screen.getByText('Option 3')).toBeInTheDocument()
+  })
+
+  it('should call props.onValueChange when a radio option is selected', () => {
+    const handleChange = vi.fn()
+    const options = [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+    ]
+
+    render(<RadioGroup options={options} onValueChange={handleChange} />)
+
+    const option1 = screen.getByLabelText('Option 1')
+    const option2 = screen.getByLabelText('Option 2')
+
+    fireEvent.click(option1)
+    expect(handleChange).toHaveBeenCalledWith('option1')
+
+    fireEvent.click(option2)
+    expect(handleChange).toHaveBeenCalledWith('option2')
+
+    expect(handleChange).toHaveBeenCalledTimes(2)
   })
 
   it('should render with description when provided', () => {

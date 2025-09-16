@@ -68,6 +68,7 @@ type Props = {
   'aria-invalid'?: boolean
   label?: string
   description?: string
+  checked?: boolean
 } & CheckboxProps
 
 function Checkbox({ className, size, label, description, ...props }: Props) {
@@ -90,18 +91,18 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
       className={cn('flex flex-row place-items-start gap-[0.5rem]', {
         'border-1 border-neutral-gray rounded-[0.5rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
           description,
-        'border-neutral-400': checked,
+        'border-neutral-400': checked || props?.checked,
       })}
       onClick={handleContainerClick}
     >
       <CheckboxPrimitive.Root
+        {...props}
         ref={checkboxRef}
         data-slot="checkbox"
         role="checkbox"
         className={cn(checkboxVariants({ size, className }))}
-        {...props}
         onClick={handleCheck}
-        checked={checked}
+        checked={props?.checked ? props.checked : checked}
       >
         <CheckboxPrimitive.Indicator
           data-slot="checkbox-indicator"

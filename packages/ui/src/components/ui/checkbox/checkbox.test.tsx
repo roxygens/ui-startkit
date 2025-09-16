@@ -12,6 +12,26 @@ describe('Checkbox', () => {
     expect(checkbox).not.toBeChecked()
   })
 
+  it('should render as checked when the `checked` prop is true', () => {
+    render(<Checkbox label="Accept terms" checked={true} />)
+
+    const checkboxEl = screen.getByRole('checkbox')
+    expect(checkboxEl).toHaveAttribute('data-state', 'checked')
+
+    const container = checkboxEl.closest('div')
+    expect(container).toHaveClass('border-neutral-400')
+  })
+
+  it('should render as unchecked when the `checked` prop is false', () => {
+    render(<Checkbox label="Accept terms" checked={false} />)
+
+    const checkboxEl = screen.getByRole('checkbox')
+    expect(checkboxEl).toHaveAttribute('data-state', 'unchecked')
+
+    const container = checkboxEl.closest('div')
+    expect(container).not.toHaveClass('border-neutral-400')
+  })
+
   it('should render with label and description', () => {
     render(<Checkbox label="Test Label" description="Test Description" />)
     expect(screen.getByText('Test Label')).toBeInTheDocument()
