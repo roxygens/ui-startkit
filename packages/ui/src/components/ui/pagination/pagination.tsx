@@ -102,17 +102,17 @@ export function Pagination({
     return Array.from({ length }, (_, i) => start + i)
   }
 
-  function getItens(total: number, atual: number, siblingCount: number, boundaryCount: number) {
+  function getItens(total: number, current: number, siblingCount: number, boundaryCount: number) {
     const startPages = range(1, Math.min(boundaryCount, total))
     const endPages = range(Math.max(total - boundaryCount + 1, boundaryCount + 1), total)
 
     const siblingsStart = Math.max(
-      Math.min(atual - siblingCount, total - boundaryCount - siblingCount * 2 - 1),
+      Math.min(current - siblingCount, total - boundaryCount - siblingCount * 2 - 1),
       boundaryCount + 2,
     )
 
     const siblingsEnd = Math.min(
-      Math.max(atual + siblingCount, boundaryCount + siblingCount * 2 + 2),
+      Math.max(current + siblingCount, boundaryCount + siblingCount * 2 + 2),
       endPages.length > 0 ? endPages[0] - 2 : total - 1,
     )
 
@@ -148,7 +148,7 @@ export function Pagination({
   }
 
   function handleNextPage() {
-    if (currentPage < Number(pages.at(-1))) {
+    if (currentPage < totalPages) {
       onPageChange(currentPage + 1)
     }
   }
@@ -170,7 +170,7 @@ export function Pagination({
                 </span>
               </PaginationItem>
             ) : (
-              <PaginationItem onClick={() => onPageChange(page)} key={page}>
+              <PaginationItem onClick={() => onPageChange(page)}>
                 <PaginationLink isActive={page === currentPage}>{page}</PaginationLink>
               </PaginationItem>
             )}
