@@ -31,7 +31,7 @@
   --color-tertiary-border: var(--tertiary-border);
   --color-tertiary-foreground-border: var(--tertiary-foreground-border);
   --color-tertiary-foreground-hover: var(--tertiary-foreground-hover);
-  --color-tertiary-disabled: var(--tertiaryy-foreground-hover);
+  --color-tertiary-disabled: var(--tertiary-foreground-hover);
   --color-tertiary-foreground-disabled: var(--tertiary-foreground-hover);
   --color-link-foreground: var(--link-foreground);
   --color-link-foreground-hover: var(--link-foreground-hover);
