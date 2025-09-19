@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Slot } from '@radix-ui/react-slot'
 import { Breadcrumb } from '.'
 
 describe('Breadcrumb', () => {
