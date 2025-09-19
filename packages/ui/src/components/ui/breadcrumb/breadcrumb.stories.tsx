@@ -19,7 +19,7 @@ export const Default: Story = {
   args: {
     items: [
       {
-        label: 'Início',
+        label: 'Home',
         href: '/',
       },
       {
@@ -31,8 +31,8 @@ export const Default: Story = {
         href: '/item-2',
       },
       {
-        label: 'Item Principal',
-        href: '/item-principal',
+        label: 'Principal Item',
+        href: '/principal-item',
       },
     ],
   },

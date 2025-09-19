@@ -89,11 +89,4 @@ describe('Breadcrumb', () => {
     expect(currentPage).toBeInTheDocument()
     expect(currentPage.tagName).toBe('SPAN')
   })
-
-  it('should accept custom className overrides in all components', () => {
-    render(<Breadcrumb items={[{ label: 'Styled', href: '/styled' }, { label: 'End' }]} />)
-    const link = screen.getByText('Styled')
-    link.classList.add('custom-link')
-    expect(link).toHaveClass('custom-link')
-  })
 })

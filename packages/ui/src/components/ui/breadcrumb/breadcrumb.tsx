@@ -31,10 +31,8 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
 }
 
 function BreadcrumbLink({ className, ...props }: ComponentProps<'a'>) {
-  const Comp = 'a'
-
   return (
-    <Comp
+    <a
       data-slot="breadcrumb-link"
       className={cn('hover:text-neutral-200 transition-colors', className)}
       {...props}
@@ -87,14 +85,14 @@ export function Breadcrumb({ items, linkComponent: LinkComp }: Props) {
         {items.map((item, index) => {
           if (index === items.length - 1) {
             return (
-              <BreadcrumbItem key={item.label}>
+              <BreadcrumbItem key={index}>
                 <BreadcrumbPage>{item.label}</BreadcrumbPage>
               </BreadcrumbItem>
             )
           }
 
           return (
-            <Fragment key={item.label}>
+            <Fragment key={index}>
               <BreadcrumbItem>
                 {LinkComp ? (
                   <LinkComp href={item.href} className="hover:text-neutral-200 transition-colors">
