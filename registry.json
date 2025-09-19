@@ -178,6 +178,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+    "breadcrumb": {
+      "name": "Breadcrumb",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/breadcrumb.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/breadcrumb/breadcrumb.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
