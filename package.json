@@ -17,13 +17,5 @@
   "license": "ISC",
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.2.1",
-    "prettier": "^3.6.2"
-  }
+  ]
 }

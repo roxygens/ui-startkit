@@ -1,110 +1,282 @@
+[<img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" width="20"> Leia em: 🇧🇷 Português](README.pt-br.md)
+
 # @roxygens/ui-startkit
 
-Bem-vindo ao `@roxygens/ui-startkit`! Uma coleção de componentes de UI reutilizáveis, lindamente projetados e acessíveis, inspirados na filosofia do [Shadcn/ui](https://ui.shadcn.com/).
+Welcome to `@roxygens/ui-startkit`! 🎨
+A collection of **reusable, accessible, and customizable UI components**, inspired by the philosophy of [Shadcn/ui](https://ui.shadcn.com/).
 
-Este não é um pacote de componentes tradicional. Em vez de instalar uma biblioteca com código que você não controla, `@roxygens/ui-startkit` fornece uma **ferramenta de linha de comando (CLI)** para você copiar os componentes diretamente para o seu projeto. Você tem total controle sobre o código, podendo adaptá-lo às suas necessidades.
-
-**Características:**
--   **Você é o dono do código:** Componentes são adicionados ao seu código-fonte.
--   **Estilização com Tailwind CSS:** Moderno, flexível e totalmente customizável.
--   **Desenvolvido com Radix UI:** Primitivos de UI acessíveis e de alta qualidade.
--   **Fácil de usar:** Adicione componentes com um único comando.
+Unlike traditional libraries, `@roxygens/ui-startkit` provides a **CLI** that lets you copy components directly into your project, giving you **full control over the code**.
 
 ---
 
-## 🚀 Instalação e Uso
+## 🌟 Features
 
-Para começar a usar os componentes, seu projeto deve ter React, Tailwind CSS e TypeScript configurados.
+*   **You own the code:** All components are copied to your source code.
+*   **Tailwind CSS:** Modern and fully customizable styling.
+*   **Radix UI:** High-quality and accessible primitives.
+*   **Simple usage:** Add components with a single CLI command.
 
-### 1. Inicialize o `ui-startkit` (Em breve)
+---
 
-Execute comando `init` para configurar os estilos base e dependências no seu projeto.
+## 🚀 Installation and Usage
+
+Before you start, your project must have:
+
+*   React
+*   TypeScript
+*   Tailwind CSS
+
+### Initialize `ui-startkit`
 
 ```bash
 npx @roxygens/ui-startkit@latest init
 ```
 
-### 2. Adicione Componentes
+This sets up the base styles and dependencies in your project.
 
-Use o comando `add` para adicionar qualquer componente disponível ao seu projeto.
+### Add components
 
 ```bash
-npx @roxygens/ui-startkit@latest add <nome-do-componente>
+npx @roxygens/ui-startkit@latest add <component-name>
 ```
 
-**Exemplo:**
-Para adicionar o componente `Button`, execute:
+**Example:** Adding the `Button` component:
 
 ```bash
 npx @roxygens/ui-startkit@latest add button
 ```
 
-Isso criará o arquivo `src/components/ui/button.tsx` (ou onde quer que você tenha configurado) no seu projeto. Agora você pode importá-lo e usá-lo:
+The component will be created at `src/components/ui/button.tsx`, and you can use it like this:
 
 ```tsx
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'
 
-function MyComponent() {
-  return <Button>Clique aqui</Button>;
+export function MyComponent() {
+  return <Button>Click me</Button>
 }
 ```
 
-Para ver a lista completa de componentes disponíveis, visite nossa [página de documentação](#) (link a ser adicionado).
+---
+
+## 📂 Available Components
+
+### Avatar
+
+```bash
+npx @roxygens/ui-startkit@latest add avatar
+```
+
+### Badge
+
+```bash
+npx @roxygens/ui-startkit@latest add badge
+```
+
+### Breadcrumb
+
+```bash
+npx @roxygens/ui-startkit@latest add breadcrumb
+```
+
+### Button
+
+```bash
+npx @roxygens/ui-startkit@latest add button
+```
+
+### Card
+
+```bash
+npx @roxygens/ui-startkit@latest add card
+```
+
+### Checkbox
+
+```bash
+npx @roxygens/ui-startkit@latest add checkbox
+```
+
+### Date Picker
+
+```bash
+npx @roxygens/ui-startkit@latest add date-picker
+```
+
+### Input
+
+```bash
+npx @roxygens/ui-startkit@latest add input
+```
+
+### Input OTP
+
+```bash
+npx @roxygens/ui-startkit@latest add input-otp
+```
+
+### Pagination
+
+```bash
+npx @roxygens/ui-startkit@latest add pagination
+```
+
+### Progress Bar
+
+```bash
+npx @roxygens/ui-startkit@latest add progress-bar
+```
+
+### Radio Group
+
+```bash
+npx @roxygens/ui-startkit@latest add radio-group
+```
+
+### Score Bar
+
+```bash
+npx @roxygens/ui-startkit@latest add score-bar
+```
+
+### Select
+
+```bash
+npx @roxygens/ui-startkit@latest add select
+```
+
+### Switch
+
+```bash
+npx @roxygens/ui-startkit@latest add switch
+```
+
+### Tabs
+
+```bash
+npx @roxygens/ui-startkit@latest add tabs
+```
+
+### Tooltip
+
+```bash
+npx @roxygens/ui-startkit@latest add tooltip
+```
+
+> 💡 Copy and run the commands directly in your terminal to add the desired components.
 
 ---
 
-### Estrutura do Projeto
+## 🏗️ Development Workflow
 
--   `packages/ui`: O código-fonte de todos os componentes da biblioteca. É aqui que você criará e editará componentes.
--   `packages/cli`: O código-fonte da ferramenta de linha de comando (`@roxygens/ui-startkit`).
-
-### 1. Configuração do Ambiente Local
-
-Para começar a desenvolver, clone o repositório e instale as dependências.
+### Set up the environment
 
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/roxygens/ui-startkit.git
 cd ui-startkit
-
-# 2. Instale todas as dependências do monorepo
 npm install
 ```
 
-### 2. Fluxo de Desenvolvimento
+You will have the **complete monorepo** with:
 
-O fluxo principal para desenvolver um novo componente é:
+*   `packages/ui` → all components
+*   `packages/cli` → the CLI tool
 
-1.  **Rode a aplicação de documentação:**
-    Este comando iniciará um servidor de desenvolvimento com Vite, onde você pode ver suas alterações em tempo real.
+### Run the documentation app
 
-    ```bash
-    # Na raiz do projeto
-    npm run storybook --workspace=ui
-    ```
-    A aplicação estará disponível em `http://localhost:6006` 
+```bash
+npm run dev
+# or
+npm run storybook --workspace=ui
+```
 
-2.  **Crie ou edite um componente:**
-    Adicione um novo arquivo de componente em `packages/ui/src/`. Por exemplo, `packages/ui/src/card.tsx`.
+Access: [http://localhost:6006](http://localhost:6006) to view the components in real-time.
 
+### Create or edit components
 
+1.  Add the component files to their specific folder inside `packages/ui/src/components/ui/`.
+    For example, for the Avatar component, the file structure in `packages/ui/src/components/ui/avatar/` would be:
 
-### 3. Adicionando um Componente à CLI
+    *   **`avatar.tsx`**: This is the main file containing the component's logic, JSX structure, and props. This is where the component is actually implemented.
 
-Após criar e testar seu componente, você precisa adicioná-lo ao registro para que a CLI possa encontrá-lo.
+    *   **`avatar.test.tsx`**: The file for unit and integration tests. Here you write tests using Vitest to ensure the component behaves as expected in different scenarios and doesn't break with future changes.
 
-1.  **Edite o arquivo `registry.json`** na raiz do projeto.
-2.  Adicione uma nova entrada para seu componente, seguindo a estrutura existente. Aponte o `contentUrl` para o link bruto do arquivo do seu componente no GitHub.
+    *   **`avatar.stories.tsx`**: Defines the "stories" for Storybook. Each story represents a visual variation of the component (e.g., with an image, without an image, small size), serving as interactive documentation and an isolated development environment.
 
-### 4. Enviando sua Contribuição
+    *   **`index.tsx`**: Acts as the entry point (or "barrel file") for the component's directory. Its main function is to export the main component and any related types or hooks, allowing for cleaner imports elsewhere in the project (e.g., `import { Avatar } from '.../avatar'` instead of `.../avatar/avatar`).
 
-1.  Crie uma nova branch para sua feature (`git checkout -b feature/novo-componente`).
-2.  Faça o commit das suas alterações (`git commit -m "feat: adiciona componente Card"`).
-3.  Faça o push e abra um Pull Request.
+2.  Import helpers from `lib/utils.ts` if needed.
+3.  Test in Storybook before publishing.
 
+### Add a component to the CLI
+
+1.  Open `registry.json` at the root of the project.
+2.  Add an entry for your component following the existing pattern:
+
+```json
+"my-component": {
+  "name": "My Component",
+  "dependencies": ["clsx", "tailwind-merge"],
+  "files": [
+    {
+      "path": "components/ui/my-component.tsx",
+      "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/my-component/my-component.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+    }
+  ]
+}
+```
+
+> **Note:** Only add the `lib/utils.ts` file and the `clsx` and `tailwind-merge` dependencies if the component actually uses these utilities. Any other external dependencies should be added to the corresponding `dependencies` array.
+
+### Contributing
+
+```bash
+git checkout main
+git pull
+git checkout -b feature/new-component
+git commit -m "feat: adds the new component"
+git push origin feature/new-component
+```
+
+Open a Pull Request on GitHub. All PR messages must be written in **English**.
 
 ---
 
-### Licença
+## 📄 Monorepo Structure
 
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
+```
+ui-startkit/
+├─ packages/
+│  ├─ ui/          # component source code
+│  └─ cli/         # CLI for adding components
+├─ registry.json    # component registry for the CLI
+└─ package.json     # monorepo scripts and dependencies
+```
+
+---
+
+## 📌 Available Scripts
+
+```bash
+npm run dev           # runs Storybook
+npm run test          # runs tests
+npm run build         # builds the monorepo
+npm run serve         # serves the Storybook build
+npm run build-cli   # builds the CLI
+npm run publish-cli # publishes the CLI
+```
+
+---
+
+## 📖 Documentation
+
+To see all components and examples, visit: [https://ui.roxygens.com](https://ui.roxygens.com)
+
+---
+
+## 📝 License
+
+This project is licensed under the [MIT License](LICENSE)
