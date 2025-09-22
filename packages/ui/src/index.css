@@ -64,6 +64,8 @@
   --color-gray-50: #13161B;
   --color-gray-200: #373A41;
   --color-gray-700: #CECFD2;
+  --color-quarternary: #94979C;
+  --color-avatar: #22262F;
 }
 
 :root {
@@ -135,33 +137,14 @@
 @layer utilities {
 
   .text-body {
-    @apply font-normal not-italic text-[11.78px] leading-[17.66px] tracking-[0] text-center ;
-  }
-
-  .text-xs {
-    @apply  font-normal text-[0.75rem] leading-[150%] tracking-[0.015em];
-  }
-
-  .text-sm {
-    @apply font-normal text-[0.88rem] leading-[150%] tracking-[0.005em];
-  }
-
-  .text-base  {
-    @apply font-normal text-base leading-6;
+    @apply font-normal not-italic text-[0.75rem] leading-[1.1rem] tracking-[0] text-center ;
   }
 
   .text-medium {
    @apply font-medium text-sm leading-5; 
   }
 
-  .text-lg {
-    @apply  not-italic text-[14.72px] leading-[22.08px] tracking-[0];
-  }
-
-  .text-2xl {
-    @apply  not-italic font-bold text-[24px] leading-[32px];
-  }
-
+  
   .card-shadow {
     @apply border-2 border-[var(--card)];
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);

@@ -206,6 +206,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+     "avatar": {
+      "name": "Avatar",
+      "dependencies": ["@radix-ui/react-avatar", "class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/avatar.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/avatar/avatar.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
