@@ -2,11 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { InputOtp } from '.'
 
 const meta: Meta<typeof InputOtp> = {
-  title: 'Components/InputOtp',
+  title: 'Components/Input OTP',
   component: InputOtp,
-  parameters: {
-    docs: { page: null },
-  },
   tags: ['autodocs'],
   argTypes: {
     size: {

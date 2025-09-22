@@ -4,9 +4,6 @@ import { Select } from '.'
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
   component: Select,
-  parameters: {
-    docs: { page: null },
-  },
   tags: ['autodocs'],
   argTypes: {
     size: {
