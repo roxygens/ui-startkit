@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { ScoreBar } from './score-bar'
 
 const meta: Meta<typeof ScoreBar> = {
-  title: 'Components/ScoreBar',
+  title: 'Components/Score Bar',
   component: ScoreBar,
   tags: ['autodocs'],
   argTypes: {

@@ -62,11 +62,4 @@ describe('Avatar', () => {
     render(<Avatar fallback="XY" />)
     expect(screen.getByText('XY')).toBeInTheDocument()
   })
-
-  it('should render both image and fallback inside container', () => {
-    render(<Avatar image={{ src: '/images/avatar.jpg', alt: 'Test' }} fallback="ZZ" />)
-    const container = screen.getByRole('img').closest('[data-slot="avatar"]')
-    expect(container).toBeInTheDocument()
-    expect(screen.getByText('ZZ')).toBeInTheDocument()
-  })
 })

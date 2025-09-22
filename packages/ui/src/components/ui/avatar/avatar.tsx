@@ -52,7 +52,7 @@ function AvatarFallback({
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
-        'bg-avatar text-quarternary flex size-full items-center justify-center rounded-full',
+        'bg-avatar text-quaternaryflex size-full items-center justify-center rounded-full',
         className,
       )}
       {...props}
@@ -66,11 +66,17 @@ type Props = {
     alt: string
   }
   fallback?: string
+  className?: string
 }
 
-export function Avatar({ image, fallback, size }: Props & VariantProps<typeof avatarVariants>) {
+export function Avatar({
+  image,
+  fallback,
+  size,
+  className,
+}: Props & VariantProps<typeof avatarVariants>) {
   return (
-    <AvatarContainer size={size}>
+    <AvatarContainer className={className} size={size}>
       <AvatarImage src={image?.src} alt={image?.alt} />
       <AvatarFallback>{fallback}</AvatarFallback>
     </AvatarContainer>
