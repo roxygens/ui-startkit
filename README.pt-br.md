@@ -159,7 +159,7 @@ npx @roxygens/ui-startkit@latest add tabs
 ### Tooltip
 
 ```bash
-npx @roxygens/ui-startkit@latest add tolltip
+npx @roxygens/ui-startkit@latest add tooltip
 ```
 
 
@@ -237,7 +237,7 @@ Acesse: [http://localhost:6006](http://localhost:6006) para visualizar os compon
 
 ```bash
 git checkout main
-git checkout pull
+git pull
 git checkout -b feature/new-component
 git commit -m "feat: adds the new component"
 git push origin feature/new-component
