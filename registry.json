@@ -220,6 +220,20 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+     "date-picker": {
+      "name": "Date Picker",
+      "dependencies": ["date-fns", "react-day-picker", "@radix-ui/react-popover",  "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/date-picker.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/date-picker/date-picker.tsx"
+        },
+        {
+          "path": "lib/utils.ts",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
+        }
+      ]
     }
   }
 }
