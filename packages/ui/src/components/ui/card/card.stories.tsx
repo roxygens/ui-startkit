@@ -127,7 +127,11 @@ export const Playground: Story = {
                 />
 
                 <CardList.Box>
-                  <p className="text-base text-yellow-200 uppercase">Vice</p>
+                  <p className="text-yellow-400 text-xs [word-spacing:0.15rem] uppercase">
+                    Luvas desportivas
+                  </p>
+
+                  <p className="text-white text-base font-medium leading-[150%]">Vice</p>
 
                   <div className="flex items-center gap-2">
                     <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
@@ -136,7 +140,7 @@ export const Playground: Story = {
                 </CardList.Box>
 
                 <CardList.Box>
-                  <p className="text-medium text-[#707179]">
+                  <p className="text-neutral-400 text-xs font-normal leading-[150%]">
                     Testado no Terreno luvas
                     <br />
                     (Extraordinário) ★
@@ -146,12 +150,26 @@ export const Playground: Story = {
                 </CardList.Box>
 
                 <CardList.Box>
-                  <div className="flex flex-row items-center gap-[.5rem]">
-                    <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+                  <div className="flex flex-row items-center gap-[0.5rem]">
+                    <p className="text-xl font-bold text-white">6639,90 R$</p>
                     <p className="info-text">-15%</p>
                   </div>
 
-                  <p className="text-medium text-[#707179]">Steam R$ {formatCurrency(3054.87)}</p>
+                  <div className="flex flex-col gap-[0.25rem]">
+                    <div className="flex gap-[0.5rem] ">
+                      <p className="text-xs font-normal text-neutral-400 leading-[150%]">
+                        1201,55 USD
+                      </p>
+
+                      <p className="text-xs font-normal text-neutral-400 leading-[150%]">
+                        1020,73 EUR
+                      </p>
+                    </div>
+
+                    <p className="text-sm font-medium text-neutral-400 leading-[150%]">
+                      Steam 3054,87 BRL
+                    </p>
+                  </div>
                 </CardList.Box>
 
                 <CardList.Button options={options}>
@@ -172,7 +190,7 @@ export const Playground: Story = {
         {Array.from({ length: args?.amount || 6 }).map((_, index) => (
           <Card key={index} onClick={() => {}} disabled={args.disabled} className={args?.className}>
             <Card.Content>
-              <div className="flex items-center gap-2 justify-center">
+              <div className="flex items-center gap-2 justify-center mb-[1rem]">
                 <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
                 <p className="info-text">Possível de trocar</p>
               </div>
@@ -184,20 +202,30 @@ export const Playground: Story = {
                 ]}
               />
 
-              <div className="flex flex-row items-center gap-[.5rem]">
-                <p className="text-2xl text-white">R$ {formatCurrency(6663.9)}</p>
+              <div className="flex flex-row items-center gap-[0.5rem]">
+                <p className="text-xl font-bold text-white">6639,90 R$</p>
                 <p className="info-text">-15%</p>
               </div>
 
-              <p className="text-medium text-[#707179] mb-[.5rem]">
-                Steam R$ {formatCurrency(3054.87)}
-              </p>
+              <div className="flex flex-col gap-[0.25rem]">
+                <div className="flex gap-[0.5rem] ">
+                  <p className="text-xs font-normal text-neutral-400 leading-[150%]">1201,55 USD</p>
 
-              <div className="flex flex-row items-center justify-between text-white">
-                <p className="text-base text-yellow-200 uppercase">Vice</p>
+                  <p className="text-xs font-normal text-neutral-400 leading-[150%]">1020,73 EUR</p>
+                </div>
+
+                <p className="text-sm font-medium text-neutral-400 leading-[150%]">
+                  Steam 3054,87 BRL
+                </p>
               </div>
 
-              <p className="text-medium text-[#707179]">
+              <p className="text-yellow-400 text-xs [word-spacing:0.15rem] uppercase">
+                Luvas desportivas
+              </p>
+
+              <p className="text-white text-base font-medium leading-[150%]">Vice</p>
+
+              <p className="text-neutral-400 text-sm font-normal leading-[150%]">
                 Testado no Terreno luvas
                 <br />
                 (Extraordinário) ★
