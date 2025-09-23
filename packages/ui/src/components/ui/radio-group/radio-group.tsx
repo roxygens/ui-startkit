@@ -160,7 +160,7 @@ export function RadioGroup({ size, className, defaultValue, options, ...props }:
           className={cn(
             'flex flex-row items-center gap-[0.5rem]',
             {
-              'border-1 border-neutral-gray rounded-[0.5rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
+              'border-1 border-neutral-gray rounded-[0.25rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
                 option?.description,
               'border-neutral-400': selected === option.value,
             },

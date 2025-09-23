@@ -103,7 +103,7 @@ function Switch({ className, size, label, description, ...props }: Props) {
   return (
     <div
       className={cn('flex flex-row place-items-start gap-[0.5rem]', {
-        'border-1 border-neutral-gray rounded-[0.5rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
+        'border-1 border-neutral-gray rounded-[0.25rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
           description,
         'border-neutral-400': checked || props.checked,
       })}
