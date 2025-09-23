@@ -25,8 +25,6 @@ export const Default: Story = {
   args: {
     mode: 'range',
     numberOfMonths: 2,
-    selected: undefined,
-    onSelect: () => {},
     showOutsideDays: true,
     captionLayout: 'label',
   },
