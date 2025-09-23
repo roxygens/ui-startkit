@@ -36,10 +36,8 @@ export function Tooltip({ children, description, title, className, position = 't
         className={cn(tooltipVariants({ position }), 'max-w-[18.75rem]', 'w-max', className)}
         role="tooltip"
       >
-        {title && (
-          <div className="font-semibold text-[0.75rem] leading-[1rem] text-white">{title}</div>
-        )}
-        <div className="font-inter font-normal  text-[0.75rem] leading-[1rem] text-gray-50">
+        {title && <div className="font-semibold text-xs leading-[1rem] text-white">{title}</div>}
+        <div className="font-inter font-medium  text-xs leading-[1rem] text-gray-700">
           {description}
         </div>
       </div>

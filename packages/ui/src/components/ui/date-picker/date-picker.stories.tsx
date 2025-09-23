@@ -14,6 +14,8 @@ const meta: Meta<typeof DatePicker> = {
       options: ['label', 'dropdown', 'dropdown-months', 'dropdown-years'],
       control: { type: 'select' },
     },
+    className: { control: 'text' },
+    selected: { control: 'object' },
   },
 }
 
@@ -27,6 +29,7 @@ export const Default: Story = {
     numberOfMonths: 2,
     showOutsideDays: true,
     captionLayout: 'label',
+    onSelect: () => {},
   },
   render: ({ mode, numberOfMonths, showOutsideDays, captionLayout }) => {
     return (

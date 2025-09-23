@@ -17,12 +17,6 @@ Button.displayName = 'Button'
 
 const defaultClassNames = getDefaultClassNames()
 
-type Props = {
-  className?: string
-  selected: Date | Date[] | undefined
-  onSelect: (date: Date | Date[] | undefined) => void
-}
-
 export function DatePicker({
   className,
   classNames,
@@ -30,7 +24,7 @@ export function DatePicker({
   captionLayout,
   components,
   ...props
-}: ComponentProps<typeof DayPicker> & Props) {
+}: ComponentProps<typeof DayPicker>) {
   return (
     <DayPicker
       locale={ptBR}
