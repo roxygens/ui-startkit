@@ -43,16 +43,35 @@ describe('Input', () => {
       render(<Input />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('h-[36px]')
-      expect(inputElement).toHaveClass('text-base')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-base')
+    })
+
+    it('should apply specified size variant (xs) classes', () => {
+      render(<Input size="xs" />)
+      const inputElement = screen.getByRole('textbox')
+
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[1.65rem] text-xs')
     })
 
     it('should apply specified size variant (sm) classes', () => {
       render(<Input size="sm" />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('h-[32px]')
-      expect(inputElement).toHaveClass('text-sm')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[1.65rem] text-xs')
+    })
+
+    it('should apply specified size variant (md) classes', () => {
+      render(<Input size="md" />)
+      const inputElement = screen.getByRole('textbox')
+
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-base')
+    })
+
+    it('should apply specified size variant (lg) classes', () => {
+      render(<Input size="lg" />)
+      const inputElement = screen.getByRole('textbox')
+
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-xl')
     })
 
     it('should merge additional classNames with variant classes', () => {
@@ -60,7 +79,7 @@ describe('Input', () => {
       const inputElement = screen.getByRole('textbox')
 
       expect(inputElement).toHaveClass('my-custom-class')
-      expect(inputElement).toHaveClass('h-[40px]')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-xl')
     })
   })
 
