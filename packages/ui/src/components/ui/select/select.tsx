@@ -14,8 +14,6 @@ const selectVariants = cva(
 
     hover:border-[var(--primary)] 
 
-    focus:border-[var(--primary)] 
-
     aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
   `,
   {
@@ -23,12 +21,12 @@ const selectVariants = cva(
       size: {
         xs: 'px-[0.5rem] h-[1.5rem] text-xs',
         sm: 'px-[0.5rem] h-[2rem] text-sm',
-        md: 'px-[0.5rem] h-[2.25rem] text-sm',
-        lg: 'px-[0.5rem] h-[2.5rem] text-sm',
+        md: 'px-[0.5rem] h-[2.25rem] text-base',
+        lg: 'px-[0.5rem] h-[2.5rem] text-lg',
       },
     },
     defaultVariants: {
-      size: 'md',
+      size: 'sm',
     },
   },
 )
@@ -40,12 +38,12 @@ const popoverContentItemVariants = cva(
       size: {
         xs: 'px-2 py-1 text-xs',
         sm: 'px-2 py-1.5 text-sm',
-        md: 'px-2 py-2 text-sm',
-        lg: 'px-2 py-2.5 text-sm',
+        md: 'px-2 py-2 text-base',
+        lg: 'px-2 py-2.5 text-lg',
       },
     },
     defaultVariants: {
-      size: 'md',
+      size: 'sm',
     },
   },
 )

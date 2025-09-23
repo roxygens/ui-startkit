@@ -16,7 +16,7 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: /default button/i })
 
     expect(button).toHaveClass('bg-primary')
-    expect(button).toHaveClass('px-[16px]')
+    expect(button).toHaveClass('px-[1rem] py-[0.6rem]')
   })
 
   it.each([
@@ -31,10 +31,10 @@ describe('Button', () => {
   })
 
   it.each([
-    ['sm', 'py-[8px]'],
-    ['md', 'py-[10px]'],
-    ['lg', 'py-[12px]'],
-    ['xl', 'py-[16px]'],
+    ['sm', 'px-[0.75rem] py-[0.38rem] text-sm [&_svg]:w-[0.875rem] [&_svg]:h-[0.875rem]'],
+    ['md', 'px-[1rem] py-[0.6rem] text-base [&_svg]:w-[1rem] [&_svg]:h-[1rem]'],
+    ['lg', 'px-[1.25rem] py-[0.75rem] text-lg [&_svg]:w-[1.125rem] [&_svg]:h-[1.125rem]'],
+    ['xl', 'px-[1.5rem] py-[1rem] text-xl [&_svg]:w-[1.25rem] [&_svg]:h-[1.25rem]'],
   ])('should apply the correct class for size "%s"', (size, expectedClass) => {
     render(<Button size={size as 'sm'}>{size}</Button>)
     const button = screen.getByRole('button', { name: size })

@@ -6,7 +6,10 @@ const badgeVariants = cva(
   {
     variants: {
       size: {
-        md: 'text-[.75rem] px-[.75rem] py-[.25rem] rounded-[.815rem]',
+        sm: 'text-[0.625rem] px-[0.5rem] py-[0.125rem] rounded-[0.625rem]',
+        md: 'text-[0.75rem] px-[0.75rem] py-[0.25rem] rounded-[0.815rem]',
+        lg: 'text-[0.875rem] px-[1rem] py-[0.375rem] rounded-[1rem]',
+        xl: 'text-[1rem] px-[1.25rem] py-[0.5rem] rounded-[1.25rem]',
       },
       variant: {
         success: 'bg-[#54DC621A] border-[#54DC6259] text-[#54DC62]',

@@ -20,10 +20,10 @@ const inputVariants = cva(
   {
     variants: {
       size: {
-        xs: 'px-[8px] h-[26px] text-xs',
-        sm: 'px-[8px] h-[32px] text-sm',
-        md: 'px-[8px] h-[36px] text-base',
-        lg: 'px-[8px] h-[40px] text-base',
+        xs: 'px-[0.5rem] h-[1.65rem] text-xs',
+        sm: 'px-[0.5rem] h-[1.65rem] text-xs',
+        md: 'px-[0.5rem] h-[2.25rem] text-base',
+        lg: 'px-[0.5rem] h-[2.5rem] text-xl',
       },
     },
     defaultVariants: {

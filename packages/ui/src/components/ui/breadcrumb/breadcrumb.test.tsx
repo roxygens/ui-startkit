@@ -9,7 +9,11 @@ describe('Breadcrumb', () => {
     { label: 'Shoes' },
   ]
 
-  const FakeLink = ({ href, children, ...props }: any) => (
+  const FakeLink = ({
+    href,
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a data-testid="fake-link" href={href} {...props}>
       {children}
     </a>
@@ -33,9 +37,8 @@ describe('Breadcrumb', () => {
       'gap-[0.5rem]',
       'break-words',
       'font-medium',
-      'text-[0.75rem]',
+      'text-xs',
       'leading-[150%]',
-      'uppercase',
     )
   })
 
@@ -43,7 +46,13 @@ describe('Breadcrumb', () => {
     render(<Breadcrumb items={items} />)
     const itemsEls = screen.getAllByRole('listitem')
     expect(itemsEls[0]).toHaveAttribute('data-slot', 'breadcrumb-item')
-    expect(itemsEls[0]).toHaveClass('inline-flex', 'items-center', 'text-white')
+    expect(itemsEls[0]).toHaveClass(
+      'inline-flex',
+      'items-center',
+      'text-white',
+      '[word-spacing:0.15rem]',
+      'uppercase',
+    )
     expect(screen.getByText('Home')).toHaveAttribute('href', '/')
   })
 
