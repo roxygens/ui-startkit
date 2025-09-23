@@ -26,7 +26,7 @@ export const Default: Story = {
   args: {
     children: 'Button',
     variant: 'primary',
-    size: 'sm',
+    size: 'md',
     icon: <Circle />,
     iconPosition: 'both',
   },
