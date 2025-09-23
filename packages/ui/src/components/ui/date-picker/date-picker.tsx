@@ -58,14 +58,14 @@ export function DatePicker({
           defaultClassNames.nav,
         ),
         button_previous: cn(
-          'cursor-pointer flex items-center justify-center text-white border border-white bg-transparent aria-disabled:opacity-50 w-[2rem] h-[2rem] select-none',
+          'cursor-pointer flex items-center justify-center text-white bg-transparent aria-disabled:opacity-50 w-[2rem] h-[2rem] select-none',
           defaultClassNames.button_previous,
           {
             hidden: captionLayout !== 'label',
           },
         ),
         button_next: cn(
-          'cursor-pointer flex items-center justify-center text-white border border-white bg-transparent aria-disabled:opacity-50 w-[2rem] h-[2rem] select-none',
+          'cursor-pointer flex items-center justify-center text-white bg-transparent aria-disabled:opacity-50 w-[2rem] h-[2rem] select-none',
           defaultClassNames.button_next,
           {
             hidden: captionLayout !== 'label',
