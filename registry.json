@@ -223,7 +223,7 @@
     },
      "date-picker": {
       "name": "Date Picker",
-      "dependencies": ["date-fns", "react-day-picker", "@radix-ui/react-popover",  "clsx", "tailwind-merge"],
+      "dependencies": ["date-fns", "react-day-picker", "@radix-ui/react-popover", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/date-picker.tsx",

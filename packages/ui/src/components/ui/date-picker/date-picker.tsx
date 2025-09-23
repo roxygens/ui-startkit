@@ -155,11 +155,11 @@ function CalendarDropdown({ value, onChange, options }: DropdownProps) {
   const selectedOptionRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      if (selectedOptionRef?.current) {
-        selectedOptionRef?.current?.scrollIntoView({ block: 'nearest' })
-      }
-    }, 10)
+    const id = requestAnimationFrame(() => {
+      selectedOptionRef.current?.scrollIntoView({ block: 'nearest' })
+    })
+
+    return () => cancelAnimationFrame(id)
   }, [selected, open])
 
   return (
