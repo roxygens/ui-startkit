@@ -1,0 +1,102 @@
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { ArrowUpRight } from 'lucide-react'
+import { Table, TableRow, TableCell } from '.'
+
+type RowData = {
+  id: number
+  condition: string
+  price: string
+  sales: string
+}
+
+const meta: Meta<typeof Table<RowData>> = {
+  title: 'Components/Table',
+  component: Table<RowData>,
+  tags: ['autodocs'],
+  argTypes: {},
+}
+
+export default meta
+
+type Story = StoryObj<typeof Table<RowData>>
+
+const header = [
+  {
+    value: 'condition',
+    label: 'Variantes',
+  },
+  {
+    value: 'price',
+    label: 'Preço da venda (R$)',
+  },
+  {
+    value: 'sales',
+    label: 'Quantidade da venda',
+  },
+  {
+    value: 'action',
+    label: '',
+  },
+]
+
+const data = [
+  {
+    id: 1,
+    condition: 'Original de fábrica',
+    price: 'R$ 1.598,46',
+    sales: '3 vendas',
+  },
+  {
+    id: 2,
+    condition: 'Pouco Usada',
+    price: 'R$ 559,74',
+    sales: '12 vendas',
+  },
+  {
+    id: 3,
+    condition: 'Testado em Campo',
+    price: 'R$ 262,60',
+    sales: '17 vendas',
+  },
+  {
+    id: 4,
+    condition: 'Bem Desgastada',
+    price: 'R$ 261,49',
+    sales: '77 vendas',
+  },
+  {
+    id: 5,
+    condition: 'Muito Desgastada',
+    price: 'R$ 92,30',
+    sales: '3 vendas',
+  },
+]
+export const Default: Story = {
+  args: {
+    header,
+    data,
+    renderRow(row) {
+      return (
+        <TableRow key={row.id}>
+          <TableCell>
+            <div className="flex flex-col gap-[0.25rem]">
+              <p className="text-primary font-bold leading-[140%] uppercase">StatTrak™</p>
+              {row.condition}
+            </div>
+          </TableCell>
+          <TableCell>{row.price}</TableCell>
+          <TableCell>{row.sales}</TableCell>
+          <TableCell>
+            <button
+              onClick={() => console.log(row.id)}
+              className="cursor-pointer flex gap-[0.35rem] justify-center align-bottom text-white"
+            >
+              <span>Visualizar</span>
+              <ArrowUpRight className="h-4 w-4 text-primary" />
+            </button>
+          </TableCell>
+        </TableRow>
+      )
+    },
+  },
+}
