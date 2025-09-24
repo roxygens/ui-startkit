@@ -11,7 +11,7 @@ describe('Table components', () => {
           { value: 'action', label: '' },
         ]}
         data={[{ name: 'John' }]}
-        className="custom-class"
+        tableClassName="custom-class"
       />,
     )
     const container = screen.getByRole('table')
