@@ -42,7 +42,7 @@ export function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'data-[state=selected]:bg-muted border-b border-[var(--table-border)]  text-xs font-normal leading-[140%] tracking-[0px] hover:bg-[var(--card-hover)] group',
+        'data-[state=selected]:bg-muted border-b border-[var(--table-border)] text-xs font-normal leading-[140%] tracking-[0px] hover:bg-[var(--card-hover)] group',
         className,
       )}
       {...props}
@@ -68,7 +68,7 @@ export function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
     <td
       data-slot="table-cell"
       className={cn(
-        'px-[1.5rem] group-hover:odd:bg-[var(--card-hover)]  py-[1rem] align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'px-[1.5rem] group-hover:odd:bg-[var(--card-hover)] py-[1rem] align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         className,
       )}
       {...props}
