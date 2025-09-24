@@ -150,6 +150,12 @@ npx @roxygens/ui-startkit@latest add select
 npx @roxygens/ui-startkit@latest add switch
 ```
 
+### Table
+
+```bash
+npx @roxygens/ui-startkit@latest add table
+```
+
 ### Tabs
 
 ```bash
