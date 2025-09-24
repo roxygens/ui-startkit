@@ -42,7 +42,7 @@ export function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'data-[state=selected]:bg-muted border-b border-[var(--table-border)] transition-colors text-xs font-normal leading-[140%] tracking-[0px] hover:bg-[var(--card-hover)]',
+        'data-[state=selected]:bg-muted border-b border-[var(--table-border)] text-xs font-normal leading-[140%] tracking-[0px] hover:bg-[var(--card-hover)] group',
         className,
       )}
       {...props}
@@ -68,7 +68,7 @@ export function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
     <td
       data-slot="table-cell"
       className={cn(
-        'px-[1.5rem] py-[1rem] align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'px-[1.5rem] group-hover:odd:bg-[var(--card-hover)] py-[1rem] align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         className,
       )}
       {...props}
@@ -85,19 +85,25 @@ type Props<T extends Record<string, unknown>> = {
   header: Header[]
   data: T[]
   renderRow?: (row: T, rowIdx: number) => React.ReactNode
-  className?: string
+  tableClassName?: string
+  tableHeaderClassName?: string
+  tableRowClassName?: string
+  tableCellClassName?: string
 }
 
 export function Table<T extends Record<string, unknown>>({
   header,
   data,
   renderRow,
-  className,
+  tableClassName,
+  tableHeaderClassName,
+  tableRowClassName,
+  tableCellClassName,
 }: Props<T>) {
   return (
-    <TableContainer className={className}>
+    <TableContainer className={tableClassName}>
       <TableHeader>
-        <TableRow className="hover:bg-neutral-950">
+        <TableRow className={cn('hover:bg-neutral-950', tableHeaderClassName)}>
           {header?.map((item, index) => (
             <TableHead key={index}>{item.label}</TableHead>
           ))}
@@ -108,9 +114,11 @@ export function Table<T extends Record<string, unknown>>({
           renderRow ? (
             renderRow(row, rowIdx)
           ) : (
-            <TableRow key={rowIdx}>
+            <TableRow key={rowIdx} className={tableRowClassName}>
               {header.map((col, colIdx) => (
-                <TableCell key={colIdx}>{String(row?.[col.value] || '')}</TableCell>
+                <TableCell className={tableCellClassName} key={colIdx}>
+                  {String(row?.[col.value] || '')}
+                </TableCell>
               ))}
             </TableRow>
           ),
