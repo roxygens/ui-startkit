@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { ArrowUpRight } from 'lucide-react'
 import { Table, TableRow, TableCell } from '.'
@@ -119,11 +120,11 @@ const customHeader = [
   },
   {
     value: 'price',
-    label: 'Preço da venda (R$)',
+    label: 'Preço (BRL)',
   },
   {
     value: 'sales',
-    label: 'Quantidade da venda',
+    label: 'Quantidade',
   },
   {
     value: 'action',
@@ -135,32 +136,44 @@ const customData = [
   {
     id: 1,
     condition: 'Original de fábrica',
-    price: 'R$ 1.598,46',
+    price: '1.598,46 BRL',
     sales: '3 vendas',
+    action: 'Visualizar',
   },
   {
     id: 2,
     condition: 'Pouco Usada',
-    price: 'R$ 559,74',
+    price: '559,74 BRL',
     sales: '12 vendas',
+    action: 'Visualizar',
   },
   {
     id: 3,
-    condition: 'Testado em Campo',
-    price: 'R$ 262,60',
+    condition: 'STATTRAK™ Testado em Campo',
+    price: '262,60 BRL',
     sales: '17 vendas',
+    action: 'Visualizar',
   },
   {
     id: 4,
     condition: 'Bem Desgastada',
-    price: 'R$ 261,49',
+    price: '261,49 BRL',
     sales: '77 vendas',
+    action: 'Visualizar',
   },
   {
     id: 5,
     condition: 'Muito Desgastada',
-    price: 'R$ 92,30',
+    price: '92,30 BRL',
     sales: '3 vendas',
+    action: 'Visualizar',
+  },
+  {
+    id: 6,
+    condition: 'Original de fábrica',
+    price: '1.598,46 BRL',
+    sales: '3 vendas',
+    action: 'Visualizar',
   },
 ]
 
@@ -172,22 +185,36 @@ export const Default: Story = {
     const { variant, tableClassName } = args
 
     if (variant === 'Custom Rows') {
+      const [selectedRow, setSelectedRow] = useState<number | null>(null)
+
+      const handleRowClick = (rowIdx: number) => {
+        setSelectedRow(rowIdx === selectedRow ? null : rowIdx)
+      }
+
       return (
-        <Table<RowData>
+        <Table
           header={customHeader}
           data={customData}
           tableClassName={tableClassName}
-          renderRow={(row) => (
-            <TableRow key={row.id}>
-              <TableCell>
+          renderRow={(row, rowIdx) => (
+            <TableRow
+              data-state={rowIdx === selectedRow ? 'selected' : ''}
+              onClick={() => handleRowClick(rowIdx)}
+              key={row.id}
+            >
+              <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
                 <div className="flex flex-col gap-[0.25rem]">
                   <p className="text-primary font-bold leading-[140%] uppercase">StatTrak™</p>
                   {row.condition}
                 </div>
               </TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>{row.sales}</TableCell>
-              <TableCell>
+              <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                {row.price}
+              </TableCell>
+              <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                {row.sales}
+              </TableCell>
+              <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
                 <button
                   onClick={() => console.log(row.id)}
                   className="cursor-pointer flex gap-[0.35rem] justify-center align-bottom text-white"
