@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { ArrowUpRight, Heading1 } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Table, TableRow, TableCell } from '.'
 
 type RowData = {
