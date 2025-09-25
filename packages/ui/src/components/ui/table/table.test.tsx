@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { Table, TableCell, TableRow } from '.'
 
@@ -68,5 +68,29 @@ describe('Table components', () => {
     render(<Table header={[{ value: 'name', label: 'Name' }]} data={[]} />)
     const rows = screen.getAllByRole('row')
     expect(rows.length).toBe(1)
+  })
+
+  it('should select and deselect a row when clicked', () => {
+    render(
+      <Table
+        header={[
+          { value: 'name', label: 'Name' },
+          { value: 'age', label: 'Age' },
+        ]}
+        data={[
+          { name: 'Bob', age: 30 },
+          { name: 'Alice', age: 25 },
+        ]}
+      />,
+    )
+
+    const rows = screen.getAllByRole('row')
+    const row1 = rows[1]
+
+    fireEvent.click(row1)
+    expect(row1).toHaveAttribute('data-state', 'selected')
+
+    fireEvent.click(row1)
+    expect(row1).toHaveAttribute('data-state', '')
   })
 })

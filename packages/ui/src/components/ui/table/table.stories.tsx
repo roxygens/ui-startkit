@@ -36,16 +36,79 @@ type Story = StoryObj<typeof Table<RowData>>
 
 const defaultHeader = [
   {
-    value: 'condition',
-    label: 'Variantes',
+    value: 'date',
+    label: 'Data e Hora',
+  },
+  {
+    value: 'notes',
+    label: 'Notas',
   },
   {
     value: 'price',
-    label: 'Preço da venda (R$)',
+    label: 'Preço (BRL)',
+  },
+]
+
+const defaultData = [
+  {
+    id: 1,
+    date: '24/09/2025 - 11:36 AM',
+    notes: 'Factory Original 0.061 - Fade 93.0%',
+    price: '4,250.00 BRL',
   },
   {
-    value: 'sales',
-    label: 'Quantidade da venda',
+    id: 2,
+    date: '24/09/2025 - 9:20 AM',
+    notes: 'Factory Original 0.062 - Fade 93.1%',
+    price: '5,500.30 BRL',
+  },
+  {
+    id: 3,
+    date: '23/09/2025 - 8:40 PM',
+    notes: 'Factory Original 0.063 - Fade 93.2%',
+    price: '2,980.50 BRL',
+  },
+  {
+    id: 4,
+    date: '23/09/2025 - 4:35 PM',
+    notes: 'Factory Original 0.064 - Fade 93.3%',
+    price: '5,100.75 BRL',
+  },
+  {
+    id: 5,
+    date: '23/09/2025 - 7:59 AM',
+    notes: 'Factory Original 0.065 - Fade 93.4%',
+    price: '3,750.25 BRL',
+  },
+  {
+    id: 6,
+    date: '22/09/2025 - 10:15 PM',
+    notes: 'Factory Original 0.066 - Fade 93.5%',
+    price: '1,500.00 BRL',
+  },
+  {
+    id: 7,
+    date: '22/09/2025 - 3:45 PM',
+    notes: 'Factory Original 0.067 - Fade 93.6%',
+    price: '6,300.40 BRL',
+  },
+  {
+    id: 8,
+    date: '22/09/2025 - 1:30 AM',
+    notes: 'Factory Original 0.068 - Fade 93.7%',
+    price: '2,150.10 BRL',
+  },
+  {
+    id: 9,
+    date: '21/09/2025 - 6:00 PM',
+    notes: 'Factory Original 0.069 - Fade 93.8%',
+    price: '3,600.85 BRL',
+  },
+  {
+    id: 10,
+    date: '21/09/2025 - 7:15 AM',
+    notes: 'Factory Original 0.070 - Fade 93.9%',
+    price: '4,800.90 BRL',
   },
 ]
 
@@ -143,13 +206,13 @@ export const Default: Story = {
       return (
         <Table
           header={defaultHeader}
-          data={customData}
+          data={defaultData}
           tableHeaderClassName="bg-neutral-800 hover:bg-neutral-800 text-neutral-300"
           tableRowClassName="even:bg-neutral-800"
         />
       )
     }
 
-    return <Table header={defaultHeader} data={customData} tableCellClassName="odd:bg-[#161719]" />
+    return <Table header={defaultHeader} data={defaultData} tableCellClassName="odd:bg-[#161719]" />
   },
 }
