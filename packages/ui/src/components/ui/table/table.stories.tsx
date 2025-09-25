@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Heading1 } from 'lucide-react'
 import { Table, TableRow, TableCell } from '.'
 
 type RowData = {
@@ -181,6 +181,61 @@ export const Default: Story = {
   args: {
     variant: 'Default',
   } as Record<string, unknown>,
+  parameters: {
+    docs: {
+      source: {
+        transform: (code: string, storyContext: { args: { variant?: Variant } }) => {
+          const { variant } = storyContext.args
+
+          if (variant === 'Custom Rows') {
+            return `
+                const [selectedRow, setSelectedRow] = useState<number | null>(null)
+
+                const handleRowClick = (rowIdx: number) => {
+                  setSelectedRow(rowIdx === selectedRow ? null : rowIdx)
+                }
+
+                return (
+                <Table
+                  header={${JSON.stringify(customHeader)}}
+                  data={${JSON.stringify(customData)}}
+                  renderRow={(row, rowIdx) => (
+                    <TableRow
+                      data-state={rowIdx === selectedRow ? 'selected' : ''}
+                      onClick={() => handleRowClick(rowIdx)}
+                      key={row.id}
+                    >
+                      <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                        <div className="flex flex-col gap-[0.25rem]">
+                          <p className="text-primary font-bold leading-[140%] uppercase">StatTrak™</p>
+                          {row.condition}
+                        </div>
+                      </TableCell>
+                      <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                        {row.price}
+                      </TableCell>
+                      <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                        {row.sales}
+                      </TableCell>
+                      <TableCell data-state={rowIdx === selectedRow ? 'selected' : ''}>
+                        <button
+                          className="cursor-pointer flex gap-[0.35rem] justify-center align-bottom text-white"
+                        >
+                          <span>Visualizar</span>
+                          <ArrowUpRight className="h-4 w-4 text-primary" />
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                />)
+              `
+          }
+
+          return code
+        },
+      },
+    },
+  },
   render: (args: { variant?: Variant; tableClassName?: string }) => {
     const { variant, tableClassName } = args
 
