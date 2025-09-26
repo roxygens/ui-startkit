@@ -65,7 +65,7 @@ program
 
       spinner.start('Adicionando tema ao CSS...')
 
-      const cssPath = path.resolve(__dirname, '../../ui/src/index.css')
+      const cssPath = path.resolve(__dirname, 'index.css')
 
       const themeConfig = await fs.readFile(cssPath, 'utf-8')
 
