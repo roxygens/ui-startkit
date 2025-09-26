@@ -1,6 +1,6 @@
 {
   "name": "@roxygens/ui-startkit",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -9,13 +9,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra"
+    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra && node src/scripts/copy-css.js"
   },
   "bin": {
     "ui-startkit": "./dist/index.js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
