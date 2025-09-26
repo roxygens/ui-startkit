@@ -26,5 +26,5 @@ jobs:
       - name: Build CLI
         run: npm run build-cli
 
-      - name: Publish CLI to GitHub Packages
+      - name: Publish CLI to NPM Packages
         run: npm run publish-cli
