@@ -129,7 +129,7 @@ program
         config = JSON.parse(configContent)
       } catch (error) {
         spinner.fail(
-          'Erro: Arquivo `components.json` não encontrado. Por favor, execute `npx @roxygens/ui-startkit@latest init` primeiro.',
+          'Erro: Arquivo `components.json` não encontrado. Por favor, execute `npx ui-startkit@latest init` primeiro.',
         )
         return
       }
