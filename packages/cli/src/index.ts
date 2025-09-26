@@ -11,13 +11,6 @@ import chalk from 'chalk'
 
 const program = new Command()
 
-function getNpmToken() {
-  const npmrcPath = path.resolve(process.cwd(), '.npmrc')
-  const npmrc = fs.readFileSync(npmrcPath, 'utf-8')
-  const match = npmrc.match(new RegExp(`^//npm\\.pkg\\.github\\.com/:_authToken=(.+)$`, 'm'))
-  return match ? match[1] : null
-}
-
 // =================================================================
 // COMANDO INIT (ATUALIZADO COM O TEMA DO FIGMA PARA TAILWIND v4)
 // =================================================================
@@ -39,7 +32,7 @@ program
           type: 'text',
           name: 'componentsAlias',
           message: 'Qual alias você quer para os componentes?',
-          initial: '@/components',
+          initial: '@/components/ui',
         },
         {
           type: 'text',
@@ -112,11 +105,7 @@ program
       const REGISTRY_API_URL =
         'https://api.github.com/repos/roxygens/ui-startkit/contents/registry.json'
 
-      const token = getNpmToken()
-
-      const response = await fetch(REGISTRY_API_URL, {
-        headers: { Authorization: `token ${token}` },
-      })
+      const response = await fetch(REGISTRY_API_URL)
 
       const fileData: any = await response.json()
 
@@ -146,9 +135,7 @@ program
       }
 
       for (const file of componentData.files) {
-        const fileResponse = await fetch(file.contentUrl, {
-          headers: { Authorization: `token ${token}` },
-        })
+        const fileResponse = await fetch(file.contentUrl)
 
         if (!fileResponse.ok) {
           throw new Error(`Erro ao baixar arquivo: ${file.path}`)
