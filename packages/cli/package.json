@@ -1,5 +1,5 @@
 {
-  "name": "@roxygens/ui-startkit",
+  "name": "ui-startkit",
   "version": "0.0.1",
   "description": "Adicione componentes reutilizáveis ao seu projeto",
   "main": "dist/index.js",

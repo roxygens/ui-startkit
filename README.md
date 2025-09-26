@@ -1,11 +1,11 @@
 [<img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" width="20"> Leia em: 🇧🇷 Português](README.pt-br.md)
 
-# @roxygens/ui-startkit
+# ui-startkit
 
-Welcome to `@roxygens/ui-startkit`! 🎨
+Welcome to `ui-startkit`! 🎨
 A collection of **reusable, accessible, and customizable UI components**, inspired by the philosophy of [Shadcn/ui](https://ui.shadcn.com/).
 
-Unlike traditional libraries, `@roxygens/ui-startkit` provides a **CLI** that lets you copy components directly into your project, giving you **full control over the code**.
+Unlike traditional libraries, `ui-startkit` provides a **CLI** that lets you copy components directly into your project, giving you **full control over the code**.
 
 ---
 
@@ -29,7 +29,7 @@ Before you start, your project must have:
 ### Initialize `ui-startkit`
 
 ```bash
-npx @roxygens/ui-startkit@latest init
+npx ui-startkit@latest init
 ```
 
 This sets up the base styles and dependencies in your project.
@@ -37,13 +37,13 @@ This sets up the base styles and dependencies in your project.
 ### Add components
 
 ```bash
-npx @roxygens/ui-startkit@latest add <component-name>
+npx ui-startkit@latest add <component-name>
 ```
 
 **Example:** Adding the `Button` component:
 
 ```bash
-npx @roxygens/ui-startkit@latest add button
+npx ui-startkit@latest add button
 ```
 
 The component will be created at `src/components/ui/button.tsx`, and you can use it like this:
@@ -63,109 +63,109 @@ export function MyComponent() {
 ### Avatar
 
 ```bash
-npx @roxygens/ui-startkit@latest add avatar
+npx ui-startkit@latest add avatar
 ```
 
 ### Badge
 
 ```bash
-npx @roxygens/ui-startkit@latest add badge
+npx ui-startkit@latest add badge
 ```
 
 ### Breadcrumb
 
 ```bash
-npx @roxygens/ui-startkit@latest add breadcrumb
+npx ui-startkit@latest add breadcrumb
 ```
 
 ### Button
 
 ```bash
-npx @roxygens/ui-startkit@latest add button
+npx ui-startkit@latest add button
 ```
 
 ### Card
 
 ```bash
-npx @roxygens/ui-startkit@latest add card
+npx ui-startkit@latest add card
 ```
 
 ### Checkbox
 
 ```bash
-npx @roxygens/ui-startkit@latest add checkbox
+npx ui-startkit@latest add checkbox
 ```
 
 ### Date Picker
 
 ```bash
-npx @roxygens/ui-startkit@latest add date-picker
+npx ui-startkit@latest add date-picker
 ```
 
 ### Input
 
 ```bash
-npx @roxygens/ui-startkit@latest add input
+npx ui-startkit@latest add input
 ```
 
 ### Input OTP
 
 ```bash
-npx @roxygens/ui-startkit@latest add input-otp
+npx ui-startkit@latest add input-otp
 ```
 
 ### Pagination
 
 ```bash
-npx @roxygens/ui-startkit@latest add pagination
+npx ui-startkit@latest add pagination
 ```
 
 ### Progress Bar
 
 ```bash
-npx @roxygens/ui-startkit@latest add progress-bar
+npx ui-startkit@latest add progress-bar
 ```
 
 ### Radio Group
 
 ```bash
-npx @roxygens/ui-startkit@latest add radio-group
+npx ui-startkit@latest add radio-group
 ```
 
 ### Score Bar
 
 ```bash
-npx @roxygens/ui-startkit@latest add score-bar
+npx ui-startkit@latest add score-bar
 ```
 
 ### Select
 
 ```bash
-npx @roxygens/ui-startkit@latest add select
+npx ui-startkit@latest add select
 ```
 
 ### Switch
 
 ```bash
-npx @roxygens/ui-startkit@latest add switch
+npx ui-startkit@latest add switch
 ```
 
 ### Table
 
 ```bash
-npx @roxygens/ui-startkit@latest add table
+npx ui-startkit@latest add table
 ```
 
 ### Tabs
 
 ```bash
-npx @roxygens/ui-startkit@latest add tabs
+npx ui-startkit@latest add tabs
 ```
 
 ### Tooltip
 
 ```bash
-npx @roxygens/ui-startkit@latest add tooltip
+npx ui-startkit@latest add tooltip
 ```
 
 > 💡 Copy and run the commands directly in your terminal to add the desired components.
