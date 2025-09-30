@@ -13,11 +13,6 @@ const preview: Preview = {
     },
     backgrounds: {
       default: 'dark',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: 'var(--background)' },
-        { name: 'brand', value: 'var(--background)' },
-      ],
     },
     docs: {
       theme: themes.dark,
@@ -27,14 +22,14 @@ const preview: Preview = {
     (Story, context) => {
       if (context.viewMode === 'docs') {
         return (
-          <div className="flex items-center justify-center py-[100px]">
+          <div className="flex items-center justify-center mx-[-1.88rem] my-[-2.5rem] px-[1.75rem] py-[100px] bg-background">
             <Story />
           </div>
         )
       }
 
       return (
-        <div className="flex items-center justify-center h-screen bg-[var(--background)]">
+        <div className="flex items-center justify-center h-screen bg-background">
           <Story />
         </div>
       )
