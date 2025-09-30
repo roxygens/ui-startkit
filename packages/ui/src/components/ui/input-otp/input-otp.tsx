@@ -7,7 +7,7 @@ const inputOtpVariants = cva(
     text-white placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--color-neutral-gray)]
     flex w-full text-center min-w-0 rounded-0 bg-transparent text-base shadow-xs 
     transition-[color,box-shadow] outline-none 
-    disabled:cursor-not-allowed disabled:hover:border-none  disabled:opacity-50 md:text-sm disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
+    disabled:cursor-not-allowed disabled:hover:border-none  disabled:opacity-50 disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
 
     hover:border-[var(--primary)] 
 
@@ -18,10 +18,10 @@ const inputOtpVariants = cva(
   {
     variants: {
       size: {
-        xs: 'h-[1.5rem] w-[1.5rem]  text-xs',
+        xs: 'h-[1.5rem] w-[1.5rem] text-xs',
         sm: 'h-[2rem]  w-[2rem] text-sm',
-        md: 'h-[2.25rem]  w-[2.25rem] text-sm',
-        lg: 'h-[2.5rem] w-[2.5rem] text-sm',
+        md: 'h-[2.25rem]  w-[2.25rem] text-base',
+        lg: 'h-[2.5rem] w-[2.5rem] text-lg',
       },
     },
     defaultVariants: {
@@ -103,7 +103,7 @@ export function InputOtp({
   }, [length])
 
   return (
-    <div className="flex gap-0">
+    <div className="flex gap-[0.5rem]">
       {values.map((v, i) => (
         <input
           {...rest}
@@ -113,11 +113,7 @@ export function InputOtp({
           maxLength={1}
           value={v}
           disabled={disabled}
-          className={cn(inputOtpVariants({ size, className }), {
-            'rounded-[0.5rem]': length === 1,
-            'rounded-l-[0.5rem]': i === 0,
-            'rounded-r-[0.5rem]': i === length - 1,
-          })}
+          className={cn(inputOtpVariants({ size, className }))}
           onChange={(e) => handleChange(i, e.target.value)}
           onPaste={(e) => handlePaste(i, e)}
         />
