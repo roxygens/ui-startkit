@@ -144,7 +144,7 @@ export function Tabs({ tabs, defaultValue, className }: Props) {
             ))}
           </div>
 
-          <div className="flex  gap-[1rem]">
+          <div className="flex gap-[1rem]">
             {subTabs?.tabs?.map((tab) => (
               <TabsTrigger
                 onClick={() => {

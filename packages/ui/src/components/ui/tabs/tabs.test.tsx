@@ -25,7 +25,7 @@ const nestedTabs = [
     label: 'Other',
     content: <div>Other content</div>,
     tabs: [
-      { value: 'subOther1', label: 'Sub Other 1', content: <div>Sub Other Content 2</div> },
+      { value: 'subOther1', label: 'Sub Other 1', content: <div>Sub Other Content 1</div> },
       {
         value: 'subOther2',
         label: 'Sub Other 2',
