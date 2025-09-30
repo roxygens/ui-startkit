@@ -14,31 +14,51 @@ type Story = StoryObj<typeof Tabs>
 
 export const Default: Story = {
   args: {
-    defaultValue: 'option_pill',
-    options: [
+    defaultValue: 'graphics',
+    tabs: [
       {
-        value: 'option_pill',
-        label: 'Option with pill',
-        content: <p className="text-white">Option with pill</p>,
-        pill: '2',
+        value: 'graphics',
+        label: 'Gráficos',
+        content: <p className="text-white mt-2">Gráficos</p>,
+        tabs: [
+          {
+            value: '1s',
+            label: '1s',
+            content: <p className="text-white mt-2">Gráficos - 1S</p>,
+          },
+          {
+            value: '1m',
+            label: '1m',
+            content: <p className="text-white mt-2">Gráficos - 1M</p>,
+          },
+          {
+            value: '3m',
+            label: '3m',
+            content: <p className="text-white mt-2">Gráficos - 3M</p>,
+          },
+          {
+            value: '6m',
+            label: '6m',
+            content: <p className="text-white mt-2">Gráficos - 6M</p>,
+            disabled: true,
+          },
+          {
+            value: '1a',
+            label: '1a',
+            content: <p className="text-white mt-2">Gráficos - 1A</p>,
+          },
+        ],
       },
       {
-        value: 'disabled_option',
-        label: 'Disabled option',
-        content: <p className="text-white">Disabled option</p>,
+        value: 'historic',
+        label: 'Histórico',
+        content: <p className="text-white mt-2">Histórico</p>,
         disabled: true,
       },
       {
-        value: 'disabled_option_pill',
-        label: 'Disabled option with pill',
-        content: <p className="text-white">Disabled option with pill</p>,
-        disabled: true,
-        pill: 4,
-      },
-      {
-        value: 'other_option',
-        label: 'Other option',
-        content: <p className="text-white">Other option</p>,
+        value: 'variations',
+        label: 'Variações',
+        content: <p className="text-white mt-2">Variações</p>,
       },
     ],
   },

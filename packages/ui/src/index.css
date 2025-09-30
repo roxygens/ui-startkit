@@ -74,7 +74,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #0C0E12;
+  --background: #141415;
   --foreground: oklch(0.145 0 0);
   --card: #1A1A1A;
   --card-hover: #1F1F1F;
