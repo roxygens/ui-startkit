@@ -13,7 +13,7 @@
     "publish-cli": "npm publish -w=ui-startkit",
     "serve-npm-local": "npx verdaccio",
     "publish-cli-local": "npm run build-cli && npm publish --registry http://localhost:4873 -w=ui-startkit",
-    "unpublish-cli-local": "npm unpublish nome-do-pacote --registry http://localhost:4873 --force"
+    "unpublish-cli-local": "npm unpublish ui-startkit --registry http://localhost:4873 --force"
   },
   "keywords": [],
   "author": "",

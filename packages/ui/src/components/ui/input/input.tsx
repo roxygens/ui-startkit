@@ -50,7 +50,7 @@ const iconVariants = cva(
         xs: '[&_svg]:h-[0.75rem] [&_svg]:w-[0.75rem]',
         sm: '[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]',
         md: '[&_svg]:h-[1rem] [&_svg]:w-[1rem]',
-        lg: '[&_svg]:h-[1.125rem] [&_svg]:h-[1.125rem]',
+        lg: '[&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]',
       },
     },
     defaultVariants: {
