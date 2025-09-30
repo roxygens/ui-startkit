@@ -66,35 +66,11 @@ program
       spinner.start('Adicionando tema ao CSS...')
 
       const cssPath = path.resolve(__dirname, 'index.css')
+
       const themeConfig = await fs.readFile(cssPath, 'utf-8')
+
       const originalCss = await fs.readFile(options.tailwindCssFile, 'utf-8')
-
-      function mergeCss(base: string, update: string): string {
-        const baseLines = base
-          .split('\n')
-          .map((l) => l.trim())
-          .filter(Boolean)
-        const updateLines = update
-          .split('\n')
-          .map((l) => l.trim())
-          .filter(Boolean)
-
-        const sameLines = updateLines.filter((line) => baseLines.includes(line)).length
-        const similarity = sameLines / updateLines.length
-
-        if (similarity > 0.9) {
-          const mergedLines = [
-            ...updateLines,
-            ...baseLines.filter((line) => !updateLines.includes(line)),
-          ]
-          return mergedLines.join('\n')
-        }
-
-        return update + '\n' + base
-      }
-
-      const mergedCss = mergeCss(originalCss, themeConfig)
-      await fs.writeFile(options.tailwindCssFile, mergedCss)
+      await fs.writeFile(options.tailwindCssFile, themeConfig + '\n' + originalCss)
       spinner.succeed(`Tema "Skins Games" adicionado a \`${options.tailwindCssFile}\`.`)
 
       spinner.start('Instalando dependências...')
@@ -104,6 +80,7 @@ program
 
       console.log(chalk.green('\n✔ Projeto inicializado com sucesso!'))
       console.log(chalk.yellow('\n🚨 Lembretes:'))
+
       console.log(
         chalk.yellow(
           '  - Adicione a fonte "Manrope" ao seu projeto para uma correspondência visual perfeita.',
