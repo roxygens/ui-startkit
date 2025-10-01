@@ -11,7 +11,7 @@ const dest = path.resolve(__dirname, '../../../cli/dist/README.md')
 const srcPt = path.resolve(__dirname, '../../../../README.pt-br.md')
 const destPt = path.resolve(__dirname, '../../../cli/dist/README.pt-br.md')
 
-async function copyCSS() {
+async function copyREADME() {
   try {
     await fs.copy(src, dest)
     await fs.copy(srcPt, destPt)
@@ -22,4 +22,4 @@ async function copyCSS() {
   }
 }
 
-copyCSS()
+copyREADME()

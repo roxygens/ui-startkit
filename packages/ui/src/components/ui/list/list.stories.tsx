@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { DollarSign, Palette, Star } from 'lucide-react'
+import { DollarSign, Palette } from 'lucide-react'
 import { List } from '.'
 
 const meta: Meta<typeof List> = {

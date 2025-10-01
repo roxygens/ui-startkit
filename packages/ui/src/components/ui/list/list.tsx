@@ -1,5 +1,5 @@
 'use client'
-import { useState, KeyboardEvent } from 'react'
+import { useState } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -37,6 +37,7 @@ export function List({ items, className }: Props) {
 
         return (
           <li
+            key={tabId}
             onClick={() => handleToggle(item.value)}
             className="flex flex-col text-white bg-neutral-950 text-xs font-bold leading-[150%] [&_svg]:h-[1rem] [&_svg]:w-[1rem]"
           >
