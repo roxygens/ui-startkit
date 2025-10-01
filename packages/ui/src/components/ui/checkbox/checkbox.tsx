@@ -88,8 +88,8 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
 
   return (
     <div
-      className={cn('flex flex-row items-center place-items-start gap-[0.5rem]', {
-        'items-start border-1 border-neutral-gray  px-[0.75rem] min-w-[15rem] py-[0.5rem]':
+      className={cn('flex flex-row items-center gap-[0.5rem]', {
+        'items-start border-1 border-neutral-gray px-[0.75rem] min-w-[15rem] py-[0.5rem]':
           description,
         'border-neutral-400': checked || props?.checked,
       })}
