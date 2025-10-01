@@ -19,6 +19,7 @@ type Story = StoryObj<typeof Checkbox>
 
 export const Default: Story = {
   args: {
+    size: 'md',
     label: 'Label',
     description: 'Secondary text',
   },

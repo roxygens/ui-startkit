@@ -8,7 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 const checkboxVariants = cva(
   `
-    peer group shrink-0 rounded-[0.19rem] border border-neutral-gray shadow-xs mt-[0.15rem]
+    peer group shrink-0  border border-neutral-gray shadow-xs 
     transition-shadow outline-none 
     data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground 
     dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary 
@@ -34,10 +34,10 @@ const checkboxVariants = cva(
 const labelVariants = cva('text-white font-normal', {
   variants: {
     size: {
-      xs: 'text-[0.75rem] leading-[1.2] tracking-[0.005rem]',
-      sm: 'text-[0.8125rem] leading-[1.3] tracking-[0.006rem]',
-      md: 'text-[0.875rem] leading-[1.5] tracking-[0.007rem]',
-      lg: 'text-[1rem] leading-[1.6] tracking-[0.01rem]',
+      xs: 'text-xs leading-[1.2] tracking-[0.005rem]',
+      sm: 'text-sm leading-[1.3] tracking-[0.006rem]',
+      md: 'text-base leading-[1.5] tracking-[0.007rem]',
+      lg: 'text-lg leading-[1.6] tracking-[0.01rem]',
     },
   },
   defaultVariants: {
@@ -88,8 +88,8 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
 
   return (
     <div
-      className={cn('flex flex-row place-items-start gap-[0.5rem]', {
-        'border-1 border-neutral-gray rounded-[0.25rem] px-[0.75rem] min-w-[15rem] py-[0.5rem]':
+      className={cn('flex flex-row items-center gap-[0.5rem]', {
+        'items-start border-1 border-neutral-gray px-[0.75rem] min-w-[15rem] py-[0.5rem]':
           description,
         'border-neutral-400': checked || props?.checked,
       })}
@@ -114,7 +114,15 @@ function Checkbox({ className, size, label, description, ...props }: Props) {
 
       <div className="flex flex-col">
         {label && (
-          <label htmlFor={props?.id} className={labelVariants({ size })}>
+          <label
+            htmlFor={props?.id}
+            className={cn(labelVariants({ size }), {
+              'mt-[-1px]': description && size === 'xs',
+              'mt-[-2px]': description && size === 'sm',
+              'mt-[-3px]': description && size === 'md',
+              'mt-[-4px]': description && size === 'lg',
+            })}
+          >
             {label}
           </label>
         )}

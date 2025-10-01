@@ -32,10 +32,10 @@ const radioGroupVariants = cva(
 const labelVariants = cva('text-white font-normal', {
   variants: {
     size: {
-      xs: 'text-[0.75rem] leading-[1.2] tracking-[0.005rem]',
-      sm: 'text-[0.8125rem] leading-[1.3] tracking-[0.006rem]',
-      md: 'text-[0.875rem] leading-[1.5] tracking-[0.007rem]',
-      lg: 'text-[1rem] leading-[1.6] tracking-[0.01rem]',
+      xs: 'text-xs leading-[1.2] tracking-[0.005rem]',
+      sm: 'text-sm leading-[1.3] tracking-[0.006rem]',
+      md: 'text-base leading-[1.5] tracking-[0.007rem]',
+      lg: 'text-lg leading-[1.6] tracking-[0.01rem]',
     },
   },
   defaultVariants: {
@@ -62,7 +62,7 @@ const circleIconVariants = cva(
   {
     variants: {
       size: {
-        xs: 'size-3 stroke-[0.5rem] rounded-full',
+        xs: 'size-3 stroke-[0.6rem] rounded-full',
         sm: 'size-3.5 stroke-[0.5rem] rounded-full',
         md: 'size-4 stroke-[0.5rem] rounded-full',
         lg: 'size-6 stroke-[0.5rem] rounded-full',

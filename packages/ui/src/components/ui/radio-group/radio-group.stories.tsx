@@ -19,6 +19,7 @@ type Story = StoryObj<typeof RadioGroup>
 
 export const Default: Story = {
   args: {
+    size: 'md',
     defaultValue: 'item_one',
     options: [
       {

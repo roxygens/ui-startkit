@@ -83,22 +83,22 @@ describe('Checkbox', () => {
       switch (size) {
         case 'xs':
           expect(checkbox).toHaveClass('h-3 w-3')
-          expect(label).toHaveClass('text-[0.75rem]')
+          expect(label).toHaveClass('text-xs leading-[1.2] tracking-[0.005rem]')
           expect(description).toHaveClass('text-[0.625rem]')
           break
         case 'sm':
           expect(checkbox).toHaveClass('h-3.5 w-3.5')
-          expect(label).toHaveClass('text-[0.8125rem]')
+          expect(label).toHaveClass('text-sm leading-[1.3] tracking-[0.006rem]')
           expect(description).toHaveClass('text-[0.6875rem]')
           break
         case 'md':
           expect(checkbox).toHaveClass('h-4 w-4')
-          expect(label).toHaveClass('text-[0.875rem]')
+          expect(label).toHaveClass('text-base leading-[1.5] tracking-[0.007rem]')
           expect(description).toHaveClass('text-[0.75rem]')
           break
         case 'lg':
           expect(checkbox).toHaveClass('h-5 w-5')
-          expect(label).toHaveClass('text-[1rem]')
+          expect(label).toHaveClass('text-lg leading-[1.6] tracking-[0.01rem]')
           expect(description).toHaveClass('text-[0.875rem]')
           break
       }

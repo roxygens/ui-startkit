@@ -56,9 +56,9 @@ describe('Select', () => {
 
     it.each([
       ['xs', 'px-[0.5rem] h-[1.5rem] text-xs'],
-      ['sm', 'px-[0.5rem] h-[2rem] text-sm'],
-      ['md', 'px-[0.5rem] h-[2.25rem] text-base'],
-      ['lg', 'px-[0.5rem] h-[2.5rem] text-lg'],
+      ['sm', 'px-[0.5rem] h-[2rem] text-xs'],
+      ['md', 'px-[0.5rem] h-[2.25rem] text-sm'],
+      ['lg', 'px-[0.5rem] h-[2.5rem] text-sm'],
     ])('should apply the correct styles for size %s', (size, expectedClass) => {
       setup({ size })
       const trigger = screen.getByRole('button')
