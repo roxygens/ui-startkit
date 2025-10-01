@@ -262,6 +262,16 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/lib/utils.ts"
         }
       ]
+    },
+    "range-slider": {
+      "name": "Range Slider",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "components/ui/range-slider.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/score-bar/range-slider.tsx"
+        }
+      ]
     }
   }
 }
