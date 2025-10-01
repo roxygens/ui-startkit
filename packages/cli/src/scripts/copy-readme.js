@@ -6,10 +6,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const src = path.resolve(__dirname, '../../../../README.md')
-const dest = path.resolve(__dirname, '../../../cli/dist/README.md')
+const dest = path.resolve(__dirname, '../../../cli/README.md')
 
 const srcPt = path.resolve(__dirname, '../../../../README.pt-br.md')
-const destPt = path.resolve(__dirname, '../../../cli/dist/README.pt-br.md')
+const destPt = path.resolve(__dirname, '../../../cli/README.pt-br.md')
 
 async function copyREADME() {
   try {
