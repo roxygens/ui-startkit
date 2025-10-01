@@ -24,10 +24,6 @@ export function List({ items, className }: Props) {
     )
   }
 
-  function handleClickContent(e: React.MouseEvent<HTMLDivElement>) {
-    e.stopPropagation()
-  }
-
   return (
     <ul className={cn('flex flex-col min-w-[15rem]', className)}>
       {items.map((item) => {
@@ -38,10 +34,10 @@ export function List({ items, className }: Props) {
         return (
           <li
             key={tabId}
-            onClick={() => handleToggle(item.value)}
             className="flex flex-col text-white bg-neutral-950 text-xs font-bold leading-[150%] [&_svg]:h-[1rem] [&_svg]:w-[1rem]"
           >
             <button
+              onClick={() => handleToggle(item.value)}
               id={tabId}
               type="button"
               role="tab"
@@ -64,7 +60,6 @@ export function List({ items, className }: Props) {
                 role="tabpanel"
                 aria-labelledby={tabId}
                 tabIndex={0}
-                onClick={handleClickContent}
                 className="px-[2rem] py-[1rem]"
               >
                 {item?.content}
