@@ -269,7 +269,7 @@
       "files": [
         {
           "path": "components/ui/range-slider.tsx",
-          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/score-bar/range-slider.tsx"
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/range-slider/range-slider.tsx"
         }
       ]
     }

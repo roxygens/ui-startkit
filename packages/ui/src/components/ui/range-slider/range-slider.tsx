@@ -89,7 +89,7 @@ export function RangeSlider({
       </div>
 
       {displayValues && (
-        <div className="flex justify-between w-full mt-1 text-sm text-white">
+        <div className="flex justify-between w-full mt-1 text-xs text-white">
           <span>{minVal}</span>
           <span>{maxVal}</span>
         </div>
