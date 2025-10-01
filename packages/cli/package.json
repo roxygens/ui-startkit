@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra && node src/scripts/copy-css.js"
+    "build": "tsup src/index.ts --format cjs --dts --clean --external chalk --external ora --external prompts --external node-fetch --external execa --external fs-extra && node src/scripts/copy-css.js && node src/scripts/copy-readme.js"
   },
   "bin": {
     "ui-startkit": "./dist/index.js"
