@@ -93,7 +93,7 @@ describe('Checkbox', () => {
           break
         case 'md':
           expect(checkbox).toHaveClass('h-4 w-4')
-          expect(label).toHaveClass('text-md leading-[1.5] tracking-[0.007rem]')
+          expect(label).toHaveClass('text-base leading-[1.5] tracking-[0.007rem]')
           expect(description).toHaveClass('text-[0.75rem]')
           break
         case 'lg':

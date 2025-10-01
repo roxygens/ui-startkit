@@ -36,7 +36,7 @@ const labelVariants = cva('text-white font-normal', {
     size: {
       xs: 'text-xs leading-[1.2] tracking-[0.005rem]',
       sm: 'text-sm leading-[1.3] tracking-[0.006rem]',
-      md: 'text-md leading-[1.5] tracking-[0.007rem]',
+      md: 'text-base leading-[1.5] tracking-[0.007rem]',
       lg: 'text-lg leading-[1.6] tracking-[0.01rem]',
     },
   },
