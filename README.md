@@ -138,6 +138,12 @@ npx ui-startkit@latest add progress-bar
 npx ui-startkit@latest add radio-group
 ```
 
+### Range Slider
+
+```bash
+npx ui-startkit@latest add range-slider
+```
+
 ### Score Bar
 
 ```bash
