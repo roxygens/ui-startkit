@@ -4,24 +4,21 @@ import { cn } from '@/lib/utils'
 
 const inputOtpVariants = cva(
   `
-    text-white placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--color-neutral-gray)]
-    flex w-full text-center min-w-0 rounded-0 bg-transparent text-base shadow-xs 
+    text-white placeholder:text-neutral-500  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--color-neutral-gray)]
+    flex w-full text-center min-w-0 rounded-0 bg-background font-normal leading-[140%]shadow-xs 
     transition-[color,box-shadow] outline-none 
     disabled:cursor-not-allowed disabled:hover:border-none  disabled:opacity-50 disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
-
     hover:border-[var(--primary)] 
-
     focus:border-[var(--primary)] 
-
     aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
   `,
   {
     variants: {
       size: {
         xs: 'h-[1.5rem] w-[1.5rem] text-xs',
-        sm: 'h-[2rem]  w-[2rem] text-sm',
-        md: 'h-[2.25rem]  w-[2.25rem] text-base',
-        lg: 'h-[2.5rem] w-[2.5rem] text-lg',
+        sm: 'h-[2rem]  w-[2rem] text-xs',
+        md: 'h-[2.25rem]  w-[2.25rem] text-sm',
+        lg: 'h-[2.5rem] w-[2.5rem] text-sm',
       },
     },
     defaultVariants: {

@@ -45,7 +45,7 @@ describe('Input', () => {
       render(<Input />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-base')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-sm')
     })
 
     it('should apply specified size variant (xs) classes', () => {
@@ -59,21 +59,21 @@ describe('Input', () => {
       render(<Input size="sm" />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('px-[0.5rem] h-[2rem] text-sm')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2rem] text-xs')
     })
 
     it('should apply specified size variant (md) classes', () => {
       render(<Input size="md" />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-base')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.25rem] text-sm')
     })
 
     it('should apply specified size variant (lg) classes', () => {
       render(<Input size="lg" />)
       const inputElement = screen.getByRole('textbox')
 
-      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-lg')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-sm')
     })
 
     it('should merge additional classNames with variant classes', () => {
@@ -81,7 +81,7 @@ describe('Input', () => {
       const inputElement = screen.getByRole('textbox')
 
       expect(inputElement).toHaveClass('my-custom-class')
-      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-lg')
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-sm')
     })
   })
 
@@ -106,18 +106,77 @@ describe('Input', () => {
   it('should render with sm size and icon', () => {
     render(<Input data-testid="input" size="sm" icon={<Home data-testid="icon" />} />)
     const input = screen.getByTestId('input')
-    expect(input).toHaveClass('pl-[1.875rem]')
+    expect(input).toHaveClass('pl-[1.75rem]')
   })
 
   it('should render with md size and icon', () => {
     render(<Input data-testid="input" size="md" icon={<Home data-testid="icon" />} />)
     const input = screen.getByTestId('input')
-    expect(input).toHaveClass('pl-[2rem]')
+    expect(input).toHaveClass('pl-[1.875rem]')
   })
 
   it('should render with lg size and icon', () => {
     render(<Input data-testid="input" size="lg" icon={<Home data-testid="icon" />} />)
     const input = screen.getByTestId('input')
-    expect(input).toHaveClass('pl-[2.25rem]')
+    expect(input).toHaveClass('pl-[1.875rem]')
+  })
+
+  it('should render with xs size and icon applying iconVariants', () => {
+    render(<Input data-testid="input" size="xs" icon={<Home data-testid="icon" />} />)
+    const icon = screen.getByTestId('icon')
+    expect(icon.parentElement).toHaveClass('[&_svg]:h-[0.75rem] [&_svg]:w-[0.75rem]')
+  })
+
+  it('should render with sm size and icon applying iconVariants', () => {
+    render(<Input data-testid="input" size="sm" icon={<Home data-testid="icon" />} />)
+    const icon = screen.getByTestId('icon')
+    expect(icon.parentElement).toHaveClass('[&_svg]:h-[0.75rem] [&_svg]:w-[0.75rem]')
+  })
+
+  it('should render with md size and icon applying iconVariants', () => {
+    render(<Input data-testid="input" size="md" icon={<Home data-testid="icon" />} />)
+    const icon = screen.getByTestId('icon')
+    expect(icon.parentElement).toHaveClass('[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]')
+  })
+
+  it('should render with lg size and icon applying iconVariants', () => {
+    render(<Input data-testid="input" size="lg" icon={<Home data-testid="icon" />} />)
+    const icon = screen.getByTestId('icon')
+    expect(icon.parentElement).toHaveClass('[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]')
+  })
+
+  it('should render prefix with xs size and correct variant classes', () => {
+    render(<Input data-testid="input" size="xs" prefix="R$" />)
+    const prefix = screen.getByText('R$')
+    expect(prefix).toHaveClass('text-xs')
+    expect(prefix).toHaveClass('absolute')
+  })
+
+  it('should render prefix with sm size and correct variant classes', () => {
+    render(<Input data-testid="input" size="sm" prefix="R$" />)
+    const prefix = screen.getByText('R$')
+    expect(prefix).toHaveClass('text-xs')
+    expect(prefix).toHaveClass('absolute')
+  })
+
+  it('should render prefix with md size and correct variant classes', () => {
+    render(<Input data-testid="input" size="md" prefix="R$" />)
+    const prefix = screen.getByText('R$')
+    expect(prefix).toHaveClass('text-sm')
+    expect(prefix).toHaveClass('absolute')
+  })
+
+  it('should render prefix with lg size and correct variant classes', () => {
+    render(<Input data-testid="input" size="lg" prefix="R$" />)
+    const prefix = screen.getByText('R$')
+    expect(prefix).toHaveClass('text-sm')
+    expect(prefix).toHaveClass('absolute')
+  })
+
+  it('should apply dynamic padding-left when prefix is present', () => {
+    render(<Input data-testid="input" prefix="R$" />)
+    const input = screen.getByTestId('input')
+    const style = input.getAttribute('style') || ''
+    expect(style.includes('padding-left')).toBe(true)
   })
 })
