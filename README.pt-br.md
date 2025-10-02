@@ -102,6 +102,12 @@ npx ui-startkit@latest add card
 npx ui-startkit@latest add checkbox
 ```
 
+### Checkbox
+
+```bash
+npx ui-startkit@latest add checkbox
+```
+
 ### Date Picker
 
 ```bash
