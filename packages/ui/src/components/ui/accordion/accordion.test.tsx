@@ -27,7 +27,7 @@ describe('Accordion', () => {
 
   it('should toggle tab content on click', () => {
     render(<Accordion items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     expect(screen.queryByTestId('content-1')).not.toBeInTheDocument()
     fireEvent.click(button1)
     expect(screen.getByTestId('content-1')).toBeInTheDocument()
@@ -37,8 +37,8 @@ describe('Accordion', () => {
 
   it('should open one tab without affecting others', () => {
     render(<Accordion items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
-    const button2 = screen.getByRole('tab', { name: /Item 2/i })
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
+    const button2 = screen.getByRole('button', { name: /Item 2/i })
     fireEvent.click(button1)
     fireEvent.click(button2)
     expect(screen.getByTestId('content-1')).toBeInTheDocument()
@@ -47,7 +47,7 @@ describe('Accordion', () => {
 
   it('should stop propagation when clicking inside content', () => {
     render(<Accordion items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     fireEvent.click(button1)
     const content = screen.getByTestId('content-1')
     const stopPropagation = vi.fn()
@@ -58,13 +58,13 @@ describe('Accordion', () => {
 
   it('should apply custom className to the accordion', () => {
     render(<Accordion items={items} className="custom-class" />)
-    const accordion = screen.getByRole('accordion')
+    const accordion = screen.getByRole('list')
     expect(accordion).toHaveClass('custom-class')
   })
 
   it('should update aria attributes correctly when toggled', () => {
     render(<Accordion items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     expect(button1).toHaveAttribute('aria-expanded', 'false')
     fireEvent.click(button1)
     expect(button1).toHaveAttribute('aria-expanded', 'true')
