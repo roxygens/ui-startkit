@@ -275,7 +275,7 @@
     },
     "color-picker": {
       "name": "Color Picker",
-      "dependencies": [],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "components/ui/color-picker.tsx",

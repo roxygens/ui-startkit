@@ -9,7 +9,7 @@ interface ColorOption {
 
 interface ColorPickerProps {
   options: ColorOption[]
-  onSelect?: (coloer: { from: string; to: string; index: number }) => void
+  onSelect?: (color: { from: string; to: string; index: number }) => void
   selectedIndex?: number
   className?: string
 }
@@ -31,7 +31,7 @@ export function ColorPicker({ options, onSelect, selectedIndex, className }: Col
     if (selectedIndex != null && options[selectedIndex]) {
       setSelectedColor(selectedIndex)
     }
-  }, [selectedIndex, options, onSelect])
+  }, [selectedIndex, options])
 
   return (
     <div className={cn('inline-flex flex-col', className)}>
