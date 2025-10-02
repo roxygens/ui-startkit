@@ -272,6 +272,16 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/range-slider/range-slider.tsx"
         }
       ]
+    },
+    "color-picker": {
+      "name": "Color Picker",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "components/ui/color-picker.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/color-picker/color-picker.tsx"
+        }
+      ]
     }
   }
 }
