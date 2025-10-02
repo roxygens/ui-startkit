@@ -40,8 +40,6 @@ export function Accordion({ items, className }: Props) {
               onClick={() => handleToggle(item.value)}
               id={buttonId}
               type="button"
-              role="button"
-              aria-selected={isOpen}
               aria-expanded={isOpen}
               aria-controls={panelId}
               tabIndex={0}
@@ -57,7 +55,6 @@ export function Accordion({ items, className }: Props) {
             {isOpen && (
               <div
                 id={panelId}
-                role="tabpanel"
                 aria-labelledby={buttonId}
                 tabIndex={0}
                 className="px-[2rem] py-[1rem]"
