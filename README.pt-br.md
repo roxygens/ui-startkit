@@ -60,6 +60,12 @@ export function MeuComponente() {
 
 ## 📂 Instalação rápida de todos os componentes
 
+### Accordion
+
+```bash
+npx ui-startkit@latest add accordion
+```
+
 ### Avatar
 
 ```bash
@@ -112,12 +118,6 @@ npx ui-startkit@latest add input
 
 ```bash
 npx ui-startkit@latest add input-otp
-```
-
-### List
-
-```bash
-npx ui-startkit@latest add list
 ```
 
 ### Pagination
