@@ -15,11 +15,11 @@ type Props = {
   className?: string
 }
 
-export function List({ items, className }: Props) {
-  const [openTabs, setOpenTabs] = useState<string[]>([])
+export function Accordion({ items, className }: Props) {
+  const [openPanels, setOpenPanels] = useState<string[]>([])
 
   function handleToggle(value: string) {
-    setOpenTabs((prev) =>
+    setOpenPanels((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     )
   }
@@ -27,20 +27,20 @@ export function List({ items, className }: Props) {
   return (
     <ul className={cn('flex flex-col min-w-[15rem]', className)}>
       {items.map((item) => {
-        const isOpen = openTabs.includes(item.value)
-        const tabId = `tab-${item.value}`
+        const isOpen = openPanels.includes(item.value)
+        const buttonId = `button-${item.value}`
         const panelId = `panel-${item.value}`
 
         return (
           <li
-            key={tabId}
+            key={buttonId}
             className="flex flex-col text-white bg-neutral-950 text-xs font-bold leading-[150%] [&_svg]:h-[1rem] [&_svg]:w-[1rem]"
           >
             <button
               onClick={() => handleToggle(item.value)}
-              id={tabId}
+              id={buttonId}
               type="button"
-              role="tab"
+              role="button"
               aria-selected={isOpen}
               aria-expanded={isOpen}
               aria-controls={panelId}
@@ -58,7 +58,7 @@ export function List({ items, className }: Props) {
               <div
                 id={panelId}
                 role="tabpanel"
-                aria-labelledby={tabId}
+                aria-labelledby={buttonId}
                 tabIndex={0}
                 className="px-[2rem] py-[1rem]"
               >

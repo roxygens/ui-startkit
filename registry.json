@@ -249,13 +249,13 @@
         }
       ]
     },
-    "list": {
-      "name": "List",
+    "accordion": {
+      "name": "Accordion",
       "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
-          "path": "components/ui/list.tsx",
-          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/list/list.tsx"
+          "path": "components/ui/accordion.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/accordion/accordion.tsx"
         },
         {
           "path": "lib/utils.ts",

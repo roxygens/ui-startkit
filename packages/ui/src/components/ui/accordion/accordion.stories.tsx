@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { DollarSign, Palette } from 'lucide-react'
-import { List } from '.'
+import { Accordion } from '.'
 
-const meta: Meta<typeof List> = {
-  title: 'Components/List',
-  component: List,
+const meta: Meta<typeof Accordion> = {
+  title: 'Components/Accordion',
+  component: Accordion,
   tags: ['autodocs'],
   argTypes: {},
 }
 
 export default meta
 
-type Story = StoryObj<typeof List>
+type Story = StoryObj<typeof Accordion>
 
 export const Default: Story = {
   args: {
@@ -34,7 +34,7 @@ export const Default: Story = {
   render(props) {
     return (
       <div className="flex h-[10rem]">
-        <List {...props} />
+        <Accordion {...props} />
       </div>
     )
   },

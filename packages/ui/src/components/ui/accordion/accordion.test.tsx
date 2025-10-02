@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { ChevronDown } from 'lucide-react'
-import { List } from '.'
+import { Accordion } from '.'
 
-describe('List', () => {
+describe('Accordion', () => {
   const items = [
     {
       icon: <ChevronDown data-testid="icon-1" />,
@@ -18,16 +18,16 @@ describe('List', () => {
     },
   ]
 
-  it('should render list items with labels and icons', () => {
-    render(<List items={items} />)
+  it('should render accordion items with labels and icons', () => {
+    render(<Accordion items={items} />)
     expect(screen.getByText('Item 1')).toBeInTheDocument()
     expect(screen.getByText('Item 2')).toBeInTheDocument()
     expect(screen.getByTestId('icon-1')).toBeInTheDocument()
   })
 
   it('should toggle tab content on click', () => {
-    render(<List items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    render(<Accordion items={items} />)
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     expect(screen.queryByTestId('content-1')).not.toBeInTheDocument()
     fireEvent.click(button1)
     expect(screen.getByTestId('content-1')).toBeInTheDocument()
@@ -36,9 +36,9 @@ describe('List', () => {
   })
 
   it('should open one tab without affecting others', () => {
-    render(<List items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
-    const button2 = screen.getByRole('tab', { name: /Item 2/i })
+    render(<Accordion items={items} />)
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
+    const button2 = screen.getByRole('button', { name: /Item 2/i })
     fireEvent.click(button1)
     fireEvent.click(button2)
     expect(screen.getByTestId('content-1')).toBeInTheDocument()
@@ -46,8 +46,8 @@ describe('List', () => {
   })
 
   it('should stop propagation when clicking inside content', () => {
-    render(<List items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    render(<Accordion items={items} />)
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     fireEvent.click(button1)
     const content = screen.getByTestId('content-1')
     const stopPropagation = vi.fn()
@@ -56,15 +56,15 @@ describe('List', () => {
     expect(screen.getByTestId('content-1')).toBeInTheDocument()
   })
 
-  it('should apply custom className to the list', () => {
-    render(<List items={items} className="custom-class" />)
-    const list = screen.getByRole('list')
-    expect(list).toHaveClass('custom-class')
+  it('should apply custom className to the accordion', () => {
+    render(<Accordion items={items} className="custom-class" />)
+    const accordion = screen.getByRole('list')
+    expect(accordion).toHaveClass('custom-class')
   })
 
   it('should update aria attributes correctly when toggled', () => {
-    render(<List items={items} />)
-    const button1 = screen.getByRole('tab', { name: /Item 1/i })
+    render(<Accordion items={items} />)
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
     expect(button1).toHaveAttribute('aria-expanded', 'false')
     fireEvent.click(button1)
     expect(button1).toHaveAttribute('aria-expanded', 'true')
