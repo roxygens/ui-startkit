@@ -66,7 +66,6 @@ export function MyComponent() {
 npx ui-startkit@latest add accordion
 ```
 
-
 ### Avatar
 
 ```bash
