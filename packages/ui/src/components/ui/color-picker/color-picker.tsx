@@ -43,7 +43,7 @@ export function ColorPicker({ options, onSelect, selectedIndex, className }: Col
             className={cn(
               'relative cursor-pointer focus:outline-none rounded-xs p-[2px] border-[1.5px] border-transparent',
               selectedColor === index &&
-                ' bg-transparent rounded-[0.25rem] border-[1.5px] border-white',
+                'bg-transparent rounded-[0.25rem] border-[1.5px] border-white',
             )}
           >
             <div className="size-[calc(1.5rem-3px)] relative rounded-xs overflow-hidden">
