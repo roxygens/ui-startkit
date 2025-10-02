@@ -15,7 +15,7 @@ type Props = {
   className?: string
 }
 
-export function List({ items, className }: Props) {
+export function Accordion({ items, className }: Props) {
   const [openTabs, setOpenTabs] = useState<string[]>([])
 
   function handleToggle(value: string) {
