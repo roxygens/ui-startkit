@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Input } from '.'
 
-import { Search } from 'lucide-react'
-
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
