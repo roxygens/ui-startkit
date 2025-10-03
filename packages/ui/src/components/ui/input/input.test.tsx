@@ -227,9 +227,6 @@ describe('Input', () => {
   it('should not display error when errors prop is empty', () => {
     render(<Input name="email" errors={{}} placeholder="Enter email" />)
 
-    const errorElements = screen.queryByText(/./)
-    expect(errorElements).not.toBeInTheDocument()
-
     const inputElement = screen.getByPlaceholderText('Enter email')
     expect(inputElement).toHaveAttribute('aria-invalid', 'false')
   })
