@@ -51,7 +51,7 @@ function DialogContent({
           `
             bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
             data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
-            fixed top-0 left-0 right-0 bottom-0 z-[99999] grid w-screen h-screen  shadow-lg duration-200
+            fixed top-0 left-0 right-0 bottom-0 z-[99999] grid w-screen h-screen shadow-lg duration-200
           `,
           className,
         )}
@@ -62,9 +62,9 @@ function DialogContent({
           <DialogPrimitive.Close
             data-slot="dialog-close"
             className={`
-                cursor-pointer text-white absolute top-5 right-24 
+                cursor-pointer text-white absolute top-5 right-5 sm:right-24 
                 transition-opacity hover:text-[var(--tertiary-hover)]
-                [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-8
+                [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 sm:[&_svg:not([class*='size-'])]:size-8
              `}
           >
             <XIcon />
@@ -89,10 +89,12 @@ export function Modal({ open, onOpenChange, title, content, className, children 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className={className}>
-        <div className="absolute left-[5rem] py-[1.5rem] pl-[1rem] text-white text-xl leading-[120%] font-semibold border-b-1 border-[var(--table-border)] w-[calc(100%-10rem)]">
-          {title}
+        <div className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] border-b-1 border-[var(--table-border)] w-screen sm:w-[calc(100%-10rem)]">
+          <div className="w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-md sm:text-xl leading-[120%] font-semibold">
+            {title}
+          </div>
         </div>
-        <div className="absolute left-[5rem] pt-[4rem]  border-1 border-[var(--table-border)] w-[calc(100%-10rem)] h-[calc(100%-3.5rem)]">
+        <div className="absolute sm:left-[5rem] pt-[4rem] sm:border-1 sm:border-[var(--table-border)] w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
           {content}
         </div>
       </DialogContent>
