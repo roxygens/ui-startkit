@@ -126,6 +126,12 @@ npx ui-startkit@latest add input
 npx ui-startkit@latest add input-otp
 ```
 
+### Modal
+
+```bash
+npx ui-startkit@latest add modal
+```
+
 ### Pagination
 
 ```bash
