@@ -282,6 +282,16 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/color-picker/color-picker.tsx"
         }
       ]
+    },
+     "modal": {
+      "name": "Modal",
+      "dependencies": ["clsx", "tailwind-merge", "@radix-ui/react-dialog"],
+      "files": [
+        {
+          "path": "components/ui/modal.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/modal/modal.tsx"
+        }
+      ]
     }
   }
 }
