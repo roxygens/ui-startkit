@@ -205,4 +205,29 @@ describe('Input', () => {
     const style = input.getAttribute('style') || ''
     expect(style.includes('padding-left')).toBe(true)
   })
+
+  it('should display the error message when errors prop is provided', () => {
+    const errorMessage = 'This field is required'
+
+    render(
+      <Input
+        name="email"
+        errors={{ email: { message: errorMessage } }}
+        placeholder="Enter email"
+      />,
+    )
+
+    const errorElement = screen.getByText(errorMessage)
+    expect(errorElement).toBeInTheDocument()
+
+    const inputElement = screen.getByPlaceholderText('Enter email')
+    expect(inputElement).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('should not display error when errors prop is empty', () => {
+    render(<Input name="email" errors={{}} placeholder="Enter email" />)
+
+    const inputElement = screen.getByPlaceholderText('Enter email')
+    expect(inputElement).toHaveAttribute('aria-invalid', 'false')
+  })
 })
