@@ -26,7 +26,7 @@ describe('Modal', () => {
     )
     await user.click(screen.getByTestId('trigger'))
     expect(await screen.findByTestId('modal-content')).toBeInTheDocument()
-    expect(screen.getByText(title)).toHaveClass('text-md sm:text-xl')
+    expect(screen.getByText(title)).toHaveClass('text-base sm:text-xl')
   })
 
   it('should call onOpenChange when modal is opened and closed', async () => {
