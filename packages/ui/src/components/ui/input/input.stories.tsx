@@ -7,7 +7,7 @@ const meta: Meta<typeof Input> = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ['xs', 'sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       control: { type: 'select' },
     },
     type: {

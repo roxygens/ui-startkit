@@ -20,6 +20,7 @@ const inputVariants = cva(
         sm: 'px-[0.5rem] h-[2rem] text-xs',
         md: 'px-[0.5rem] h-[2.25rem] text-sm',
         lg: 'px-[0.5rem] h-[2.5rem] text-sm',
+        xl: 'px-[0.5rem] h-[3rem] text-base',
       },
     },
     defaultVariants: {
@@ -48,6 +49,7 @@ const iconVariants = cva(
         sm: '[&_svg]:h-[0.75rem] [&_svg]:w-[0.75rem]',
         md: '[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]',
         lg: '[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]',
+        xl: '[&_svg]:h-[1rem] [&_svg]:w-[1rem]',
       },
     },
     defaultVariants: {
@@ -65,6 +67,7 @@ const prefixVariants = cva(
         sm: 'text-xs',
         md: 'text-sm',
         lg: 'text-sm',
+        xl: 'text-base',
       },
     },
     defaultVariants: {
@@ -97,6 +100,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(inputVariants({ size, className }), {
             'pl-[1.75rem]': icon && (size === 'xs' || size === 'sm'),
             'pl-[1.875rem]': icon && (size === 'md' || size === 'lg'),
+            'pl-[2rem]': icon && size === 'xl',
           })}
           style={{
             paddingLeft: prefix ? `${prefixWidth + 8}px` : '',
