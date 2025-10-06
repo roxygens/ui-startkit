@@ -71,4 +71,65 @@ describe('Accordion', () => {
     fireEvent.click(button1)
     expect(button1).toHaveAttribute('aria-expanded', 'false')
   })
+
+  it('should open items with isOpen set to true on mount', () => {
+    const itemsWithOpen = [
+      {
+        label: 'Item 1',
+        value: 'item1',
+        content: <div data-testid="content-1">Content 1</div>,
+        isOpen: true,
+      },
+      {
+        label: 'Item 2',
+        value: 'item2',
+        content: <div data-testid="content-2">Content 2</div>,
+        isOpen: false,
+      },
+    ]
+
+    render(<Accordion items={itemsWithOpen} />)
+
+    expect(screen.getByTestId('content-1')).toBeInTheDocument()
+
+    expect(screen.queryByTestId('content-2')).not.toBeInTheDocument()
+
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
+    expect(button1).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('should open items with isOpen set to true on mount and call onClick only when clicked', () => {
+    const handleClick = vi.fn()
+
+    const itemsWithOpen = [
+      {
+        label: 'Item 1',
+        value: 'item1',
+        content: <div data-testid="content-1">Content 1</div>,
+        isOpen: true,
+        onClick: handleClick,
+      },
+      {
+        label: 'Item 2',
+        value: 'item2',
+        content: <div data-testid="content-2">Content 2</div>,
+        isOpen: false,
+      },
+    ]
+
+    render(<Accordion items={itemsWithOpen} />)
+
+    expect(screen.getByTestId('content-1')).toBeInTheDocument()
+    expect(screen.queryByTestId('content-2')).not.toBeInTheDocument()
+
+    const button1 = screen.getByRole('button', { name: /Item 1/i })
+
+    expect(button1).toHaveAttribute('aria-expanded', 'true')
+
+    expect(handleClick).not.toHaveBeenCalled()
+
+    fireEvent.click(button1)
+
+    expect(handleClick).toHaveBeenCalledTimes(1)
+  })
 })

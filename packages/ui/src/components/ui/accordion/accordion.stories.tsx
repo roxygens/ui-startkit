@@ -19,13 +19,14 @@ export const Default: Story = {
       {
         value: 'price',
         label: 'Preço',
-        content: <p className="text-white">Preço</p>,
+        content: <p className="text-white p-4">Preço</p>,
         icon: <DollarSign />,
+        isOpen: true,
       },
       {
         value: 'color',
         label: 'Cor',
-        content: <p className="text-white">Cor</p>,
+        content: <p className="text-white p-4">Cor</p>,
         icon: <Palette />,
       },
     ],
