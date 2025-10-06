@@ -76,6 +76,13 @@ describe('Input', () => {
       expect(inputElement).toHaveClass('px-[0.5rem] h-[2.5rem] text-sm')
     })
 
+    it('should apply specified size variant (xl) classes', () => {
+      render(<Input size="xl" />)
+      const inputElement = screen.getByRole('textbox')
+
+      expect(inputElement).toHaveClass('px-[0.5rem] h-[3rem] text-base')
+    })
+
     it('should merge additional classNames with variant classes', () => {
       render(<Input size="lg" className="my-custom-class" />)
       const inputElement = screen.getByRole('textbox')
@@ -121,6 +128,12 @@ describe('Input', () => {
     expect(input).toHaveClass('pl-[1.875rem]')
   })
 
+  it('should render with xl size and icon', () => {
+    render(<Input data-testid="input" size="xl" icon={<Home data-testid="icon" />} />)
+    const input = screen.getByTestId('input')
+    expect(input).toHaveClass('pl-[2rem]')
+  })
+
   it('should render with xs size and icon applying iconVariants', () => {
     render(<Input data-testid="input" size="xs" icon={<Home data-testid="icon" />} />)
     const icon = screen.getByTestId('icon')
@@ -143,6 +156,12 @@ describe('Input', () => {
     render(<Input data-testid="input" size="lg" icon={<Home data-testid="icon" />} />)
     const icon = screen.getByTestId('icon')
     expect(icon.parentElement).toHaveClass('[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]')
+  })
+
+  it('should render with xl size and icon applying iconVariants', () => {
+    render(<Input data-testid="input" size="xl" icon={<Home data-testid="icon" />} />)
+    const icon = screen.getByTestId('icon')
+    expect(icon.parentElement).toHaveClass('[&_svg]:h-[1rem] [&_svg]:w-[1rem]')
   })
 
   it('should render prefix with xs size and correct variant classes', () => {
@@ -173,10 +192,42 @@ describe('Input', () => {
     expect(prefix).toHaveClass('absolute')
   })
 
+  it('should render prefix with xl size and correct variant classes', () => {
+    render(<Input data-testid="input" size="xl" prefix="R$" />)
+    const prefix = screen.getByText('R$')
+    expect(prefix).toHaveClass('text-base')
+    expect(prefix).toHaveClass('absolute')
+  })
+
   it('should apply dynamic padding-left when prefix is present', () => {
     render(<Input data-testid="input" prefix="R$" />)
     const input = screen.getByTestId('input')
     const style = input.getAttribute('style') || ''
     expect(style.includes('padding-left')).toBe(true)
+  })
+
+  it('should display the error message when errors prop is provided', () => {
+    const errorMessage = 'This field is required'
+
+    render(
+      <Input
+        name="email"
+        errors={{ email: { message: errorMessage } }}
+        placeholder="Enter email"
+      />,
+    )
+
+    const errorElement = screen.getByText(errorMessage)
+    expect(errorElement).toBeInTheDocument()
+
+    const inputElement = screen.getByPlaceholderText('Enter email')
+    expect(inputElement).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('should not display error when errors prop is empty', () => {
+    render(<Input name="email" errors={{}} placeholder="Enter email" />)
+
+    const inputElement = screen.getByPlaceholderText('Enter email')
+    expect(inputElement).toHaveAttribute('aria-invalid', 'false')
   })
 })

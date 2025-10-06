@@ -1,5 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+type Values = {
+  min: number
+  max: number
+}
 
 type RangeSliderProps = {
   min?: number
@@ -9,6 +14,7 @@ type RangeSliderProps = {
   initialMax?: number
   displayValues?: boolean
   onChange?: (values: { min: number; max: number }) => void
+  values?: Values
 }
 
 export function RangeSlider({
@@ -19,9 +25,18 @@ export function RangeSlider({
   initialMax = 80,
   displayValues,
   onChange,
+  values,
 }: RangeSliderProps) {
-  const [minVal, setMinVal] = useState(initialMin)
-  const [maxVal, setMaxVal] = useState(initialMax)
+  const clamp = (value: number, minValue: number, maxValue: number) =>
+    Math.max(minValue, Math.min(value, maxValue))
+
+  const clampedInitialMin = clamp(initialMin, min, max)
+  const clampedInitialMax = clamp(initialMax, min, max)
+  const validInitialMax =
+    clampedInitialMax < clampedInitialMin ? clampedInitialMin : clampedInitialMax
+
+  const [minVal, setMinVal] = useState(clampedInitialMin)
+  const [maxVal, setMaxVal] = useState(validInitialMax)
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.min(Number(e.target.value), maxVal - step)
@@ -34,6 +49,17 @@ export function RangeSlider({
     setMaxVal(value)
     onChange?.({ min: minVal, max: value })
   }
+
+  useEffect(() => {
+    if (values) {
+      const clampedMin = Math.max(min, Math.min(values.min, max))
+      const clampedMax = Math.max(min, Math.min(values.max, max))
+      const finalMax = clampedMax < clampedMin ? clampedMin : clampedMax
+
+      setMinVal(clampedMin)
+      setMaxVal(finalMax)
+    }
+  }, [values, min, max])
 
   const thumbClassName = `
     absolute w-full h-1 bg-transparent appearance-none pointer-events-none

@@ -20,6 +20,7 @@ const inputVariants = cva(
         sm: 'px-[0.5rem] h-[2rem] text-xs',
         md: 'px-[0.5rem] h-[2.25rem] text-sm',
         lg: 'px-[0.5rem] h-[2.5rem] text-sm',
+        xl: 'px-[0.5rem] h-[3rem] text-base',
       },
     },
     defaultVariants: {
@@ -28,11 +29,14 @@ const inputVariants = cva(
   },
 )
 
+type FormErrors = Record<string, unknown | undefined>
+
 type OtherProps = {
   disabled?: boolean
   className?: string
   icon?: React.ReactNode
   prefix?: string
+  errors?: FormErrors
 }
 
 type InputProps = Omit<ComponentProps<'input'>, 'size'> &
@@ -48,6 +52,7 @@ const iconVariants = cva(
         sm: '[&_svg]:h-[0.75rem] [&_svg]:w-[0.75rem]',
         md: '[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]',
         lg: '[&_svg]:h-[0.875rem] [&_svg]:w-[0.875rem]',
+        xl: '[&_svg]:h-[1rem] [&_svg]:w-[1rem]',
       },
     },
     defaultVariants: {
@@ -65,6 +70,7 @@ const prefixVariants = cva(
         sm: 'text-xs',
         md: 'text-sm',
         lg: 'text-sm',
+        xl: 'text-base',
       },
     },
     defaultVariants: {
@@ -74,9 +80,11 @@ const prefixVariants = cva(
 )
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, size, icon, prefix, ...props }, ref) => {
+  ({ className, type, size, icon, prefix, errors, ...props }, ref) => {
     const prefixRef = useRef<HTMLSpanElement>(null)
     const [prefixWidth, setPrefixWidth] = useState(0)
+
+    const error = errors?.[props.name as string] as { message: string }
 
     useLayoutEffect(() => {
       if (prefixRef.current) {
@@ -92,18 +100,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {prefix}
           </span>
         )}
-        <input
-          type={type}
-          className={cn(inputVariants({ size, className }), {
-            'pl-[1.75rem]': icon && (size === 'xs' || size === 'sm'),
-            'pl-[1.875rem]': icon && (size === 'md' || size === 'lg'),
-          })}
-          style={{
-            paddingLeft: prefix ? `${prefixWidth + 8}px` : '',
-          }}
-          ref={ref}
-          {...props}
-        />
+        <div className="flex flex-col gap-1 w-full">
+          <input
+            type={type}
+            className={cn(inputVariants({ size, className }), {
+              'pl-[1.75rem]': icon && (size === 'xs' || size === 'sm'),
+              'pl-[1.875rem]': icon && (size === 'md' || size === 'lg'),
+              'pl-[2rem]': icon && size === 'xl',
+            })}
+            style={{
+              paddingLeft: prefix ? `${prefixWidth + 8}px` : '',
+            }}
+            aria-invalid={props['aria-invalid'] || !!error?.message?.length}
+            ref={ref}
+            {...props}
+          />
+          {!!error?.message?.length && (
+            <span className="text-xs text-destructive">{error.message}</span>
+          )}
+        </div>
       </div>
     )
   },
