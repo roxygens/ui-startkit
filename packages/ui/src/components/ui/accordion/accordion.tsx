@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -8,6 +8,8 @@ type Item = {
   label: string
   value: string
   content: string | React.ReactElement
+  isOpen?: boolean
+  onClick?: () => void
 }
 
 type Props = {
@@ -18,11 +20,24 @@ type Props = {
 export function Accordion({ items, className }: Props) {
   const [openPanels, setOpenPanels] = useState<string[]>([])
 
-  function handleToggle(value: string) {
+  function handleToggle(value: string, onClick?: () => void) {
     setOpenPanels((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     )
+
+    if (onClick) {
+      onClick()
+    }
   }
+
+  useEffect(() => {
+    items.forEach((item) => {
+      if (item.isOpen) {
+        handleToggle(item.value)
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <ul className={cn('flex flex-col min-w-[15rem]', className)}>
@@ -37,7 +52,7 @@ export function Accordion({ items, className }: Props) {
             className="flex flex-col text-white bg-neutral-950 text-xs font-bold leading-[150%] [&_svg]:h-[1rem] [&_svg]:w-[1rem]"
           >
             <button
-              onClick={() => handleToggle(item.value)}
+              onClick={() => handleToggle(item.value, item?.onClick)}
               id={buttonId}
               type="button"
               aria-expanded={isOpen}
@@ -53,12 +68,7 @@ export function Accordion({ items, className }: Props) {
               {isOpen ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
             </button>
             {isOpen && (
-              <div
-                id={panelId}
-                aria-labelledby={buttonId}
-                tabIndex={0}
-                className="px-[2rem] py-[1rem]"
-              >
+              <div id={panelId} aria-labelledby={buttonId} tabIndex={0}>
                 {item?.content}
               </div>
             )}
