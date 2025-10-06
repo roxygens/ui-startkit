@@ -37,6 +37,7 @@ type OtherProps = {
   icon?: React.ReactNode
   prefix?: string
   errors?: FormErrors
+  mask?: 'currency' | 'phone' | 'cpf' | 'cnpj'
 }
 
 type InputProps = Omit<ComponentProps<'input'>, 'size'> &
@@ -80,11 +81,86 @@ const prefixVariants = cva(
 )
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, size, icon, prefix, errors, ...props }, ref) => {
+  ({ className, type, size, icon, prefix, errors, mask, ...props }, ref) => {
     const prefixRef = useRef<HTMLSpanElement>(null)
     const [prefixWidth, setPrefixWidth] = useState(0)
+    const [internalValue, setInternalValue] = useState(props?.value ?? '')
 
     const error = errors?.[props.name as string] as { message: string }
+
+    const masks = {
+      currency: (value: string | number) => {
+        if (value === null || value === undefined || String(value).trim() === '') {
+          return null
+        }
+
+        let numericString = String(value).replace(/\D/g, '')
+
+        if (numericString.match(/^0+$/)) {
+          return '0,00'
+        }
+
+        numericString = numericString.replace(/^0+(?=\d)/, '')
+        numericString = numericString.padStart(3, '0')
+
+        const cents = numericString.slice(-2)
+        let integerPart = numericString.slice(0, -2)
+
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+        return `${integerPart},${cents}`
+      },
+      phone: (value: string) => {
+        const digits = value.replace(/\D/g, '')
+
+        if (digits.length > 10) {
+          return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`
+        }
+
+        if (digits.length > 6) {
+          return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6, 10)}`
+        }
+
+        if (digits.length > 2) {
+          return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}`
+        }
+
+        if (digits.length <= 2) {
+          return `(${digits}`
+        }
+      },
+      cpf: (value: string) => {
+        const digits = value.replace(/\D/g, '').slice(0, 11)
+        return digits
+          .replace(/(\d{3})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+      },
+      cnpj: (value: string) => {
+        const digits = value.replace(/\D/g, '').slice(0, 14)
+        return digits
+          .replace(/^(\d{2})(\d)/, '$1.$2')
+          .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+          .replace(/\.(\d{3})(\d)/, '.$1/$2')
+          .replace(/(\d{4})(\d)/, '$1-$2')
+      },
+    }
+
+    const applyMask = (val: string) => {
+      if (!mask) return val
+
+      if (masks[mask]) return masks[mask](val)
+
+      return val
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = applyMask(e.target.value)
+
+      setInternalValue(val as string)
+
+      props?.onChange?.({ ...e, target: { ...e.target, value: val as string } })
+    }
 
     useLayoutEffect(() => {
       if (prefixRef.current) {
@@ -114,6 +190,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={props['aria-invalid'] || !!error?.message?.length}
             ref={ref}
             {...props}
+            value={props?.value !== undefined ? props?.value : internalValue}
+            onChange={handleChange}
+            inputMode={mask === 'currency' ? 'numeric' : undefined}
+            pattern={mask === 'currency' ? '[0-9]*' : undefined}
           />
           {!!error?.message?.length && (
             <span className="text-xs text-destructive">{error.message}</span>

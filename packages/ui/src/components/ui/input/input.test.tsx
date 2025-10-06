@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { Home } from 'lucide-react'
@@ -7,6 +7,8 @@ import { Home } from 'lucide-react'
 import { Input } from '.'
 
 describe('Input', () => {
+  const user = userEvent.setup()
+
   it('should render the input element correctly', () => {
     render(<Input />)
     const inputElement = screen.getByRole('textbox')
@@ -38,6 +40,54 @@ describe('Input', () => {
     render(<Input disabled />)
     const inputElement = screen.getByRole('textbox')
     expect(inputElement).toBeDisabled()
+  })
+
+  it('should display the value from props and not update on user input', () => {
+    const mockOnChange = vi.fn()
+    const initialValue = 'controlled value'
+
+    render(<Input value={initialValue} onChange={mockOnChange} data-testid="controlled-input" />)
+    const inputElement = screen.getByTestId('controlled-input')
+
+    expect(inputElement).toHaveValue(initialValue)
+
+    fireEvent.change(inputElement, { target: { value: 'user typing' } })
+
+    expect(inputElement).toHaveValue(initialValue)
+    expect(mockOnChange).toHaveBeenCalledTimes(1)
+  })
+
+  it('should update its displayed value only when the props.value changes', () => {
+    const { rerender } = render(<Input value="first value" data-testid="controlled-input" />)
+    const inputElement = screen.getByTestId('controlled-input')
+
+    expect(inputElement).toHaveValue('first value')
+
+    rerender(<Input value="second value" data-testid="controlled-input" />)
+
+    expect(inputElement).toHaveValue('second value')
+  })
+
+  it('should manage its own state and update its value on user input', () => {
+    render(<Input data-testid="uncontrolled-input" />)
+    const inputElement = screen.getByTestId('uncontrolled-input')
+
+    expect(inputElement).toHaveValue('')
+
+    fireEvent.change(inputElement, { target: { value: 'user typing' } })
+
+    expect(inputElement).toHaveValue('user typing')
+  })
+
+  it('should correctly apply a mask while in uncontrolled mode', () => {
+    render(<Input mask="cpf" data-testid="uncontrolled-input" />)
+    const inputElement = screen.getByTestId('uncontrolled-input')
+
+    expect(inputElement).toHaveValue('')
+
+    fireEvent.change(inputElement, { target: { value: '12345678900' } })
+
+    expect(inputElement).toHaveValue('123.456.789-00')
   })
 
   describe('Styling Variants', () => {
@@ -229,5 +279,168 @@ describe('Input', () => {
 
     const inputElement = screen.getByPlaceholderText('Enter email')
     expect(inputElement).toHaveAttribute('aria-invalid', 'false')
+  })
+
+  it('should apply the currency mask correctly for various values', async () => {
+    render(<Input mask="currency" data-testid="currency-input" />)
+    const input = screen.getByTestId('currency-input')
+
+    await user.type(input, '12345')
+    expect(input).toHaveValue('123,45')
+
+    await user.clear(input)
+    await user.type(input, '5')
+    expect(input).toHaveValue('0,05')
+
+    await user.clear(input)
+    await user.type(input, '123456789')
+    expect(input).toHaveValue('1.234.567,89')
+
+    await user.clear(input)
+    await user.type(input, '000')
+    expect(input).toHaveValue('0,00')
+
+    await user.clear(input)
+    await user.type(input, '00123')
+    expect(input).toHaveValue('1,23')
+  })
+
+  it('should apply the phone mask correctly for 8 digits', async () => {
+    render(<Input mask="phone" data-testid="phone-input" />)
+    const input = screen.getByTestId('phone-input')
+    await user.type(input, '1198765432')
+    expect(input).toHaveValue('(11) 9876-5432')
+  })
+
+  it('should apply the phone mask correctly for 9 digits (mobile)', async () => {
+    render(<Input mask="phone" data-testid="phone-input" />)
+    const input = screen.getByTestId('phone-input')
+    await user.type(input, '21987654321')
+    expect(input).toHaveValue('(21) 98765-4321')
+  })
+
+  it('should apply the cpf mask correctly', async () => {
+    render(<Input mask="cpf" data-testid="cpf-input" />)
+    const input = screen.getByTestId('cpf-input')
+
+    await user.type(input, '12345678900')
+    expect(input).toHaveValue('123.456.789-00')
+
+    await user.clear(input)
+    await user.type(input, '123')
+    expect(input).toHaveValue('123')
+    await user.type(input, '456')
+    expect(input).toHaveValue('123.456')
+    await user.type(input, '789')
+    expect(input).toHaveValue('123.456.789')
+    await user.type(input, '00')
+    expect(input).toHaveValue('123.456.789-00')
+  })
+
+  it('should apply the cnpj mask correctly', async () => {
+    render(<Input mask="cnpj" data-testid="cnpj-input" />)
+    const input = screen.getByTestId('cnpj-input')
+
+    await user.type(input, '12345678000199')
+    expect(input).toHaveValue('12.345.678/0001-99')
+
+    await user.clear(input)
+    await user.type(input, '12')
+    expect(input).toHaveValue('12')
+    await user.type(input, '3')
+    expect(input).toHaveValue('12.3')
+    await user.type(input, '456')
+    expect(input).toHaveValue('12.345.6')
+    await user.type(input, '78')
+    expect(input).toHaveValue('12.345.678')
+    await user.type(input, '0001')
+    expect(input).toHaveValue('12.345.678/0001')
+    await user.type(input, '99')
+    expect(input).toHaveValue('12.345.678/0001-99')
+  })
+
+  it('should not apply mask if mask prop is not provided', async () => {
+    render(<Input data-testid="no-mask-input" />)
+    const input = screen.getByTestId('no-mask-input')
+    await user.type(input, 'abcdef123')
+    expect(input).toHaveValue('abcdef123')
+  })
+
+  it.each([
+    { input: '1', expected: '0,01' },
+    { input: '12', expected: '0,12' },
+    { input: '123', expected: '1,23' },
+    { input: '12345', expected: '123,45' },
+    { input: '1234567', expected: '12.345,67' },
+    { input: '0', expected: '0,00' },
+    { input: 'abc123def', expected: '1,23' },
+  ])('should format "$input" into "$expected"', ({ input, expected }) => {
+    render(<Input mask="currency" data-testid="currency-input" />)
+    const inputElement = screen.getByTestId('currency-input')
+
+    fireEvent.change(inputElement, { target: { value: input } })
+
+    expect(inputElement).toHaveValue(expected)
+  })
+
+  it('should return "0,00" for an input of only zeros', () => {
+    render(<Input mask="currency" data-testid="currency-input" />)
+    const inputElement = screen.getByTestId('currency-input')
+
+    fireEvent.change(inputElement, { target: { value: '0000' } })
+
+    expect(inputElement).toHaveValue('0,00')
+  })
+
+  it('should apply the correct mask when a valid "mask" prop is provided', () => {
+    render(<Input mask="cnpj" data-testid="cnpj-input" />)
+    const inputElement = screen.getByTestId('cnpj-input')
+    const rawValue = '12345678000195'
+    const maskedValue = '12.345.678/0001-95'
+
+    fireEvent.change(inputElement, { target: { value: rawValue } })
+
+    expect(inputElement).toHaveValue(maskedValue)
+  })
+
+  it('should not apply any mask if the "mask" prop is not provided', () => {
+    render(<Input data-testid="no-mask-input" />)
+    const inputElement = screen.getByTestId('no-mask-input')
+    const rawValue = 'some-unformatted-value'
+
+    fireEvent.change(inputElement, { target: { value: rawValue } })
+
+    expect(inputElement).toHaveValue(rawValue)
+  })
+
+  it('should not apply any mask if an invalid "mask" prop is provided', () => {
+    render(<Input mask={'invalid-mask' as any} data-testid="invalid-mask-input" />)
+    const inputElement = screen.getByTestId('invalid-mask-input')
+    const rawValue = 'another-value'
+
+    fireEvent.change(inputElement, { target: { value: rawValue } })
+
+    expect(inputElement).toHaveValue(rawValue)
+  })
+
+  it('should call the onChange prop with the masked value', () => {
+    const mockOnChange = vi.fn()
+
+    render(<Input mask="phone" onChange={mockOnChange} data-testid="phone-input" />)
+    const inputElement = screen.getByTestId('phone-input')
+    const rawValue = '11987654321'
+    const maskedValue = '(11) 98765-4321'
+
+    fireEvent.change(inputElement, { target: { value: rawValue } })
+
+    expect(mockOnChange).toHaveBeenCalledTimes(1)
+    expect(mockOnChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: maskedValue,
+        }),
+      }),
+    )
+    expect(inputElement).toHaveValue(maskedValue)
   })
 })

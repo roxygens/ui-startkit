@@ -10,8 +10,12 @@ const meta: Meta<typeof Input> = {
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       control: { type: 'select' },
     },
+    mask: {
+      options: ['currency', 'cpf', 'cnpj', 'phone', 'none'],
+      control: { type: 'select' },
+    },
     type: {
-      options: ['text', 'email', 'password', 'number', 'tel', 'url'],
+      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'currency'],
       control: { type: 'select' },
     },
     'aria-invalid': {
