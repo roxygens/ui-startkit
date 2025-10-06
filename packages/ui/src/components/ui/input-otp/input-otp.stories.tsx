@@ -21,5 +21,8 @@ export default meta
 type Story = StoryObj<typeof InputOtp>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    size: 'md',
+    className: '',
+  },
 }

@@ -100,7 +100,7 @@ export function InputOtp({
   }, [length])
 
   return (
-    <div className="flex gap-[0.5rem]">
+    <div className={cn('flex gap-[0.5rem]', className)}>
       {values.map((v, i) => (
         <input
           {...rest}
@@ -110,7 +110,7 @@ export function InputOtp({
           maxLength={1}
           value={v}
           disabled={disabled}
-          className={cn(inputOtpVariants({ size, className }))}
+          className={cn(inputOtpVariants({ size }))}
           onChange={(e) => handleChange(i, e.target.value)}
           onPaste={(e) => handlePaste(i, e)}
         />

@@ -63,4 +63,18 @@ describe('RangeSlider', () => {
     expect(screen.queryByText('15')).toBeNull()
     expect(screen.queryByText('45')).toBeNull()
   })
+
+  it('should update minVal and maxVal when values prop changes', () => {
+    const { rerender } = render(<RangeSlider />)
+
+    expect(screen.getByDisplayValue('20')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('80')).toBeInTheDocument()
+
+    const newValues = { min: 10, max: 90 }
+
+    rerender(<RangeSlider values={newValues} displayValues />)
+
+    expect(screen.getByText('10')).toBeInTheDocument()
+    expect(screen.getByText('90')).toBeInTheDocument()
+  })
 })

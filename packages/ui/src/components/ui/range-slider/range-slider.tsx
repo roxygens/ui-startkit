@@ -1,5 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+type Values = {
+  min: number
+  max: number
+}
 
 type RangeSliderProps = {
   min?: number
@@ -9,6 +14,7 @@ type RangeSliderProps = {
   initialMax?: number
   displayValues?: boolean
   onChange?: (values: { min: number; max: number }) => void
+  values?: Values
 }
 
 export function RangeSlider({
@@ -19,6 +25,7 @@ export function RangeSlider({
   initialMax = 80,
   displayValues,
   onChange,
+  values,
 }: RangeSliderProps) {
   const [minVal, setMinVal] = useState(initialMin)
   const [maxVal, setMaxVal] = useState(initialMax)
@@ -34,6 +41,13 @@ export function RangeSlider({
     setMaxVal(value)
     onChange?.({ min: minVal, max: value })
   }
+
+  useEffect(() => {
+    if (values) {
+      setMinVal(values.min)
+      setMaxVal(values.max)
+    }
+  }, [values])
 
   const thumbClassName = `
     absolute w-full h-1 bg-transparent appearance-none pointer-events-none
