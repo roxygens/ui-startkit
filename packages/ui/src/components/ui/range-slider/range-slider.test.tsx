@@ -64,17 +64,37 @@ describe('RangeSlider', () => {
     expect(screen.queryByText('45')).toBeNull()
   })
 
-  it('should update minVal and maxVal when values prop changes', () => {
-    const { rerender } = render(<RangeSlider />)
+  it('should clamp initialMin to min prop when initialMin is below min', () => {
+    render(<RangeSlider min={10} max={100} initialMin={0} displayValues />)
+    expect(screen.getByText('10')).toBeInTheDocument()
+  })
 
-    expect(screen.getByDisplayValue('20')).toBeInTheDocument()
-    expect(screen.getByDisplayValue('80')).toBeInTheDocument()
+  it('should clamp initialMax to max prop when initialMax is above max', () => {
+    render(<RangeSlider min={0} max={50} initialMax={100} displayValues />)
+    expect(screen.getByText('50')).toBeInTheDocument()
+  })
 
-    const newValues = { min: 10, max: 90 }
+  it('should set initialMax equal to initialMin when initialMax is less than initialMin', () => {
+    render(<RangeSlider min={0} max={100} initialMin={60} initialMax={40} displayValues />)
+    const values = screen.getAllByText('60')
+    expect(values).toHaveLength(2)
+  })
 
-    rerender(<RangeSlider values={newValues} displayValues />)
-
+  it('should clamp values.min and values.max within props range', () => {
+    render(<RangeSlider min={10} max={90} values={{ min: 0, max: 100 }} displayValues />)
     expect(screen.getByText('10')).toBeInTheDocument()
     expect(screen.getByText('90')).toBeInTheDocument()
+  })
+
+  it('should set max equal to min when values.max is less than values.min', () => {
+    render(<RangeSlider min={0} max={100} values={{ min: 70, max: 50 }} displayValues />)
+    const values = screen.getAllByText('70')
+    expect(values).toHaveLength(2)
+  })
+
+  it('should keep values when inside the allowed range', () => {
+    render(<RangeSlider min={0} max={100} values={{ min: 30, max: 80 }} displayValues />)
+    expect(screen.getByText('30')).toBeInTheDocument()
+    expect(screen.getByText('80')).toBeInTheDocument()
   })
 })

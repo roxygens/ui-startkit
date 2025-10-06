@@ -32,6 +32,7 @@ type OtherProps = {
   disabled?: boolean
   type: 'text' | 'number'
   onChange?: (value: string | number) => void
+  className?: string
 }
 
 type InputOtpProps = Omit<React.ComponentProps<'input'>, 'size' | 'onChange' | 'type'> &

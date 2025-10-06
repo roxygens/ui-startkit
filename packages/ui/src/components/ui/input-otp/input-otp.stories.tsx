@@ -23,6 +23,5 @@ type Story = StoryObj<typeof InputOtp>
 export const Default: Story = {
   args: {
     size: 'md',
-    className: '',
   },
 }
