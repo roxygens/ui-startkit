@@ -19,16 +19,16 @@ describe('Loader', () => {
     expect(screen.getByText('Loading data...')).toBeInTheDocument()
   })
 
-  it('should render default structure when isOpen is true without text', () => {
-    render(<Loader isOpen={true} />)
-    const elements = document.querySelectorAll('div')
-    expect(elements.length).toBeGreaterThan(0)
-  })
-
   it('should render animated text element only when text is provided', () => {
     render(<Loader isOpen={true} text="Please wait" />)
     const animatedText = document.querySelector('.animate-pulse-text')
     expect(animatedText).toBeInTheDocument()
     expect(animatedText?.textContent).toBe('Please wait')
+  })
+
+  it('should not render text element when text is not provided', () => {
+    render(<Loader isOpen={true} />)
+    const textElement = document.querySelector('.animate-pulse-text')
+    expect(textElement).not.toBeInTheDocument()
   })
 })
