@@ -15,7 +15,11 @@ export function Loader({ isOpen, text }: Props) {
           <div className="absolute left-0 top-0 size-3 animate-travel-square bg-primary" />
         </div>
 
-        {text && <p className="animate-pulse-text text-sm text-white">{text}</p>}
+        {text && (
+          <p className="animate-pulse-text text-base font-medium leading-[150%] text-white">
+            {text}
+          </p>
+        )}
       </div>
     </div>
   )
