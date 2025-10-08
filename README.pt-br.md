@@ -126,6 +126,12 @@ npx ui-startkit@latest add input
 npx ui-startkit@latest add input-otp
 ```
 
+### Loader
+
+```bash
+npx ui-startkit@latest add loader
+```
+
 ### Modal
 
 ```bash

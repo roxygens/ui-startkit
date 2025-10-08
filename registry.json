@@ -292,6 +292,16 @@
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/modal/modal.tsx"
         }
       ]
+    },
+     "loader": {
+      "name": "Loader",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "components/ui/loader.tsx",
+          "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/loader/loader.tsx"
+        }
+      ]
     }
   }
 }
