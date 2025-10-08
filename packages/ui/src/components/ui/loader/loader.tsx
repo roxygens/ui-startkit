@@ -7,7 +7,7 @@ export function Loader({ isOpen, text }: Props) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/70">
       <div className="flex flex-col items-center justify-center gap-7">
         <div className="relative h-12 w-12">
           <div className="absolute inset-0 border-[0.75rem] border-neutral-100" />
