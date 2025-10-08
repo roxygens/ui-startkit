@@ -1,4 +1,11 @@
-export function Loader({ text }: { text?: string }) {
+type Props = {
+  isOpen: boolean
+  text?: string
+}
+
+export function Loader({ isOpen, text }: Props) {
+  if (!isOpen) return null
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="flex flex-col items-center justify-center gap-7">
