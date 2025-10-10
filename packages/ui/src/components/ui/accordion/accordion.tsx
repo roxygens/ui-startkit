@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -18,7 +18,9 @@ type Props = {
 }
 
 export function Accordion({ items, className }: Props) {
-  const [openPanels, setOpenPanels] = useState<string[]>([])
+  const [openPanels, setOpenPanels] = useState<string[]>(
+    items.filter(({ isOpen }) => isOpen).map((item) => item.value),
+  )
 
   function handleToggle(value: string, onClick?: () => void) {
     setOpenPanels((prev) =>
@@ -29,15 +31,6 @@ export function Accordion({ items, className }: Props) {
       onClick()
     }
   }
-
-  useEffect(() => {
-    items.forEach((item) => {
-      if (item.isOpen) {
-        handleToggle(item.value)
-      }
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <ul className={cn('flex flex-col min-w-[15rem]', className)}>
