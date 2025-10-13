@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { Home } from 'lucide-react'
@@ -204,6 +204,36 @@ describe('Input', () => {
     const input = screen.getByTestId('input')
     const style = input.getAttribute('style') || ''
     expect(style.includes('padding-left')).toBe(true)
+  })
+
+  it('should update prefixWidth based on prefixRef width after layout effect', () => {
+    vi.useFakeTimers()
+
+    render(<Input prefix="R$" data-testid="input" />)
+
+    const prefixElement = screen.getByText('R$')
+    Object.defineProperty(prefixElement, 'offsetWidth', { value: 20, writable: true })
+
+    act(() => {
+      vi.runAllTimers()
+    })
+
+    const input = screen.getByTestId('input')
+    const style = input.getAttribute('style') || ''
+    expect(style).toContain('padding-left: 36px')
+
+    vi.useRealTimers()
+  })
+
+  it('should clear timeout on unmount', () => {
+    vi.useFakeTimers()
+    const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout')
+
+    const { unmount } = render(<Input prefix="R$" />)
+    unmount()
+
+    expect(clearTimeoutSpy).toHaveBeenCalled()
+    vi.useRealTimers()
   })
 
   it('should display the error message when errors prop is provided', () => {
