@@ -87,9 +87,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const error = errors?.[props.name as string] as { message: string }
 
     useLayoutEffect(() => {
-      if (prefixRef.current) {
-        setPrefixWidth(prefixRef.current.offsetWidth + 8)
-      }
+      const timeout = setTimeout(() => {
+        if (prefixRef.current) {
+          setPrefixWidth(prefixRef.current.offsetWidth + 8)
+        }
+      }, 1)
+
+      return () => clearTimeout(timeout)
     }, [prefix])
 
     return (
