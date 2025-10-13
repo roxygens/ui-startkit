@@ -168,6 +168,12 @@ npx ui-startkit@latest add range-slider
 npx ui-startkit@latest add score-bar
 ```
 
+### Skeleton
+
+```bash
+npx ui-startkit@latest add skeleton
+```
+
 ### Select
 
 ```bash
