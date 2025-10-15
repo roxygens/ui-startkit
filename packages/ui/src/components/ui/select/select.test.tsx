@@ -44,9 +44,9 @@ describe('Select', () => {
       expect(screen.getByRole('button')).toBeDisabled()
     })
 
-    it('should have aria-invalid attribute when aria-invalid prop is true', () => {
-      setup({ 'aria-invalid': true })
-      expect(screen.getByRole('button')).toHaveAttribute('aria-invalid', 'true')
+    it('should have data-invalid attribute when data-invalid prop is true', () => {
+      setup({ 'data-invalid': true })
+      expect(screen.getByRole('button')).toHaveAttribute('data-invalid', 'true')
     })
 
     it('should apply a custom className to the trigger button', () => {

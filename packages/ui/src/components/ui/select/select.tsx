@@ -17,7 +17,7 @@ const selectVariants = cva(
 
     hover:border-[var(--primary)] 
 
-    aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
+    data-invalid:ring-destructive/20 dark:data-invalid:ring-destructive/40 data-invalid:border-destructive
   `,
   {
     variants: {
@@ -66,7 +66,7 @@ type SelectProps = {
   className?: string
   isCombobox?: boolean
   disabled?: boolean
-  'aria-invalid'?: boolean
+  'data-invalid'?: boolean
 } & VariantProps<typeof selectVariants>
 
 export const Select = forwardRef<HTMLInputElement, SelectProps>(
@@ -96,7 +96,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
     const listRef = useRef<HTMLDivElement>(null)
     const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
 
-    const isInvalid = rest['aria-invalid']
+    const isInvalid = rest['data-invalid'] || undefined
 
     const filteredOptions = options.filter((opt) =>
       opt.label.toLowerCase().includes(search.toLowerCase()),
@@ -175,7 +175,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             type="button"
             onClick={clearSearch}
             disabled={disabled}
-            aria-invalid={isInvalid}
+            data-invalid={isInvalid}
           >
             {options?.find((opt) => opt.value === internalValue)?.label || placeholder}
             <ChevronsUpDown className="w-[0.89rem] h-[0.89rem] opacity-50" />
