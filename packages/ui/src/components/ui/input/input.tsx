@@ -91,7 +91,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
       const updateWidth = () => {
         if (prefixRef.current) {
-          setPrefixWidth(prefixRef.current.offsetWidth + 8)
+          setPrefixWidth(prefixRef.current.offsetWidth + 16)
         }
       }
 
@@ -119,7 +119,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               'pl-[2rem]': icon && size === 'xl',
             })}
             style={{
-              paddingLeft: prefix ? `${prefixWidth + 8}px` : '',
+              paddingLeft: prefix ? `${prefixWidth}px` : '',
             }}
             aria-invalid={props['aria-invalid'] || !!error?.message?.length}
             ref={ref}
