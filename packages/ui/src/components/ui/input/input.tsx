@@ -1,5 +1,5 @@
 'use client'
-import { type ComponentProps, forwardRef, useRef, useEffect, useState } from 'react'
+import { type ComponentProps, forwardRef, useRef, useLayoutEffect, useState } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
@@ -86,7 +86,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const error = errors?.[props.name as string] as { message: string }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (!prefixRef.current) return
 
       const updateWidth = () => {
