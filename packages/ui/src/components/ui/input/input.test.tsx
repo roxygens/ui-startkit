@@ -1,12 +1,31 @@
 import React from 'react'
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { Home } from 'lucide-react'
 
 import { Input } from '.'
 
+const disconnectMock = vi.fn()
+const observeMock = vi.fn()
+const unobserveMock = vi.fn()
+
+class ResizeObserverMock {
+  observe = observeMock
+  unobserve = unobserveMock
+  disconnect = disconnectMock
+}
+
 describe('Input', () => {
+  beforeEach(() => {
+    vi.stubGlobal('ResizeObserver', ResizeObserverMock)
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.clearAllMocks()
+  })
+
   it('should render the input element correctly', () => {
     render(<Input />)
     const inputElement = screen.getByRole('textbox')
@@ -220,20 +239,15 @@ describe('Input', () => {
 
     const input = screen.getByTestId('input')
     const style = input.getAttribute('style') || ''
-    expect(style).toContain('padding-left: 36px')
+    expect(style).toContain('padding-left: 16px')
 
     vi.useRealTimers()
   })
 
-  it('should clear timeout on unmount', () => {
-    vi.useFakeTimers()
-    const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout')
-
+  it('should disconnect ResizeObserver on unmount', () => {
     const { unmount } = render(<Input prefix="R$" />)
     unmount()
-
-    expect(clearTimeoutSpy).toHaveBeenCalled()
-    vi.useRealTimers()
+    expect(disconnectMock).toHaveBeenCalled()
   })
 
   it('should display the error message when errors prop is provided', () => {

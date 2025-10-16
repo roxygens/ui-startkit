@@ -1,16 +1,16 @@
 'use client'
-import { type ComponentProps, forwardRef, useRef, useLayoutEffect, useState } from 'react'
+import { type ComponentProps, forwardRef, useRef, useEffect, useState } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const inputVariants = cva(
   `
-    text-white placeholder:text-neutral-500 selection:bg-primary selection:text-primary-foreground  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--secondary-border)]
+    text-white placeholder:text-neutral-500 selection:bg-primary selection:text-primary-foreground  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-secondary-border
     flex w-full min-w-0 bg-background shadow-xs font-normal leading-[140%]
     transition-[color,box-shadow] outline-none
-    disabled:bg-[var(--disabled)] disabled:placeholder:text-[var(--primary-foreground-disabled)]  disabled:text-[var(--primary-foreground-disabled)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-none
-    hover:border-[var(--primary)] 
-    focus:border-[var(--primary)] 
+    disabled:bg-disabled disabled:placeholder:text-primary-foreground-disabled  disabled:text-primary-foreground-disabled disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-none
+    hover:border-primary 
+    focus:border-primary 
     aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
   `,
   {
@@ -86,14 +86,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const error = errors?.[props.name as string] as { message: string }
 
-    useLayoutEffect(() => {
-      const timeout = setTimeout(() => {
+    useEffect(() => {
+      if (!prefixRef.current) return
+
+      const updateWidth = () => {
         if (prefixRef.current) {
           setPrefixWidth(prefixRef.current.offsetWidth + 8)
         }
-      }, 1)
+      }
 
-      return () => clearTimeout(timeout)
+      updateWidth()
+      const observer = new ResizeObserver(updateWidth)
+      observer.observe(prefixRef.current)
+
+      return () => observer.disconnect()
     }, [prefix])
 
     return (
