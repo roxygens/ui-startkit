@@ -37,7 +37,7 @@ function BreadcrumbLink({ className, ...props }: ComponentProps<'a'>) {
   return (
     <a
       data-slot="breadcrumb-link"
-      className={cn('hover:text-neutral-200 transition-colors', className)}
+      className={cn('hover:text-gray-200 transition-colors', className)}
       {...props}
     />
   )

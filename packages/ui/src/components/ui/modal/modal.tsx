@@ -63,7 +63,7 @@ function DialogContent({
             data-slot="dialog-close"
             className={`
                 cursor-pointer text-white absolute top-5 right-5 sm:right-24 
-                transition-opacity hover:text-[var(--tertiary-hover)]
+                transition-opacity hover:text-tertiary-hove
                 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 sm:[&_svg:not([class*='size-'])]:size-8
              `}
           >
@@ -89,10 +89,10 @@ export function Modal({ open, onOpenChange, title, content, className, children 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className={className}>
-        <DialogPrimitive.Title className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] border-b-1 border-[var(--table-border)] w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-base sm:text-xl leading-[120%] font-semibold">
+        <DialogPrimitive.Title className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] border-b-1 border-table-border w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-base sm:text-xl leading-[120%] font-semibold">
           {title}
         </DialogPrimitive.Title>
-        <div className="absolute sm:left-[5rem] pt-[4rem] sm:border-1 sm:border-[var(--table-border)] w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
+        <div className="absolute sm:left-[5rem] pt-[4rem] sm:border-1 sm:border-table-border w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
           {content}
         </div>
       </DialogContent>

@@ -18,7 +18,7 @@ function TableHeader({ className, ...props }: ComponentProps<'thead'>) {
   return (
     <thead
       data-slot="table-header"
-      className={cn('[&_tr]:border-b border-r border-l  border-[var(--table-border)]', className)}
+      className={cn('[&_tr]:border-b border-r border-l  border-table-border', className)}
       {...props}
     />
   )
@@ -29,7 +29,7 @@ function TableBody({ className, ...props }: ComponentProps<'tbody'>) {
     <tbody
       data-slot="table-body"
       className={cn(
-        '[&_tr:last-child]:border-0 text-white border-r border-l border-b border-[var(--table-border)]',
+        '[&_tr:last-child]:border-0 text-white border-r border-l border-b border-table-border',
         className,
       )}
       {...props}
@@ -42,7 +42,7 @@ export function TableRow({ className, ...props }: ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'data-[state=selected]:bg-primary-200 border-b border-[var(--table-border)] text-xs font-normal leading-[140%] tracking-[0px] hover:bg-[var(--card-hover)] group',
+        'data-[state=selected]:bg-primary-200 border-b border-table-border text-xs font-normal leading-[140%] tracking-[0px] hover:bg-card-hover group',
         className,
       )}
       {...props}
@@ -70,7 +70,7 @@ export function TableCell({ className, ...props }: ComponentProps<'td'>) {
       className={cn(
         'px-[1.5rem] py-[1rem] align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         className,
-        'group-hover:odd:bg-[var(--card-hover)]',
+        'group-hover:odd:bg-card-hover',
         'data-[state=selected]:bg-primary-200',
         'group-hover:data-[state=selected]:bg-primary-200',
       )}

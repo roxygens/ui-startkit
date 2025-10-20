@@ -19,7 +19,7 @@ function TabsList({ className, ...props }: ComponentProps<typeof TabsPrimitive.L
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        'w-full flex flex-row gap-[1rem] px-[1rem] py-[0.75rem] border-1 border-[var(--table-border)]',
+        'w-full flex flex-row gap-[1rem] px-[1rem] py-[0.75rem] border-1 border-table-border',
         className,
       )}
       {...props}
@@ -136,9 +136,7 @@ export function Tabs({ tabs, defaultValue, className }: Props) {
                     )}
                   </div>
 
-                  {tabs.length > index + 1 && (
-                    <div className="w-[1px] h-[1rem] bg-[var(--card-hover)]" />
-                  )}
+                  {tabs.length > index + 1 && <div className="w-[1px] h-[1rem] bg-card-hover" />}
                 </div>
               </TabsTrigger>
             ))}
