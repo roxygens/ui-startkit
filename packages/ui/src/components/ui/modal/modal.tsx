@@ -89,11 +89,9 @@ export function Modal({ open, onOpenChange, title, content, className, children 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className={className}>
-        <div className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] border-b-1 border-[var(--table-border)] w-screen sm:w-[calc(100%-10rem)]">
-          <div className="w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-base sm:text-xl leading-[120%] font-semibold">
-            {title}
-          </div>
-        </div>
+        <DialogPrimitive.Title className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] border-b-1 border-[var(--table-border)] w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-base sm:text-xl leading-[120%] font-semibold">
+          {title}
+        </DialogPrimitive.Title>
         <div className="absolute sm:left-[5rem] pt-[4rem] sm:border-1 sm:border-[var(--table-border)] w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
           {content}
         </div>
