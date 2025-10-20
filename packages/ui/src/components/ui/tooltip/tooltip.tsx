@@ -37,7 +37,7 @@ export function Tooltip({ children, description, title, className, position = 't
         role="tooltip"
       >
         {title && <div className="font-semibold text-xs leading-[1rem] text-white">{title}</div>}
-        <div className="font-inter font-medium  text-xs leading-[1rem] text-gray-700">
+        <div className="font-inter font-medium  text-xs leading-[1rem] text-gray-200">
           {description}
         </div>
       </div>

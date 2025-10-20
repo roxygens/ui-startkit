@@ -90,7 +90,7 @@ export const Playground: Story = {
                 <p className="text-xs text-white">Vice</p>
 
                 <div className="flex items-baseline gap-[.25rem] text-center">
-                  <p className="text-body text-[var(--muted-foreground)]">De</p>
+                  <p className="text-body text-muted-foreground">De</p>
 
                   <p className="text-white font-bold text-lg">R$ {formatCurrency(3254.05)}</p>
                 </div>
@@ -134,7 +134,7 @@ export const Playground: Story = {
                   <p className="text-white text-base font-medium leading-[150%]">Vice</p>
 
                   <div className="flex items-center gap-2">
-                    <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
+                    <RefreshCcw width={16} height={16} className="text-primary" />
                     <p className="info-text">Possível de trocar</p>
                   </div>
                 </CardList.Box>
@@ -191,7 +191,7 @@ export const Playground: Story = {
           <Card key={index} onClick={() => {}} disabled={args.disabled} className={args?.className}>
             <Card.Content>
               <div className="flex items-center gap-2 justify-center mb-[1rem]">
-                <RefreshCcw width={16} height={16} className="text-[var(--primary)]" />
+                <RefreshCcw width={16} height={16} className="text-primary" />
                 <p className="info-text">Possível de trocar</p>
               </div>
 

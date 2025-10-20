@@ -11,11 +11,11 @@ const selectVariants = cva(
     bg-background px-3 py-2 whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px]  *:data-[slot=select-value]:line-clamp-1 
     *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4
 
-    shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--secondary-border)]
+    shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-secondary-border
 
-    disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50  disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
+    disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50  disabled:bg-disabled disabled:text-primary-foreground-disabled
 
-    hover:border-[var(--primary)] 
+    hover:border-primary 
 
     data-invalid:ring-destructive/20 dark:data-invalid:ring-destructive/40 data-invalid:border-destructive
   `,
@@ -198,12 +198,12 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               {isCombobox && (
                 <>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
                       ref={inputRef}
                       className={cn(
                         popoverContentItemVariants({ size }),
-                        'bg-neutral-800 placeholder:text-[var(--muted-foreground)] pl-9 focus:ring-0 rounded-none w-full',
+                        'bg-neutral-800 placeholder:text-muted-foreground pl-9 focus:ring-0 rounded-none w-full',
                       )}
                       placeholder={searchPlaceholder}
                       onChange={handleSearch}

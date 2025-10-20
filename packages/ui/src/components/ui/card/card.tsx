@@ -65,10 +65,10 @@ Card.Content = function CardContent({ children, className }: CardContentProps) {
   return (
     <div
       className={cn(
-        'cursor-pointer bg-[var(--card)] card-shadow p-[1rem]',
-        'flex flex-col hover:bg-[var(--card-hover)] group-hover/card:bg-[var(--card-hover)] gap-[.5rem]  group-hover/card:rounded-b-[0px] border-none',
+        'cursor-pointer bg-card card-shadow p-[1rem]',
+        'flex flex-col hover:bg-card-hover group-hover/card:bg-card-hover gap-[.5rem]  group-hover/card:rounded-b-[0px] border-none',
         {
-          'bg-[var(--card-hover)]': isNavOptionsOpen,
+          'bg-card-hover': isNavOptionsOpen,
         },
         className,
       )}
@@ -197,6 +197,7 @@ Card.FooterButton = function CardFooterButton({
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
             pointer-events-none sm:opacity-0 
             group-hover/card:pointer-events-auto group-hover/card:opacity-100
+            text-primary-foreground
             `,
           className,
         )}
@@ -204,9 +205,9 @@ Card.FooterButton = function CardFooterButton({
         <button
           onClick={handleClickButton}
           className={cn(
-            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-[var(--primary)]/100  hover:bg-[var(--primary-hover)]',
+            'cursor-pointer h-[2.8rem]  flex w-full items-center justify-center py-[1rem] bg-primary  hover:bg-primary-hover',
             {
-              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+              'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
                 disabled,
             },
             className,
@@ -221,9 +222,9 @@ Card.FooterButton = function CardFooterButton({
             data-testid="options-button"
             onClick={handleOpenNavOptions}
             className={cn(
-              'cursor-pointer px-[.8rem] border-l border-black/20 bg-[var(--primary)]  hover:bg-[var(--primary-hover)]',
+              'cursor-pointer px-[0.8rem] border-l-[0.5px] border-black/20 bg-primary  hover:bg-primary-hover',
               {
-                'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+                'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
                   disabled,
               },
               className,
@@ -240,7 +241,7 @@ Card.FooterButton = function CardFooterButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute z-50 w-full left-[0] bottom-[2.9rem] sm:bottom-0 bg-[var(--card)] 
+          `absolute z-50 w-full left-[0] bottom-[2.9rem] sm:bottom-0 bg-card 
           font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
           text-white overflow-hidden`,
           isNavOptionsOpen
@@ -252,7 +253,7 @@ Card.FooterButton = function CardFooterButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-menu-card-background-hover flex flex-row items-center gap-[.65rem] border-b border-secondary-border last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>
@@ -275,7 +276,7 @@ export function CardMini(props: Props) {
         data-testid="card-mini-container"
         onClick={onClick}
         className={cn(
-          'relative rounded-none  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-[var(--primary)]',
+          'relative rounded-none  group/card !border-b-0 !border-x-0 !border-t-[.2rem] !border-t-primary',
           className,
         )}
       >
@@ -380,21 +381,21 @@ CardList.Button = function CardListButton({
     <div
       className={cn(
         ` relative
-          text-[var(--primary-foreground)] hidden cursor-pointer 
+          text-primary-foreground hidden cursor-pointer 
           group-hover/card:flex justify-between items-stretch 
           font-inter font-semibold text-xs leading-[1.13rem] 
         `,
         className,
         {
-          'bg-[var(--disabled)] text-[var(--disabled-foreground)]': disabled,
+          'bg-disabled text-disabled-foreground': disabled,
         },
       )}
     >
       <button
         className={cn(
-          'cursor-pointer rounded-none flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+          'cursor-pointer rounded-none flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-primary/100  hover:bg-primary/70',
           {
-            'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+            'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
               disabled,
           },
         )}
@@ -409,10 +410,10 @@ CardList.Button = function CardListButton({
           data-testid="options-button"
           onClick={handleOpenNavOptions}
           className={cn(
-            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-[var(--primary)]/100  hover:bg-[var(--primary)]/70',
+            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-primary/100  hover:bg-primary/70',
             {
               '!rounded-t-[0]': isNavOptionsOpen,
-              'bg-[var(--disabled)] text-[var(--disabled-foreground)] hover:bg-[var(--disabled)] hover:text-[var(--disabled-foreground)]':
+              'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
                 disabled,
             },
           )}
@@ -427,7 +428,7 @@ CardList.Button = function CardListButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute z-50 w-full left-[0] top-[100%] bg-[var(--card)] 
+          `absolute z-50 w-full left-[0] top-[100%] bg-card 
           font-inter not-italic font-semibold text-[.6rem] leading-[1.15rem] text-center 
           text-white  overflow-hidden`,
           isNavOptionsOpen
@@ -439,7 +440,7 @@ CardList.Button = function CardListButton({
           <button
             key={option.title}
             onClick={(e) => handleClickMenuItem(e, option.onClick)}
-            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-[var(--menu-card-background-hover)] flex flex-row items-center gap-[.65rem] border-b border-[var(--secondary-border)] last:border-b-0"
+            className="cursor-pointer w-full px-[1.25rem] py-[.65rem] hover:bg-menu-card-background-hover flex flex-row items-center gap-[.65rem] border-b border-secondary-border last:border-b-0"
           >
             {option.icon} <p>{option.title}</p>
           </button>

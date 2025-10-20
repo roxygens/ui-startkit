@@ -7,9 +7,9 @@ const inputOtpVariants = cva(
     text-white placeholder:text-neutral-500  shadow-[0_1px_2px_rgba(0,0,0,0.05)]  border border-[var(--color-neutral-gray)]
     flex w-full text-center min-w-0 rounded-0 bg-background font-normal leading-[140%] shadow-xs 
     transition-[color,box-shadow] outline-none 
-    disabled:cursor-not-allowed disabled:hover:border-none  disabled:opacity-50 disabled:bg-[var(--disabled)] disabled:text-[var(--primary-foreground-disabled)]
-    hover:border-[var(--primary)] 
-    focus:border-[var(--primary)] 
+    disabled:cursor-not-allowed disabled:hover:border-none  disabled:opacity-50 disabled:bg-disabled disabled:text-primary-foreground-disabled
+    hover:border-primary 
+    focus:border-primary 
     aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
   `,
   {

@@ -52,7 +52,7 @@ export function Accordion({ items, className }: Props) {
               aria-controls={panelId}
               tabIndex={0}
               className={
-                'border-b border-[var(--table-border)] cursor-pointer flex items-center justify-between  hover:bg-[var(--card-hover)] px-[2rem] py-[0.75rem]'
+                'border-b border-table-border cursor-pointer flex items-center justify-between  hover:bg-card-hover px-[2rem] py-[0.75rem]'
               }
             >
               <div className="flex gap-[1rem]">

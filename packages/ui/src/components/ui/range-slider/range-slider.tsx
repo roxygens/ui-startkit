@@ -84,7 +84,7 @@ export function RangeSlider({
 
   return (
     <div className="relative w-full flex flex-col items-center">
-      <div className="relative w-full h-[0.38rem] rounded-full bg-[var(--disabled)]">
+      <div className="relative w-full h-[0.38rem] rounded-full bg-disabled">
         <div
           className="absolute h-[0.38rem] bg-primary rounded-full"
           style={{

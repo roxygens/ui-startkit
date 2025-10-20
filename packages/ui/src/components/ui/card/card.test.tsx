@@ -595,7 +595,7 @@ describe('Card', () => {
       )
       const button = screen.getByText('Click me')
       expect(button).toBeDisabled()
-      expect(button).toHaveClass('bg-[var(--disabled)]')
+      expect(button).toHaveClass('bg-disabled')
     })
   })
 })
