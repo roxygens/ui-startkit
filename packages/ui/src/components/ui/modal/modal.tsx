@@ -62,9 +62,9 @@ function DialogContent({
           <DialogPrimitive.Close
             data-slot="dialog-close"
             className={`
-                cursor-pointer text-white absolute top-5 right-5 sm:right-24 
+                cursor-pointer text-white absolute top-5 right-5 lg:right-24 
                 transition-opacity hover:text-tertiary-hove
-                [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 sm:[&_svg:not([class*='size-'])]:size-8
+                [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 lg:[&_svg:not([class*='size-'])]:size-8
              `}
           >
             <XIcon />
@@ -89,12 +89,12 @@ export function Modal({ open, onOpenChange, title, content, className, children 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className={className}>
-        <DialogPrimitive.Title className="absolute sm:left-[5rem] py-[1.5rem] pl-[1rem] w-screen sm:w-[calc(100%-10rem)]">
-          <div className="w-[calc(100%-4rem)] sm:w-[calc(100%-8rem)] text-white text-base sm:text-xl leading-[120%] font-semibold">
+        <DialogPrimitive.Title className="absolute lg:left-[5rem] py-[1.5rem] pl-[1rem] w-screen lg:w-[calc(100%-10rem)]">
+          <div className="w-[calc(100%-4rem)] lg:w-[calc(100%-8rem)] text-white text-base lg:text-xl leading-[120%] font-semibold">
             {title}
           </div>
         </DialogPrimitive.Title>
-        <div className="absolute sm:left-[5rem] pt-[4rem] lg:border-1 sm:border-table-border w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
+        <div className="absolute lg:left-[5rem] pt-[4rem] lg:border-1 lg:border-table-border w-screen lg:w-[calc(100%-10rem)] h-screen lg:h-[calc(100%-3.5rem)]">
           {content}
         </div>
       </DialogContent>
