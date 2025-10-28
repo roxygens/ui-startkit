@@ -94,7 +94,7 @@ export function Modal({ open, onOpenChange, title, content, className, children 
             {title}
           </div>
         </DialogPrimitive.Title>
-        <div className="absolute sm:left-[5rem] pt-[4rem] sm:border-1 sm:border-table-border w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
+        <div className="absolute sm:left-[5rem] pt-[4rem] lg:border-1 sm:border-table-border w-screen sm:w-[calc(100%-10rem)] h-screen sm:h-[calc(100%-3.5rem)]">
           {content}
         </div>
       </DialogContent>
