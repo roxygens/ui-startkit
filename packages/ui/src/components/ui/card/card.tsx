@@ -191,7 +191,7 @@ Card.FooterButton = function CardFooterButton({
       <footer
         className={cn(
           `
-            lg:absolute lg:z-50 left-0  right-0 top-[100%]
+            lg:absolute lg:z-10 left-0  right-0 top-[100%]
             flex justify-between items-stretch 
             font-inter font-semibold text-xs leading-[1.13rem] 
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
@@ -391,7 +391,7 @@ CardList.Button = function CardListButton({
     >
       <button
         className={cn(
-          'cursor-pointer rounded-none flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-primary/100  hover:bg-primary/70',
+          'cursor-pointer rounded-none flex w-full items-center justify-center px-[1rem] h-[2.7rem] bg-primary  hover:bg-primary-hover',
           {
             'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
               disabled,
@@ -408,7 +408,7 @@ CardList.Button = function CardListButton({
           data-testid="options-button"
           onClick={handleOpenNavOptions}
           className={cn(
-            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-primary/100  hover:bg-primary/70',
+            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-primary  hover:bg-primary-hover',
             {
               '!rounded-t-[0]': isNavOptionsOpen,
               'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
