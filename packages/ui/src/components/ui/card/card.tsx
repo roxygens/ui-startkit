@@ -191,11 +191,11 @@ Card.FooterButton = function CardFooterButton({
       <footer
         className={cn(
           `
-            sm:absolute sm:z-50 left-0  right-0 top-[100%]
+            lg:absolute lg:z-50 left-0  right-0 top-[100%]
             flex justify-between items-stretch 
             font-inter font-semibold text-xs leading-[1.13rem] 
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
-            pointer-events-none sm:opacity-0 
+            pointer-events-none lg:opacity-0 
             group-hover/card:pointer-events-auto group-hover/card:opacity-100
             text-primary-foreground
             `,
@@ -210,7 +210,6 @@ Card.FooterButton = function CardFooterButton({
               'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
                 disabled,
             },
-            className,
           )}
           disabled={disabled}
         >
@@ -227,7 +226,6 @@ Card.FooterButton = function CardFooterButton({
                 'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
                   disabled,
               },
-              className,
             )}
             style={{ borderColor: 'currentColor' }}
             aria-label="Abrir opções do card"
@@ -241,7 +239,7 @@ Card.FooterButton = function CardFooterButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute z-50 w-full left-[0] bottom-[2.9rem] sm:bottom-0 bg-card 
+          `absolute z-50 w-full left-[0] bottom-[2.9rem] lg:bottom-0 bg-card 
           font-inter not-italic font-semibold text-[.8rem] leading-[1.13rem] text-center 
           text-white overflow-hidden`,
           isNavOptionsOpen
