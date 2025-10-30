@@ -10,12 +10,12 @@ describe('Skeleton', () => {
 
   it('should have default classes', () => {
     const { getByTestId } = render(<Skeleton data-testid="skeleton" />)
-    expect(getByTestId('skeleton')).toHaveClass('bg-neutral-300', 'animate-pulse')
+    expect(getByTestId('skeleton')).toHaveClass('bg-neutral-800', 'animate-pulse')
   })
 
   it('should merge custom className with default classes', () => {
     const { getByTestId } = render(<Skeleton data-testid="skeleton" className="custom-class" />)
-    expect(getByTestId('skeleton')).toHaveClass('bg-neutral-300', 'animate-pulse', 'custom-class')
+    expect(getByTestId('skeleton')).toHaveClass('bg-neutral-800', 'animate-pulse', 'custom-class')
   })
 
   it('should contain data-slot attribute', () => {
