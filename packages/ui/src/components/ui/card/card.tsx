@@ -408,7 +408,7 @@ CardList.Button = function CardListButton({
           data-testid="options-button"
           onClick={handleOpenNavOptions}
           className={cn(
-            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-primary/100  hover:bg-primary/70',
+            'cursor-pointer px-[.4rem] border-l border-black/20 rounded-none bg-primary  hover:bg-primary-hover',
             {
               '!rounded-t-[0]': isNavOptionsOpen,
               'bg-disabled text-disabled-foreground hover:bg-disabled hover:text-disabled-foreground':
