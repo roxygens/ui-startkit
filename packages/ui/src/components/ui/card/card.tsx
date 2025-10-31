@@ -191,13 +191,13 @@ Card.FooterButton = function CardFooterButton({
       <footer
         className={cn(
           `
-            lg:absolute lg:z-10 left-0  right-0 top-[100%]
-            flex justify-between items-stretch 
-            font-inter font-semibold text-xs leading-[1.13rem] 
+            lg:absolute lg:z-10 left-0 right-0 top-[100%]
+            flex justify-between items-stretch
+            font-inter font-semibold text-xs leading-[1.13rem]
             transform-gpu transition-transform duration-300 ease-in-out-translate-y-0
-            pointer-events-none lg:opacity-0 
-            group-hover/card:pointer-events-auto group-hover/card:opacity-100
             text-primary-foreground
+            lg:pointer-events-none lg:opacity-0
+            group-hover/card:pointer-events-auto group-hover/card:opacity-100
             `,
           className,
         )}
