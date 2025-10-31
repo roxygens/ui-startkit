@@ -180,6 +180,12 @@ npx ui-startkit@latest add skeleton
 npx ui-startkit@latest add select
 ```
 
+### Spinner
+
+```bash
+npx ui-startkit@latest add spinner
+```
+
 ### Switch
 
 ```bash
