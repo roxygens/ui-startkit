@@ -330,7 +330,7 @@
       "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
-          "path": "components/ui/skeleton.tsx",
+          "path": "components/ui/spinner.tsx",
           "contentUrl": "https://raw.githubusercontent.com/roxygens/ui-startkit/refs/heads/main/packages/ui/src/components/ui/spinner/spinner.tsx"
         },
         {
