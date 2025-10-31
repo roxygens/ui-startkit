@@ -80,6 +80,18 @@ describe('RangeSlider', () => {
     expect(values).toHaveLength(2)
   })
 
+  it('should update state from controlled values prop', () => {
+    const { rerender } = render(<RangeSlider values={{ min: 10, max: 90 }} />)
+    let inputs = screen.getAllByRole('slider')
+    expect((inputs[0] as HTMLInputElement).value).toBe('10')
+    expect((inputs[1] as HTMLInputElement).value).toBe('90')
+
+    rerender(<RangeSlider values={{ min: 25, max: 75 }} />)
+    inputs = screen.getAllByRole('slider')
+    expect((inputs[0] as HTMLInputElement).value).toBe('25')
+    expect((inputs[1] as HTMLInputElement).value).toBe('75')
+  })
+
   it('should clamp values.min and values.max within props range', () => {
     render(<RangeSlider min={10} max={90} values={{ min: 0, max: 100 }} displayValues />)
     expect(screen.getByText('10')).toBeInTheDocument()
@@ -96,5 +108,42 @@ describe('RangeSlider', () => {
     render(<RangeSlider min={0} max={100} values={{ min: 30, max: 80 }} displayValues />)
     expect(screen.getByText('30')).toBeInTheDocument()
     expect(screen.getByText('80')).toBeInTheDocument()
+  })
+
+  it('should call onFinalChange with correct values on mouse up for min slider', () => {
+    const onFinalChange = vi.fn()
+    render(<RangeSlider onFinalChange={onFinalChange} />)
+    const inputs = screen.getAllByRole('slider')
+    fireEvent.change(inputs[0], { target: { value: '30' } })
+    fireEvent.mouseUp(inputs[0])
+    expect(onFinalChange).toHaveBeenCalledTimes(1)
+    expect(onFinalChange).toHaveBeenCalledWith({ min: 30, max: 80 })
+  })
+
+  it('should call onFinalChange with correct values on mouse up for max slider', () => {
+    const onFinalChange = vi.fn()
+    render(<RangeSlider onFinalChange={onFinalChange} />)
+    const inputs = screen.getAllByRole('slider')
+    fireEvent.change(inputs[1], { target: { value: '70' } })
+    fireEvent.mouseUp(inputs[1])
+    expect(onFinalChange).toHaveBeenCalledTimes(1)
+    expect(onFinalChange).toHaveBeenCalledWith({ min: 20, max: 70 })
+  })
+
+  it('should call onFinalChange with correct values on touch end for min slider', () => {
+    const onFinalChange = vi.fn()
+    render(<RangeSlider onFinalChange={onFinalChange} />)
+    const inputs = screen.getAllByRole('slider')
+    fireEvent.change(inputs[0], { target: { value: '45' } })
+    fireEvent.touchEnd(inputs[0])
+    expect(onFinalChange).toHaveBeenCalledTimes(1)
+    expect(onFinalChange).toHaveBeenCalledWith({ min: 45, max: 80 })
+  })
+
+  it('should not crash if onFinalChange is not provided', () => {
+    render(<RangeSlider />)
+    const inputs = screen.getAllByRole('slider')
+    const interaction = () => fireEvent.mouseUp(inputs[0])
+    expect(interaction).not.toThrow()
   })
 })
