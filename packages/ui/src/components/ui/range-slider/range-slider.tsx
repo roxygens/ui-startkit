@@ -14,6 +14,7 @@ type RangeSliderProps = {
   initialMax?: number
   displayValues?: boolean
   onChange?: (values: { min: number; max: number }) => void
+  onFinalChange?: (values: { min: number; max: number }) => void
   values?: Values
 }
 
@@ -25,6 +26,7 @@ export function RangeSlider({
   initialMax = 80,
   displayValues,
   onChange,
+  onFinalChange,
   values,
 }: RangeSliderProps) {
   const clamp = (value: number, minValue: number, maxValue: number) =>
@@ -48,6 +50,10 @@ export function RangeSlider({
     const value = Math.max(Number(e.target.value), minVal + step)
     setMaxVal(value)
     onChange?.({ min: minVal, max: value })
+  }
+
+  const handleInteractionEnd = () => {
+    onFinalChange?.({ min: minVal, max: maxVal })
   }
 
   useEffect(() => {
@@ -100,6 +106,8 @@ export function RangeSlider({
           step={step}
           value={minVal}
           onChange={handleMinChange}
+          onMouseUp={handleInteractionEnd}
+          onTouchEnd={handleInteractionEnd}
           className={thumbClassName}
         />
 
@@ -110,6 +118,8 @@ export function RangeSlider({
           step={step}
           value={maxVal}
           onChange={handleMaxChange}
+          onMouseUp={handleInteractionEnd}
+          onTouchEnd={handleInteractionEnd}
           className={thumbClassName}
         />
       </div>
