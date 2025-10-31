@@ -426,7 +426,7 @@ CardList.Button = function CardListButton({
       <nav
         aria-label="Menu de opções"
         className={cn(
-          `absolute z-50 w-full left-[0] top-[100%] bg-card 
+          `absolute z-50 w-full left-[0] bottom-[100%] bg-card 
           font-inter not-italic font-semibold text-[.6rem] leading-[1.15rem] text-center 
           text-white  overflow-hidden`,
           isNavOptionsOpen
